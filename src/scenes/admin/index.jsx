@@ -190,6 +190,13 @@ const defaultShifts = [{
     title: '12:00 - 18:00',
     resource: 6,
     slot: 2
+},
+{
+    start: '2023-03-29T07:00',
+    end: '2023-03-29T13:00',
+    title: '07:00 - 13:00',
+    resource: 3,
+    slot: 1
 }];
 
 const slots = [{
