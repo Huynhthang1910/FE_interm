@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+
+html,
+body,
+#root,
+.app,
+.content {
+  height: 100%;
+  width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+}
+main.content {
+  overflow: hidden;
+}
+.app {
+  display: flex;
+  position: relative;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* calendar */
+.Admin-calendar {
+  width: 98%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.mbsc-calendar-picker-wrapper{
+  width: 17em !important;
+}
+
+.calendar-wrap {
+  height: 80%;
+  width: 90%;
+  margin: 48px auto 0 auto;
+}
+
+.mbsc-calendar.mbsc-eventcalendar {
+  padding: 10px;
+
+
+}
+.mbsc-calendar-cell.mbsc-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
