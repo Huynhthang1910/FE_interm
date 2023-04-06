@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import '../styles/ChangePassword.scss';
-// import logoUrban from '../../public/assets/urbanlogo.png';
+import './ChangePassword.scss';
+import UrbanLogo from './UrbanLogo.png';
 
 const ChangePassword = (props) => {
     const [oldPass,setOldPass] = useState();
@@ -28,6 +28,7 @@ const ChangePassword = (props) => {
     const callAPI = () => {
         fetch(url,option)
         .then(res => alert(res.massage))
+        .catch(error => {console.log(error)})
     }
     const handleChangePass = () => {
         if ( !oldPass || !newPass || !reNewPass ){
@@ -45,9 +46,9 @@ const ChangePassword = (props) => {
     if(props.statePw){
         return(
             <div>
-                <div className="ChangePass" onClick={() => props.handleShowChangePass()}></div>
+                <div className="ChangePass" onClick={() => props.changeStatePassForm()}></div>
                 <form className="ChangePass__form">
-                    <img className="img" src={`assets/urbanlogo.png`}/>
+                    <img className="img" src={UrbanLogo} alt="logo"/>
                     <label className="title">Mật khẩu cũ:</label>
                     <input id="oldPass" 
                         type="password" 

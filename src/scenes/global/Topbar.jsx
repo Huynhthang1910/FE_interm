@@ -8,7 +8,8 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
-import NavAccount from "./NavAccount"
+import NavAccount from "./NavAccount.js";
+import ChangePassword from "./ChangePassword/ChangePassword";
 import "./topbar.scss"
 
 const Topbar = () => {
@@ -16,8 +17,12 @@ const Topbar = () => {
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const [stateNav,setNav] = useState(false);
+  const [statePassForm,setForm] = useState(false);
   const changeStateNav = () => {
     setNav(!stateNav);
+  }
+  const changeStatePassForm = () => {
+    setForm(!statePassForm);
   }
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -52,7 +57,15 @@ const Topbar = () => {
           <PersonOutlinedIcon />
         </IconButton>
       </Box>
-      <NavAccount stateNav={stateNav}/>
+      <NavAccount 
+        stateNav={stateNav}
+        changeStatePassForm={changeStatePassForm}
+      />
+      <ChangePassword 
+        statePw={statePassForm}
+        changeStatePassForm={changeStatePassForm}
+      />
+
     </Box>
   );
 };
