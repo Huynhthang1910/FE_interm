@@ -1,0 +1,13 @@
+.account{
+    display: flex;
+     flex-direction: column;
+    position: fixed;
+     top: 50px;
+     right: 28px;
+    .div{
+        width: 100px;
+        text-align: right;
+    }
+    &__ChangePass{}
+    &__logOut{}
+}
