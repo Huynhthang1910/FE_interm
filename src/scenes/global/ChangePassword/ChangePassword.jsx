@@ -16,20 +16,6 @@ const ChangePassword = (props) => {
         setReNewPass(event.target.value);
     }
     let url = 'http://be-intern.onrender.com/api/v1/account/reset-password';
-    let  payLoad= {
-        accountEmail: props.email,
-        accountPassword: oldPass,
-        retypeAccountPassword: reNewPass
-    }
-    let option = {
-        method: 'PUT',
-        body: JSON.stringify(payLoad)
-    }
-    const callAPI = () => {
-        fetch(url,option)
-        .then(res => alert(res.massage))
-        .catch(error => {console.log(error)})
-    }
     const handleChangePass = () => {
         if ( !oldPass || !newPass || !reNewPass ){
             alert("Mời nhập đủ thông tin!");
@@ -37,8 +23,18 @@ const ChangePassword = (props) => {
             console.log(oldPass,newPass,reNewPass);
             alert("Mật khẩu vừa nhập không khớp!");
         } else {
-            callAPI()
-            .then(res => console.log(res.status));
+            let  payLoad= {
+                accountEmail: props.email,
+                accountPassword: oldPass,
+                retypeAccountPassword: reNewPass
+            };
+            let option = {
+                method: 'PUT',
+                body: JSON.stringify(payLoad)
+            };
+            fetch(url,option)
+             .then(res => alert(res.massage))
+             .catch(error => {console.log(error)})
             console.log(oldPass,newPass,reNewPass);
             alert("đổi thành công!");
         }
@@ -46,7 +42,7 @@ const ChangePassword = (props) => {
     if(props.statePw){
         return(
             <div>
-                <div className="ChangePass" onClick={() => props.changeStatePassForm()}></div>
+                <div className="ChangePass" onClick={() => {props.changeStatePassForm(); props.changeStateNav()}}></div>
                 <form className="ChangePass__form">
                     <img className="img" src={UrbanLogo} alt="logo"/>
                     <label className="title">Mật khẩu cũ:</label>

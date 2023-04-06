@@ -1,5 +1,5 @@
 import React from "react";
-import "./navAccount..scss"
+import "./navAccount..scss";
 
 const NavAccount = (props) => {
         
