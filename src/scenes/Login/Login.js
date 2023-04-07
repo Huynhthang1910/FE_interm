@@ -1,7 +1,6 @@
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
-// import "./renderErrorMessage.scss";
-import Collection from "../Collection";
+import "./renderErrorMessage.scss";
 
 export default function Login() {
   const [errorMessages, setErrorMessages] = useState({});
@@ -119,15 +118,7 @@ export default function Login() {
   );
   return (
     <div className="appa">
-      <div className="login-form">
-        {isSubmitted ? (
-          <div>
-            <Collection />
-          </div>
-        ) : (
-          renderForm
-        )}
-      </div>
+      <div className="login-form">{isSubmitted ? <div></div> : renderForm}</div>
     </div>
   );
 }
