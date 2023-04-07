@@ -6,8 +6,11 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import { useState } from "react";
+import CreateAccount from "../AddUser/CreateAccount";
 
 const Team = () => {
+  const [showComponent, setShowComponent] = useState(false);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -67,10 +70,24 @@ const Team = () => {
       },
     },
   ];
+  const onClickAdd = () => {
+    // Gọi MyComponent khi nút được nhấn
+    setShowComponent(!showComponent);
+  };
 
   return (
     <Box m="20px">
       <Header title="TEAM" subtitle="Managing the Team Members" />
+      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button
+          className="btn btn-success me-md-2 me-lg-4"
+          type="button"
+          onClick={onClickAdd}
+        >
+          Add User
+        </button>
+      </div>
+      {showComponent && <CreateAccount onClickAdd={onClickAdd} />}
       <Box
         m="40px 0 0 0"
         height="75vh"
