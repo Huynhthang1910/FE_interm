@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Scheduler, { Resource, View, Scrolling } from 'devextreme-react/scheduler';
+
 import {
   resources,
   generateAppointments,
