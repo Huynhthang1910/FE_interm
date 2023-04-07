@@ -1,5 +1,9 @@
 import { Box, IconButton, useTheme } from "@mui/material";
+<<<<<<< HEAD
 import { useContext, useState } from "react";
+=======
+import { useContext } from "react";
+>>>>>>> origin/minhnha
 import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -8,13 +12,17 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+<<<<<<< HEAD
 import NavAccount from "./NavAccount";
 import ChangePassword from "./ChangePassword/ChangePassword";
+=======
+>>>>>>> origin/minhnha
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+<<<<<<< HEAD
   const [stateNav,setNav] = useState(false);
   const [statePassForm,setForm] = useState(false);
   const changeStateNav = () => {
@@ -23,6 +31,9 @@ const Topbar = () => {
   const changeStatePassForm = () => {
     setForm(!statePassForm);
   }
+=======
+
+>>>>>>> origin/minhnha
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
@@ -52,6 +63,7 @@ const Topbar = () => {
         <IconButton>
           <SettingsOutlinedIcon />
         </IconButton>
+<<<<<<< HEAD
         <IconButton onClick={() => changeStateNav()}>
           <PersonOutlinedIcon />
         </IconButton>
@@ -65,6 +77,12 @@ const Topbar = () => {
         changeStatePassForm={changeStatePassForm}
       />
 
+=======
+        <IconButton>
+          <PersonOutlinedIcon />
+        </IconButton>
+      </Box>
+>>>>>>> origin/minhnha
     </Box>
   );
 };

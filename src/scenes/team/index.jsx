@@ -11,6 +11,7 @@ import CreateAccount from "../AddUser/CreateAccount";
 
 const Team = () => {
   const [showComponent, setShowComponent] = useState(false);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -70,6 +71,7 @@ const Team = () => {
       },
     },
   ];
+
   const onClickAdd = () => {
     // Gọi MyComponent khi nút được nhấn
     setShowComponent(!showComponent);
@@ -78,6 +80,7 @@ const Team = () => {
   return (
     <Box m="20px">
       <Header title="TEAM" subtitle="Managing the Team Members" />
+
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
         <button
           className="btn btn-success me-md-2 me-lg-4"
@@ -88,6 +91,7 @@ const Team = () => {
         </button>
       </div>
       {showComponent && <CreateAccount onClickAdd={onClickAdd} />}
+
       <Box
         m="40px 0 0 0"
         height="75vh"
