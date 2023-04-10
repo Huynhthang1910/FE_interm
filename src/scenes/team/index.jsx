@@ -93,6 +93,7 @@ const Team = () => {
       {showComponent && <CreateAccount onClickAdd={onClickAdd} />}
 
       <Box
+        className={showComponent ? "ds_none" : null}
         m="40px 0 0 0"
         height="75vh"
         sx={{
