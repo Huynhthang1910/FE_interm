@@ -61,9 +61,6 @@ const CreateAccount = (props) => {
   const handlePositionChange = (event) => {
     setEmployeePosition(event.target.value);
   };
-  const handleCancel = () => {
-    props.Handlechangeinput();
-  };
 
   //
   return (

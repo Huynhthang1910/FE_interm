@@ -43,7 +43,7 @@ main.content {
   margin-top: 20px;
 }
 
-.mbsc-calendar-picker-wrapper{
+.mbsc-calendar-picker-wrapper {
   width: 17em !important;
 }
 
@@ -55,10 +55,11 @@ main.content {
 
 .mbsc-calendar.mbsc-eventcalendar {
   padding: 10px;
-
-
 }
 .mbsc-calendar-cell.mbsc-disabled {
   cursor: not-allowed;
   pointer-events: none;
+}
+.ds_none {
+  display: none;
 }
