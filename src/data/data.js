@@ -183,77 +183,187 @@ export const resources = [{
   export const data = [
     {
       text: 'Website Re-Design Plan',
-      startDate: new Date('2023-04-05T16:14:42.761935Z'),
-      endDate: new Date('2021-04-26T18:30:00.000Z'),
+      TruSo: 2,
+      startDate: new Date('2021-04-19T16:30:00.000Z'),
+      endDate: new Date('2021-04-19T18:30:00.000Z'),
     }, {
       text: 'Book Flights to San Fran for Sales Trip',
-      startDate: new Date('2021-04-26T19:00:00.000Z'),
-      endDate: new Date('2021-04-26T20:00:00.000Z'),
-      allDay: true,
+      TruSo: 1,
+      startDate: new Date('2021-04-22T17:00:00.000Z'),
+      endDate: new Date('2021-04-22T19:00:00.000Z'),
     }, {
       text: 'Install New Router in Dev Room',
-      startDate: new Date('2021-04-26T21:30:00.000Z'),
-      endDate: new Date('2021-04-26T22:30:00.000Z'),
+      TruSo: 3,
+      startDate: new Date('2021-04-19T20:00:00.000Z'),
+      endDate: new Date('2021-04-19T22:30:00.000Z'),
     }, {
       text: 'Approve Personal Computer Upgrade Plan',
-      startDate: new Date('2021-04-27T17:00:00.000Z'),
-      endDate: new Date('2021-04-27T18:00:00.000Z'),
+      TruSo: 2,
+      startDate: new Date('2021-04-20T17:00:00.000Z'),
+      endDate: new Date('2021-04-20T18:00:00.000Z'),
     }, {
       text: 'Final Budget Review',
-      startDate: new Date('2021-04-27T19:00:00.000Z'),
-      endDate: new Date('2021-04-27T20:35:00.000Z'),
+      TruSo: 2,
+      startDate: new Date('2021-04-20T19:00:00.000Z'),
+      endDate: new Date('2021-04-20T20:35:00.000Z'),
     }, {
       text: 'New Brochures',
-      startDate: new Date('2021-04-27T21:30:00.000Z'),
-      endDate: new Date('2021-04-27T22:45:00.000Z'),
+      TruSo: 2,
+      startDate: new Date('2021-04-19T20:00:00.000Z'),
+      endDate: new Date('2021-04-19T22:15:00.000Z'),
     }, {
       text: 'Install New Database',
-      startDate: new Date('2021-04-28T16:45:00.000Z'),
-      endDate: new Date('2021-04-28T18:15:00.000Z'),
+      TruSo: 5,
+      startDate: new Date('2021-04-20T16:00:00.000Z'),
+      endDate: new Date('2021-04-20T19:15:00.000Z'),
     }, {
       text: 'Approve New Online Marketing Strategy',
-      startDate: new Date('2021-04-28T19:00:00.000Z'),
-      endDate: new Date('2021-04-28T21:00:00.000Z'),
+      TruSo: 2,
+      startDate: new Date('2021-04-21T19:00:00.000Z'),
+      endDate: new Date('2021-04-21T21:00:00.000Z'),
     }, {
       text: 'Upgrade Personal Computers',
-      startDate: new Date('2021-04-28T22:15:00.000Z'),
-      endDate: new Date('2021-04-28T23:30:00.000Z'),
-    }, {
-      text: 'Customer Workshop',
-      startDate: new Date('2021-04-29T18:00:00.000Z'),
-      endDate: new Date('2021-04-29T19:00:00.000Z'),
-      allDay: true,
+      TruSo: 4,
+      startDate: new Date('2021-04-19T16:00:00.000Z'),
+      endDate: new Date('2021-04-19T18:30:00.000Z'),
     }, {
       text: 'Prepare 2021 Marketing Plan',
-      startDate: new Date('2021-04-29T18:00:00.000Z'),
-      endDate: new Date('2021-04-29T20:30:00.000Z'),
+      TruSo: 6,
+      startDate: new Date('2021-04-22T18:00:00.000Z'),
+      endDate: new Date('2021-04-22T20:30:00.000Z'),
     }, {
       text: 'Brochure Design Review',
-      startDate: new Date('2021-04-29T21:00:00.000Z'),
-      endDate: new Date('2021-04-29T22:30:00.000Z'),
+      TruSo: 7,
+      startDate: new Date('2021-04-21T18:00:00.000Z'),
+      endDate: new Date('2021-04-21T20:30:00.000Z'),
     }, {
       text: 'Create Icons for Website',
-      startDate: new Date('2021-04-30T17:00:00.000Z'),
-      endDate: new Date('2021-04-30T18:30:00.000Z'),
+      TruSo: 3,
+      startDate: new Date('2021-04-23T17:00:00.000Z'),
+      endDate: new Date('2021-04-23T18:30:00.000Z'),
     }, {
       text: 'Upgrade Server Hardware',
-      startDate: new Date('2021-04-30T21:30:00.000Z'),
-      endDate: new Date('2021-04-30T23:00:00.000Z'),
+      TruSo: 4,
+      startDate: new Date('2021-04-23T16:00:00.000Z'),
+      endDate: new Date('2021-04-23T22:00:00.000Z'),
     }, {
       text: 'Submit New Website Design',
-      startDate: new Date('2021-04-30T23:30:00.000Z'),
-      endDate: new Date('2021-05-01T01:00:00.000Z'),
+      TruSo: 5,
+      startDate: new Date('2021-04-23T23:30:00.000Z'),
+      endDate: new Date('2021-04-24T01:00:00.000Z'),
     }, {
       text: 'Launch New Website',
-      startDate: new Date('2021-04-30T19:20:00.000Z'),
-      endDate: new Date('2021-04-30T21:00:00.000Z'),
+      TruSo: 2,
+      startDate: new Date('2021-04-23T19:20:00.000Z'),
+      endDate: new Date('2021-04-23T21:00:00.000Z'),
+    }, {
+      text: 'Google AdWords Strategy',
+      TruSo: 7,
+      startDate: new Date('2021-04-26T16:00:00.000Z'),
+      endDate: new Date('2021-04-26T19:00:00.000Z'),
+    }, {
+      text: 'Rollout of New Website and Marketing Brochures',
+      TruSo: 6,
+      startDate: new Date('2021-04-26T20:00:00.000Z'),
+      endDate: new Date('2021-04-26T22:30:00.000Z'),
+    }, {
+      text: 'Non-Compete Agreements',
+      TruSo: 2,
+      startDate: new Date('2021-04-27T20:00:00.000Z'),
+      endDate: new Date('2021-04-27T22:45:00.000Z'),
+    }, {
+      text: 'Approve Hiring of John Jeffers',
+      TruSo: 2,
+      startDate: new Date('2021-04-27T16:00:00.000Z'),
+      endDate: new Date('2021-04-27T19:00:00.000Z'),
+    }, {
+      text: 'Update NDA Agreement',
+      TruSo: 1,
+      startDate: new Date('2021-04-27T18:00:00.000Z'),
+      endDate: new Date('2021-04-27T21:15:00.000Z'),
+    }, {
+      text: 'Update Employee Files with New NDA',
+      TruSo: 1,
+      startDate: new Date('2021-04-30T16:00:00.000Z'),
+      endDate: new Date('2021-04-30T18:45:00.000Z'),
+    }, {
+      text: 'Submit Questions Regarding New NDA',
+      TruSo: 1,
+      startDate: new Date('2021-04-28T17:00:00.000Z'),
+      endDate: new Date('2021-04-28T18:30:00.000Z'),
+    }, {
+      text: 'Submit Signed NDA',
+      TruSo: 1,
+      startDate: new Date('2021-04-28T20:00:00.000Z'),
+      endDate: new Date('2021-04-28T22:00:00.000Z'),
+    }, {
+      text: 'Review Revenue Projections',
+      TruSo: 2,
+      startDate: new Date('2021-04-28T18:00:00.000Z'),
+      endDate: new Date('2021-04-28T21:00:00.000Z'),
+    }, {
+      text: 'Comment on Revenue Projections',
+      TruSo: 2,
+      startDate: new Date('2021-04-26T17:00:00.000Z'),
+      endDate: new Date('2021-04-26T20:00:00.000Z'),
+    }, {
+      text: 'Provide New Health Insurance Docs',
+      TruSo: 2,
+      startDate: new Date('2021-04-30T19:00:00.000Z'),
+      endDate: new Date('2021-04-30T22:00:00.000Z'),
+    }, {
+      text: 'Review Changes to Health Insurance Coverage',
+      TruSo: 2,
+      startDate: new Date('2021-04-29T16:00:00.000Z'),
+      endDate: new Date('2021-04-29T20:00:00.000Z'),
+    }, {
+      text: 'Review Training Course for any Omissions',
+      TruSo: 1,
+      startDate: new Date('2021-04-29T18:00:00.000Z'),
+      endDate: new Date('2021-04-29T21:00:00.000Z'),
     },
+  ];
+  export const priorityData = [
+    {
+      text: 'trụ Sở 1',
+      id: 1,
+      color: '#1e90ff',
+    }, {
+      text: 'Trụ sở 2',
+      id: 2,
+      color: '#ff1747',
+    },
+    {
+      text: 'Trụ sở 3',
+      id: 3,
+      color: '#ff2745',
+    },
+    {
+      text: 'Trụ sở 4',
+      id: 4,
+      color: '#ff3744',
+    },
+    {
+      text: 'Trụ sở 5',
+      id: 5,
+      color: '#ff4743',
+    },
+    {
+      text: 'Trụ sở 6',
+      id: 5,
+      color: '#ff5742',
+    },
+    {
+      text: 'Trụ sở 7',
+      id: 7,
+      color: '#ff6741',
+    }
   ];
 
 
 // text Description
-var Description = data.map(des=>(des.text))
-Description = Description.join(',')
+// var Description = data.map(des=>(des.text))
+
 
 
 
@@ -264,7 +374,7 @@ Description = Description.join(',')
   }
 
   function getRandomText(textIndex) {
-    return Description[textIndex % Description.length];
+    return appointmentsText[textIndex % appointmentsText.length];
   }
 
   function filterAppointmentsByTime(appointments, startDayHour, endDayHour) {

@@ -5,54 +5,52 @@ import Scheduler, { Resource, View, Scrolling } from 'devextreme-react/scheduler
 
 import {
   resources,
+  data,
   generateAppointments,
+  priorityData
 } from '../../data/data';
 
-const currentDate = new Date(2021, 1, 2);
+const currentDate = new Date(2021, 3, 11);
 
-const groups = ['humanId'];
+const groups = ['TruSo'];
 
-const startDay = new Date(2021, 1, 1);
-const endDay = new Date(2021, 1, 28);
-const startDayHour = 8;
-const endDayHour = 20;
 
-const appointments = generateAppointments(startDay, endDay, startDayHour, endDayHour);
+
+// const appointments = generateAppointments(startDay, endDay, startDayHour, endDayHour);
 
 function SchedulerAdmin() {
+  
   return (
     <Scheduler
-      dataSource={appointments}
-      height={600}
-      defaultCurrentView='Timeline'
-      defaultCurrentDate={currentDate}
-      startDayHour={startDayHour}
-      endDayHour={endDayHour}
-      cellDuration={60}
-      showAllDayPanel={false}
-      groups={groups}>
-      <View
-        type='timelineWorkWeek'
-        name='Timeline'
-        groupOrientation='vertical'
-      />
-      <View
-        type='workWeek'
-        groupOrientation='vertical'
-      />
-      <View
-        type='month'
-        groupOrientation='horizontal'
-      />
-      <Resource
-        fieldExpr='humanId'
-        dataSource={resources}
-        label='Employee'
-      />
-      <Scrolling
-        mode='virtual'
-      />
-    </Scheduler>
+        timeZone="America/Los_Angeles"
+        dataSource={data}
+        groups={groups}
+        defaultCurrentView="Vertical Grouping"
+        defaultCurrentDate={currentDate}
+        startDayHour={9}
+        endDayHour={18}
+        crossScrollingEnabled={true}
+        showAllDayPanel={true}>
+        <View
+          name="Vertical Grouping"
+          type="workWeek"
+          groupOrientation="vertical"
+          cellDuration={60}
+          intervalCount={2}
+        />
+        <View
+          name="Horizontal Grouping"
+          type="workWeek"
+          cellDuration={30}
+          intervalCount={2}
+        />
+        <Resource
+          fieldExpr="TruSo"
+          allowMultiple={false}
+          dataSource={priorityData}
+          label="Priority"
+        />
+      </Scheduler>
   );
 }
 
