@@ -2,7 +2,6 @@ import { Box, IconButton, useTheme } from "@mui/material";
 
 import { useContext, useState } from "react";
 
-
 import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -20,16 +19,14 @@ const Topbar = () => {
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
 
-  const [stateNav,setNav] = useState(false);
-  const [statePassForm,setForm] = useState(false);
+  const [stateNav, setNav] = useState(false);
+  const [statePassForm, setForm] = useState(false);
   const changeStateNav = () => {
     setNav(!stateNav);
-  }
+  };
   const changeStatePassForm = () => {
     setForm(!statePassForm);
-  }
-
-
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -72,12 +69,7 @@ const Topbar = () => {
         statePw={statePassForm}
         changeStatePassForm={changeStatePassForm}
       />
-
-
-        <IconButton>
-          <PersonOutlinedIcon />
-        </IconButton>
-      </Box>
+    </Box>
   );
 };
 
