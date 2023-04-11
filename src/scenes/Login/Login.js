@@ -1,58 +1,44 @@
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import "./renderErrorMessage.scss";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 
-export default function Login() {
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [database, setDatabase] = useState([]);
+export default function Login({ onLogin }) {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  // XỬ lý API
-  useEffect(() => {
-    fetch(
-      "https://my-json-server.typicode.com/PhucChiVas161/FE-Intern/database"
-    )
-      .then((response) => response.json())
-      .then((data) => setDatabase(data))
-      .catch((error) => console.error(error));
-  }, []);
-  console.log(database);
+    const { email, password } = document.forms[0];
+    const reqBody = {
+      email: email.value,
+      password: password.value,
+    };
 
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password",
-  };
-  const handleSubmit = (event) => {
-    //Tránh load lại trang
-    event.preventDefault(); //<== dòng này có nghĩ là khi ng dùng nhập sai thì cũng ko load lại trang
+    try {
+      const response = await axios.post(
+        "https://be-intern.onrender.com/login",
+        reqBody
+      );
 
-    const { uname, pass } = document.forms[0]; //default ở đây là var
-
-    // Tìm thông tin user login
-    const userData = database.find((user) => user.email === uname.value);
-
-    // So sánh thông tin
-    if (userData) {
-      if (userData.pass !== pass.value) {
-        // Sai password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
+      const token = response.data.data;
+      const errorFail = response.data.message;
+      if (errorFail === "Login Fail") {
+        alert("Please check Email or Password");
       }
-    } else {
-      // Đéo tồn tại ng dùng
-      setErrorMessages({ name: "uname", message: errors.uname });
+      const decoded = jwt_decode(token);
+      const subStrings = decoded.sub;
+      const jsonSub = JSON.parse(subStrings);
+      const role = jsonSub.accountRole;
+      const employeeId = jsonSub.employeeId;
+
+      onLogin(role, employeeId);
+      console.log(onLogin);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  // Khởi tạo JSX Code Error
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
-
   // Khởi tạo form
-  const renderForm = (
+  return (
     <div>
       <Container>
         <Row className="vh-100 d-flex justify-content-center align-items-center">
@@ -76,10 +62,9 @@ export default function Login() {
                         <Form.Control
                           type="email"
                           placeholder="Enter email"
-                          name="uname"
+                          name="email"
                           required
                         />
-                        {renderErrorMessage("uname")}
                       </Form.Group>
 
                       <Form.Group
@@ -90,11 +75,10 @@ export default function Login() {
                         <Form.Control
                           type="password"
                           placeholder="Password"
-                          name="pass"
+                          name="password"
                           autoComplete="current-password"
                           required
                         />
-                        {renderErrorMessage("pass")}
                       </Form.Group>
                       <div className="d-grid">
                         <Button variant="primary" type="submit">
@@ -114,11 +98,6 @@ export default function Login() {
           </Col>
         </Row>
       </Container>
-    </div>
-  );
-  return (
-    <div className="appa">
-      <div className="login-form">{isSubmitted ? <div></div> : renderForm}</div>
     </div>
   );
 }
