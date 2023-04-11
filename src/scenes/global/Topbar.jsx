@@ -1,5 +1,7 @@
 import { Box, IconButton, useTheme } from "@mui/material";
-import { useContext } from "react";
+
+import { useContext, useState } from "react";
+
 import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -9,10 +11,23 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 
+import NavAccount from "./NavAccount";
+import UpdateInfor from "../UpdateInfor/UpdateInfor";
+import ChangePassword from "./ChangePassword/ChangePassword";
+
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+
+  const [stateNav, setNav] = useState(false);
+  const [statePassForm, setForm] = useState(false);
+  const changeStateNav = () => {
+    setNav(!stateNav);
+  };
+  const changeStatePassForm = () => {
+    setForm(!statePassForm);
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -43,10 +58,20 @@ const Topbar = () => {
         <IconButton>
           <SettingsOutlinedIcon />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={() => changeStateNav()}>
           <PersonOutlinedIcon />
         </IconButton>
       </Box>
+      <NavAccount
+        stateNav={stateNav}
+        changeStatePassForm={changeStatePassForm}
+      />
+      <ChangePassword
+        statePw={statePassForm}
+        changeStatePassForm={changeStatePassForm}
+        changeStateNav={changeStateNav}
+      />
+      <UpdateInfor/>
     </Box>
   );
 };
