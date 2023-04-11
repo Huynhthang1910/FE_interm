@@ -4,13 +4,29 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 export default function Login({ onLogin }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwt_decode(token);
+      const subStrings = decoded.sub;
+      const jsonSub = JSON.parse(subStrings);
+      const role = jsonSub.accountRole;
+      const employeeId = jsonSub.employeeId;
+      onLogin(role, employeeId);
+      setLoggedIn(true);
+    }
+  }, [onLogin]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { email, password } = document.forms[0];
     const reqBody = {
-      email: email.value,
-      password: password.value,
+      email,
+      password,
     };
 
     try {
@@ -23,21 +39,22 @@ export default function Login({ onLogin }) {
       const errorFail = response.data.message;
       if (errorFail === "Login Fail") {
         alert("Please check Email or Password");
-      }
-      const decoded = jwt_decode(token);
-      const subStrings = decoded.sub;
-      const jsonSub = JSON.parse(subStrings);
-      const role = jsonSub.accountRole;
-      const employeeId = jsonSub.employeeId;
+      } else {
+        const decoded = jwt_decode(token);
+        const subStrings = decoded.sub;
+        const jsonSub = JSON.parse(subStrings);
+        const role = jsonSub.accountRole;
+        const employeeId = jsonSub.employeeId;
 
-      onLogin(role, employeeId);
-      console.log(onLogin);
+        onLogin(role, employeeId);
+        localStorage.setItem("token", token);
+        setLoggedIn(true);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  // Khởi tạo form
   return (
     <div>
       <Container>
@@ -49,7 +66,7 @@ export default function Login({ onLogin }) {
                 <div className="mb-3 mt-md-4 text-center">
                   <img
                     id="imgedit"
-                    src={`assets/urbanlogo.png`}
+                    src="assets/urbanlogo.png"
                     alt="Ảnh gái xinh"
                   />
                   <p className=" mb-5">Please enter your login and password!</p>
@@ -63,6 +80,8 @@ export default function Login({ onLogin }) {
                           type="email"
                           placeholder="Enter email"
                           name="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                           required
                         />
                       </Form.Group>
@@ -77,6 +96,8 @@ export default function Login({ onLogin }) {
                           placeholder="Password"
                           name="password"
                           autoComplete="current-password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                           required
                         />
                       </Form.Group>

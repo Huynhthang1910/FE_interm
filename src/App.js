@@ -43,7 +43,6 @@ export default function App() {
         <CssBaseline />
         <div className="app">
           <Sidebar isSidebar={isSidebar} id={isAdmin} userid={isID} />
-          {console.log(isAdmin, isID)}
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
