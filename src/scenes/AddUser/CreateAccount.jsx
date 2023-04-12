@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const CreateAccount = (props) => {
   const [accountEmail, setAccountEmail] = useState("");
@@ -25,26 +26,31 @@ const CreateAccount = (props) => {
   // Xử lý API để add người dùng
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch(
-      "https://be-intern.onrender.com/api/v2/employee/store",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+    try {
+      const response = await axios.post(
+        "https://be-intern.onrender.com/api/v2/employee/store",
+        {
           accountEmail,
           accountPassword,
           accountRole,
           headquarterId,
           employeePosition,
-        }),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data.status);
+      if (response.data.status === "OK") {
+        alert(`Thêm email: ${accountEmail} thành công`);
+      } else {
+        alert("Thêm thất bại");
       }
-    );
-    if (response.status === 200) {
-      alert(`Thêm email: ${accountEmail} thành công`);
-    } else {
+    } catch (error) {
+      console.error(error);
       alert("Thêm thất bại");
     }
   };
