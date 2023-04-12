@@ -9,7 +9,7 @@ export default function Login({ onLogin }) {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (token) {
       const decoded = jwt_decode(token);
       const subStrings = decoded.sub;
@@ -18,6 +18,39 @@ export default function Login({ onLogin }) {
       const employeeId = jsonSub.employeeId;
       onLogin(role, employeeId);
       setLoggedIn(true);
+
+      //Code này chỉ test xem header, vui lòng xóa khi publish code
+      axios.interceptors.request.use(
+        function (config) {
+          console.log(config.headers); // In ra header trước khi gửi lên server
+          return config;
+        },
+        function (error) {
+          return Promise.reject(error);
+        }
+      );
+
+      // Kiểm tra token hết hạn
+      axios
+        .post(
+          "https://be-intern.onrender.com/decode",
+          { token },
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then((response) => {
+          console.log(response);
+          if (response.data.message === "Expired Token") {
+            // Xóa token khỏi session
+            sessionStorage.removeItem("token");
+            // Hiển thị popup thông báo yêu cầu đăng nhập lại
+            alert("Your session has expired. Please log in again.");
+            // Reload the page after the user clicks "OK"
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [onLogin]);
 
@@ -47,7 +80,7 @@ export default function Login({ onLogin }) {
         const employeeId = jsonSub.employeeId;
 
         onLogin(role, employeeId);
-        localStorage.setItem("token", token);
+        sessionStorage.setItem("token", token);
         setLoggedIn(true);
       }
     } catch (error) {
