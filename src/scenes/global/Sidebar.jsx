@@ -16,6 +16,8 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import EditAvatar from "./ChangeAvatar/EditAvatar";
+// import { DataFetch } from "../../data/FetchData";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -40,6 +42,13 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const [avatarState, setAvatarState] = useState("");
+  // const [fetchData, setFetchData] = useState("");
+
+  const handleEditData = (test) =>{
+    setAvatarState(test)
+  }
+  // console.log(DataFetch().then(data => data.dataError));
 
   return (
     <Box
@@ -88,17 +97,19 @@ const Sidebar = () => {
               </Box>
             )}
           </MenuItem>
-
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={`../../assets/user.png`}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
+                <EditAvatar />
+                {/* <EditAvatar hanndleTest={handleEditData}/> */}
+                  {/* <img
+                    alt="profile-user"
+                    width="100px"
+                    height="100px"
+                    src= {avatarState}
+                    // src={`../../assets/user.png`}
+                    style={{ cursor: "pointer", borderRadius: "50%" }}
+                  />          */}
               </Box>
               <Box textAlign="center">
                 <Typography
@@ -139,13 +150,13 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Contacts Information"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
               title="Invoices Balances"
               to="/invoices"

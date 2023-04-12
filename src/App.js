@@ -16,6 +16,7 @@ import Geography from "./scenes/geography";
 import CalendarAdmin from "./scenes/admin";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
+import ShowProfile from "./scenes/global/ChangeProfileInfor/ShowProfile";
 
 export default function App() {
   const [theme, colorMode] = useMode();
@@ -31,6 +32,7 @@ export default function App() {
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/profile" element={<ShowProfile />} />
               <Route path="/team" element={<Team />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
