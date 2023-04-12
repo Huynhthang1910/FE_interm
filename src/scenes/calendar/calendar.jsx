@@ -9,9 +9,9 @@
     import * as AspNetData from 'devextreme-aspnet-data-nojquery';
 
 
-    const url = 'https://js.devexpress.com/Demos/Mvc/api/SchedulerData';
+    const url = 'http://localhost:3000/data';
     const dataSource = AspNetData.createStore({
-    key: 'AppointmentId',
+    key: 'workScheduleId',
     loadUrl: `${url}/Get`,
     insertUrl: `${url}/Post`,
     updateUrl: `${url}/Put`,
@@ -20,7 +20,7 @@
             ajaxOptions.xhrFields = { withCredentials: true };
         },
     });
-    const currentDate = new Date(2021, 3, 29);
+    const currentDate = new Date(2023, 3, 29);
     const views = ["day", "week"];
 
 
