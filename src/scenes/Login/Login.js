@@ -19,17 +19,6 @@ export default function Login({ onLogin }) {
       onLogin(role, employeeId);
       setLoggedIn(true);
 
-      //Code này chỉ test xem header, vui lòng xóa khi publish code
-      axios.interceptors.request.use(
-        function (config) {
-          console.log(config.headers); // In ra header trước khi gửi lên server
-          return config;
-        },
-        function (error) {
-          return Promise.reject(error);
-        }
-      );
-
       // Kiểm tra token hết hạn
       axios
         .post(
@@ -43,7 +32,7 @@ export default function Login({ onLogin }) {
             // Xóa token khỏi session
             sessionStorage.removeItem("token");
             // Hiển thị popup thông báo yêu cầu đăng nhập lại
-            alert("Your session has expired. Please log in again.");
+            alert("Your session has expired. Please Login again.");
             // Reload the page after the user clicks "OK"
             window.location.reload();
           }
