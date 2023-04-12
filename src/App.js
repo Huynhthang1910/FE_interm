@@ -13,12 +13,11 @@ import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
 import Calendar from "./scenes/calendar/calendar";
 import Geography from "./scenes/geography";
-import CalendarAdmin from './scenes/admin'
+import CalendarAdmin from "./scenes/admin";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-// import Calendar from "./scenes/calendar/calendar";
 
-function App() {
+export default function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
 
@@ -43,7 +42,6 @@ function App() {
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/geography" element={<Geography />} />
               <Route path="/Calendar_admin" element={<CalendarAdmin />} />
-
             </Routes>
           </main>
         </div>
@@ -51,5 +49,3 @@ function App() {
     </ColorModeContext.Provider>
   );
 }
-
-export default App;
