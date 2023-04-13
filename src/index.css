@@ -9,9 +9,7 @@ body,
   width: 100%;
   font-family: "Source Sans Pro", sans-serif;
 }
-main.content {
-  overflow: hidden;
-}
+
 .app {
   display: flex;
   position: relative;
