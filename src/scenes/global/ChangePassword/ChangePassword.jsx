@@ -46,7 +46,7 @@ const ChangePassword = (props) => {
     if(props.statePw){
         return(
             <div>
-                {/* <div className="ChangePass_around" onClick={() => props.changeStatePassForm()}></div> */}
+                <div className="ChangePass_around" onClick={() => props.changeStatePassForm()}></div>
                 <form className="ChangePass__form">
                     <img className="img" src={UrbanLogo} alt="logo"/>
                     <label className="title">Mật khẩu cũ:</label>
