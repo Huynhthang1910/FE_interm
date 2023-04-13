@@ -15,7 +15,7 @@ const ChangePassword = (props) => {
     const reNewPassword = (event) => {
         setReNewPass(event.target.value);
     }
-    let url = 'http://be-intern.onrender.com/api/v1/account/reset-password';
+    let url = 'http://be-intern.onrender.com/api/v2/account/reset-password';
     let  payLoad= {
         accountEmail: props.email,
         accountPassword: oldPass,
