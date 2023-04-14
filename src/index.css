@@ -61,3 +61,7 @@ body,
 .ds_none {
   display: none;
 }
+.Scheduler {
+  width: 98%;
+  margin: 20px auto 0 auto;
+}
