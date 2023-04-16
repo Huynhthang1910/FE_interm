@@ -4,6 +4,10 @@ import Scheduler  from "devextreme-react/scheduler";
 
 function ScheduleEmp() {
     const [tasks, setTasks] = useState([]);
+    const [allDayPanelMode, setAllDayPanelMode] = useState('allDay');
+    // const onChangeAllDayPanelMode = (e) => {
+    //     setAllDayPanelMode(e.value);
+    //   }
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         // const token = localStorage.getItem('token');
@@ -19,13 +23,12 @@ function ScheduleEmp() {
                 const tasks = response.data.data.map((task) => ({
                     id: task.workScheduleId,
                     text: task.workSchedulePlace,
-                    startDate: task.workScheduleTime,
-                    endDate: task.workScheduleTime + 1,
+                    startDate: task.workScheduleTimeIn,
+                    endDate: task.workScheduleTimeOut,
                     allDay: false,
                     description: task.workSchedulePlan,
                     recurrenceRule: null
                 }));
-
                 setTasks(tasks);
                 console.log(tasks);
             })
@@ -40,11 +43,13 @@ function ScheduleEmp() {
         console.log(e.appointmentData);
 
         const newTask = {
-            workSchedulePlan: e.appointmentData.description,
             workScheduleColor: "green",
+            workSchedulePlan: e.appointmentData.description,
             workSchedulePlace: e.appointmentData.text,
-            workScheduleTime: e.appointmentData.startDate
+            workScheduleTimeIn: e.appointmentData.startDate,
+            workScheduleTimeOut: e.appointmentData.endDate
         };
+        console.log(newTask);
         axios
             .post(
                 "https://be-intern.onrender.com/api/v2/workschedule/store",
@@ -67,11 +72,12 @@ function ScheduleEmp() {
     const handleTaskUpdated = (e) => {
         const token = sessionStorage.getItem("token");
         // const token = localStorage.getItem('token');
-        console.log(token);
         const updatedTask = {
             workScheduleColor: 'green',
             workSchedulePlace: e.appointmentData.text,
             workSchedulePlan : e.appointmentData.description,
+            workScheduleTimeIn: e.appointmentData.startDate,
+            workScheduleTimeOut: e.appointmentData.endDate,
         };
 
         axios
@@ -138,11 +144,13 @@ function ScheduleEmp() {
                 startDayHour={9}
                 endDayHour={18}
                 recurrenceEditMode="none"
-                views={["day", "week", "month"]}
+                views={["day",'workWeek', "week",  "month"]}
                 showAllDayPanel={false}
+                allDayPanelMode={allDayPanelMode}
                 allowAllDayEditing={false}
                 height={850}
-                dateSerializationFormat="yyyy-MM-ddTHH:mm:ssZ"
+                adaptivityEnabled={true}
+                dateSerializationFormat="yyyy-MM-ddTHH:mm:ss.ssZ"
                 onAppointmentAdded={handleTaskAdded}
                 onAppointmentUpdated={handleTaskUpdated}
                 onAppointmentDeleted={handleTaskDeleted}
