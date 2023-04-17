@@ -16,7 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import EditAvatar from "./ChangeAvatar/EditAvatar";
+import ChangeAvatar from "./ChangeProfileInfor/EditForm/EditProfileAvatar/ChangeAvatar";
 // import { DataFetch } from "../../data/FetchData";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -110,13 +110,16 @@ const Sidebar = ({ ad, userid }) => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={user.employeeAvatar}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
+                <EditAvatar />
+                {/* <EditAvatar hanndleTest={handleEditData}/> */}
+                  {/* <img
+                    alt="profile-user"
+                    width="100px"
+                    height="100px"
+                    src= {avatarState}
+                    // src={`../../assets/user.png`}
+                    style={{ cursor: "pointer", borderRadius: "50%" }}
+                  />          */}
               </Box>
               <Box textAlign="center">
                 <Typography
