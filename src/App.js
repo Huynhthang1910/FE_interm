@@ -12,7 +12,7 @@ import Form from "./scenes/form";
 import Line from "./scenes/line";
 import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
-import Calendar from "./scenes/calendar/calendar";
+import ScheduleEmp from "./scenes/ScheduleEmp/ScheduleEmp";
 import Geography from "./scenes/geography";
 import CalendarAdmin from "./scenes/admin";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -58,7 +58,7 @@ export default function App() {
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/ScheduleEmp" element={<ScheduleEmp />} />
               <Route path="/geography" element={<Geography />} />
               <Route path="/Calendar_admin" element={<CalendarAdmin />} />
             </Routes>

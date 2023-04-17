@@ -61,3 +61,11 @@ body,
 .ds_none {
   display: none;
 }
+/*  tuỳ chình scroll scheduler admin */
+.Scheduler {
+  width: 98%;
+  height: 87%;
+  margin: 20px auto 0 auto;
+  overflow-y: scroll;
+
+}
