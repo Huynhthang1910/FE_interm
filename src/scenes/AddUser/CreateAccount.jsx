@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const CreateAccount = (props) => {
   const [accountEmail, setAccountEmail] = useState("");
@@ -7,38 +8,49 @@ const CreateAccount = (props) => {
   const [apiTruso, setApiTruso] = useState([]);
   const [headquarterId, setHeadquarterId] = useState("");
   const [employeePosition, setEmployeePosition] = useState("");
+  const token = sessionStorage.getItem("token");
 
   //Xử lý API lấy tên trụ sở
   useEffect(() => {
-    fetch("http://192.168.1.18:8080/api/v1/headquarter/")
+    fetch("https://be-intern.onrender.com/api/v2/headquarter/", {
+      headers: {
+        Authorization: `Bearer ${token}`, // Add the token as a bearer token
+      },
+    })
       .then((response) => response.json())
       .then((data) => setApiTruso(data.data))
       .catch((error) => console.error(error));
-  }, []);
+  }, [token]); // Include the token as a dependency to re-fetch data when the token changes
   const headQuarters = apiTruso;
 
   // Xử lý API để add người dùng
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch(
-      "http://192.168.1.18:8080/api/v1/employee/store",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+    try {
+      const response = await axios.post(
+        "https://be-intern.onrender.com/api/v2/employee/store",
+        {
           accountEmail,
           accountPassword,
           accountRole,
           headquarterId,
           employeePosition,
-        }),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data.status);
+      if (response.data.status === "OK") {
+        alert(`Thêm email: ${accountEmail} thành công`);
+      } else {
+        alert("Thêm thất bại");
       }
-    );
-    if (response.status === 200) {
-      alert(`Thêm email: ${accountEmail} thành công`);
-    } else {
+    } catch (error) {
+      console.error(error);
       alert("Thêm thất bại");
     }
   };
@@ -114,8 +126,8 @@ const CreateAccount = (props) => {
                 onChange={handleRoleChange}
               >
                 <option selected>Open this select ROLE</option>
-                <option value="Admin">Admin</option>
-                <option value="User">User</option>
+                <option value="Manager">Manager</option>
+                <option value="Employee">Employee</option>
               </select>
             </div>
             <div className="mb-3 col-6">
@@ -130,7 +142,7 @@ const CreateAccount = (props) => {
                 <option selected>Open this select ROLE</option>
                 {headQuarters.map((item) => (
                   <option value={item.headquarterId}>
-                    {item.headquarterAddress}
+                    {item.headquarterName}
                   </option>
                 ))}
               </select>

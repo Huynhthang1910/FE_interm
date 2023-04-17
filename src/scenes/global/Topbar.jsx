@@ -10,10 +10,12 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { Link } from "react-router-dom";
 
 import NavAccount from "./NavAccount";
 import UpdateInfor from "../UpdateInfor/UpdateInfor";
 import ChangePassword from "./ChangePassword/ChangePassword";
+// import ShowProfile from "./ChangeProfileInfor/ShowProfile";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -72,6 +74,9 @@ const Topbar = () => {
         changeStateNav={changeStateNav}
       />
       <UpdateInfor/>
+      {/* <ShowProfile >
+        <Link to={"/profile"} />
+      </ShowProfile> */}
     </Box>
   );
 };

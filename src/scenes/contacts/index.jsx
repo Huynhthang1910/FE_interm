@@ -1,31 +1,40 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import {  mockDataContacts } from "../../data/mockData";
+import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteButton from "./DeleteButton";
-
+import CreateAccount from "../AddUser/CreateAccount";
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [users, setUsers] = useState([]);
+  const token = sessionStorage.getItem("token");
+  const [showComponent, setShowComponent] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "http://localhost:3500/ViewAC"
+        "https://be-intern.onrender.com/api/v2/employee/all-information",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token as a bearer token
+          },
+        }
       );
       const datas = await response.json();
-      const dataWithIds = datas.map((row, index) => ({ ...row, id: index + 1 }));
-      //const dataWithIds = datas.data.map((row, index) => ({ ...row, id: index + 1 }));
+      //   const dataWithIds = datas.map((row, index) => ({ ...row, id: index + 1 }));
+      const dataWithIds = datas.data.map((row, index) => ({
+        ...row,
+        id: index + 1,
+      }));
       setUsers(dataWithIds);
-      
-      
     };
     fetchData();
-  }, []);
+  }, [token]);
   const resetUserId = (users) => {
     return users.map((user, index) => {
       return {
@@ -34,16 +43,17 @@ const Contacts = () => {
       };
     });
   };
- 
 
   const handleSearch1 = (id) => {
-    setUsers(prevUsers => {
+    setUsers((prevUsers) => {
       const filteredUsers = prevUsers.filter((item) => item.employeeId !== id);
       return resetUserId(filteredUsers);
     });
   };
-  
-
+  const onClickAdd = () => {
+    // Gọi MyComponent khi nút được nhấn
+    setShowComponent(!showComponent);
+  };
 
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
@@ -80,25 +90,36 @@ const Contacts = () => {
       flex: 1,
     },
     {
-        field: "delete",
-        headerName: "Actions",
-        width: 100,
-        renderCell: (params) => (
-            <>
-                <DeleteButton api={params.row.employeeId} resetView={handleSearch1}/>
-            </> 
-        ),
-      },
+      field: "delete",
+      headerName: "Actions",
+      width: 100,
+      renderCell: (params) => (
+        <>
+          <DeleteButton api={params.row.employeeId} resetView={handleSearch1} />
+        </>
+      ),
+    },
   ];
 
   return (
-    
     <Box m="20px">
       <Header
         title="CONTACTS"
         subtitle="List of Contacts for Future Reference"
       />
+      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button
+          className="btn btn-success me-md-2 me-lg-4"
+          type="button"
+          onClick={onClickAdd}
+        >
+          Add User
+        </button>
+      </div>
+      {showComponent && <CreateAccount onClickAdd={onClickAdd} />}
+
       <Box
+        className={showComponent ? "ds_none" : null}
         m="40px 0 0 0"
         height="75vh"
         sx={{
@@ -132,7 +153,7 @@ const Contacts = () => {
       >
         {console.log(users)}
         {console.log(mockDataContacts)}
-        
+
         <DataGrid
           rows={users}
           columns={columns}
@@ -144,5 +165,3 @@ const Contacts = () => {
 };
 
 export default Contacts;
-
-

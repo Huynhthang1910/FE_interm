@@ -1,70 +1,115 @@
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
-// import "./renderErrorMessage.scss";
-import Collection from "../Collection";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+import "./Login.scss";
 
-export default function Login() {
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [database, setDatabase] = useState([]);
+export default function Login({ onLogin }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  // XỬ lý API
   useEffect(() => {
-    fetch(
-      "https://my-json-server.typicode.com/PhucChiVas161/FE-Intern/database"
-    )
-      .then((response) => response.json())
-      .then((data) => setDatabase(data))
-      .catch((error) => console.error(error));
-  }, []);
-  console.log(database);
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const decoded = jwt_decode(token);
+      const subStrings = decoded.sub;
+      const jsonSub = JSON.parse(subStrings);
+      const role = jsonSub.accountRole;
+      const employeeId = jsonSub.employeeId;
+      onLogin(role, employeeId);
+      setLoggedIn(true);
 
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password",
-  };
-  const handleSubmit = (event) => {
-    //Tránh load lại trang
-    event.preventDefault(); //<== dòng này có nghĩ là khi ng dùng nhập sai thì cũng ko load lại trang
+      // Kiểm tra token hết hạn
+      axios
+        .post(
+          "https://be-intern.onrender.com/decode",
+          { token },
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then((response) => {
+          console.log(response);
+          if (response.data.message === "Expired Token") {
+            // Xóa token khỏi session
+            sessionStorage.removeItem("token");
+            // Hiển thị popup thông báo yêu cầu đăng nhập lại
+            alert("Your session has expired. Please Login again.");
+            // Reload the page after the user clicks "OK"
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [onLogin]);
 
-    const { uname, pass } = document.forms[0]; //default ở đây là var
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    // Tìm thông tin user login
-    const userData = database.find((user) => user.email === uname.value);
+    const reqBody = {
+      email,
+      password,
+    };
 
-    // So sánh thông tin
-    if (userData) {
-      if (userData.pass !== pass.value) {
-        // Sai password
-        setErrorMessages({ name: "pass", message: errors.pass });
+    try {
+      const response = await axios.post(
+        "https://be-intern.onrender.com/login",
+        reqBody
+      );
+
+      const token = response.data.data;
+      const errorFail = response.data.message;
+      if (errorFail === "Login Fail") {
+        alert("Please check Email or Password");
       } else {
-        setIsSubmitted(true);
+        const decoded = jwt_decode(token);
+        const subStrings = decoded.sub;
+        const jsonSub = JSON.parse(subStrings);
+        const role = jsonSub.accountRole;
+        const employeeId = jsonSub.employeeId;
+
+        onLogin(role, employeeId);
+        sessionStorage.setItem("token", token);
+        setLoggedIn(true);
       }
-    } else {
-      // Đéo tồn tại ng dùng
-      setErrorMessages({ name: "uname", message: errors.uname });
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  // Khởi tạo JSX Code Error
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
+  const handleForgotPassword = async (event) => {
+    event.preventDefault();
 
-  // Khởi tạo form
-  const renderForm = (
-    <div>
+    if (email.trim() === "") {
+      alert("Please enter your email to reset password.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "https://be-intern.onrender.com/api/v2/account/forgot-password",
+        { accountEmail: email }
+      );
+      console.log(response);
+
+      alert(`Please check ${email} to reset password.`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div id="backgr">
       <Container>
         <Row className="vh-100 d-flex justify-content-center align-items-center">
           <Col md={8} lg={6} xs={12}>
-            <div className="border border-3 border-primary"></div>
             <Card className="shadow">
               <Card.Body>
-                <div className="mb-3 mt-md-4 text-center">
+                <div className="mb-3 mt-md-4 text-center ">
                   <img
                     id="imgedit"
-                    src={`assets/urbanlogo.png`}
+                    src="assets/urbanlogo.png"
                     alt="Ảnh gái xinh"
                   />
                   <p className=" mb-5">Please enter your login and password!</p>
@@ -77,10 +122,11 @@ export default function Login() {
                         <Form.Control
                           type="email"
                           placeholder="Enter email"
-                          name="uname"
+                          name="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                           required
                         />
-                        {renderErrorMessage("uname")}
                       </Form.Group>
 
                       <Form.Group
@@ -91,11 +137,26 @@ export default function Login() {
                         <Form.Control
                           type="password"
                           placeholder="Password"
-                          name="pass"
+                          name="password"
                           autoComplete="current-password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                           required
                         />
-                        {renderErrorMessage("pass")}
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicCheckbox"
+                        >
+                          <p className="small">
+                            <a
+                              className="text-primary"
+                              onClick={handleForgotPassword}
+                              style={{ cursor: "pointer" }}
+                            >
+                              Forgot password?
+                            </a>
+                          </p>
+                        </Form.Group>
                       </Form.Group>
                       <div className="d-grid">
                         <Button variant="primary" type="submit">
@@ -105,29 +166,18 @@ export default function Login() {
                     </Form>
                   </div>
                 </div>
-                <div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary fixed-bottom">
-                  <div className="text-white mb-3 mb-md-0">
-                    Copyright UrbanVietNam© 2023. All rights reserved
-                  </div>
-                </div>
               </Card.Body>
             </Card>
           </Col>
+          <Card.Footer>
+            <div className="d-flex flex-column flex-md-row justify-content-between py-3 px-3 px-xl-3 bg-primary fixed-bottom">
+              <div className="text-white mb-1 mb-md-0 text-center">
+                Copyright UrbanVietNam© 2023. All rights reserved
+              </div>
+            </div>
+          </Card.Footer>
         </Row>
       </Container>
-    </div>
-  );
-  return (
-    <div className="appa">
-      <div className="login-form">
-        {isSubmitted ? (
-          <div>
-            <Collection />
-          </div>
-        ) : (
-          renderForm
-        )}
-      </div>
     </div>
   );
 }
