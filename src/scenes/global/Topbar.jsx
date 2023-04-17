@@ -60,17 +60,17 @@ const Topbar = () => {
         </IconButton>
         <IconButton onClick={() => changeStateNav()}>
           <PersonOutlinedIcon />
+          <NavAccount
+            stateNav={stateNav}
+            changeStatePassForm={changeStatePassForm}
+          />
         </IconButton>
       </Box>
-      <NavAccount
-        stateNav={stateNav}
-        changeStatePassForm={changeStatePassForm}
-      />
       <ChangePassword
-        statePw={statePassForm}
-        changeStatePassForm={changeStatePassForm}
-        changeStateNav={changeStateNav}
-      />
+            statePw={statePassForm}
+            changeStatePassForm={changeStatePassForm}
+            changeStateNav={changeStateNav}
+          />
       <UpdateInfor/>
     </Box>
   );
