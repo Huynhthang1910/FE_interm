@@ -2,12 +2,14 @@ import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import ForgotPassword from "./ForgotPassword";
 import "./Login.scss";
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -78,25 +80,12 @@ export default function Login({ onLogin }) {
     }
   };
 
-  const handleForgotPassword = async (event) => {
-    event.preventDefault();
+  const handleShowForgotPassword = () => {
+    setShowForgotPassword(true);
+  };
 
-    if (email.trim() === "") {
-      alert("Please enter your email to reset password.");
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        "https://be-intern.onrender.com/api/v2/account/forgot-password",
-        { accountEmail: email }
-      );
-      console.log(response);
-
-      alert(`Please check ${email} to reset password.`);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleBackToLogin = () => {
+    setShowForgotPassword(false);
   };
 
   return (
@@ -112,59 +101,70 @@ export default function Login({ onLogin }) {
                     src="assets/urbanlogo.png"
                     alt="Ảnh gái xinh"
                   />
-                  <p className=" mb-5">Please enter your login and password!</p>
-                  <div className="mb-3">
-                    <Form onSubmit={handleSubmit}>
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label className="text-center">
-                          Email address
-                        </Form.Label>
-                        <Form.Control
-                          type="email"
-                          placeholder="Enter email"
-                          name="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          required
-                        />
-                      </Form.Group>
+                  {showForgotPassword ? (
+                    <ForgotPassword onBackToLogin={handleBackToLogin} />
+                  ) : (
+                    <div>
+                      <p className=" mb-5">
+                        Please enter your login and password!
+                      </p>
+                      <div className="mb-3">
+                        <Form onSubmit={handleSubmit}>
+                          <Form.Group
+                            className="mb-3"
+                            controlId="formBasicEmail"
+                          >
+                            <Form.Label className="text-center">
+                              Email address
+                            </Form.Label>
+                            <Form.Control
+                              type="email"
+                              placeholder="Enter email"
+                              name="email"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              required
+                            />
+                          </Form.Group>
 
-                      <Form.Group
-                        className="mb-3"
-                        controlId="formBasicPassword"
-                      >
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                          placeholder="Password"
-                          name="password"
-                          autoComplete="current-password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          required
-                        />
-                        <Form.Group
-                          className="mb-3"
-                          controlId="formBasicCheckbox"
-                        >
-                          <p className="small">
-                            <a
-                              className="text-primary"
-                              onClick={handleForgotPassword}
-                              style={{ cursor: "pointer" }}
+                          <Form.Group
+                            className="mb-3"
+                            controlId="formBasicPassword"
+                          >
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                              type="password"
+                              placeholder="Password"
+                              name="password"
+                              autoComplete="current-password"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              required
+                            />
+                            <Form.Group
+                              className="mb-3"
+                              controlId="formBasicCheckbox"
                             >
-                              Forgot password?
-                            </a>
-                          </p>
-                        </Form.Group>
-                      </Form.Group>
-                      <div className="d-grid">
-                        <Button variant="primary" type="submit">
-                          Login
-                        </Button>
+                              <p className="small">
+                                <a
+                                  className="text-primary"
+                                  onClick={handleShowForgotPassword}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  Forgot password?
+                                </a>
+                              </p>
+                            </Form.Group>
+                          </Form.Group>
+                          <div className="d-grid">
+                            <Button variant="primary" type="submit">
+                              Login
+                            </Button>
+                          </div>
+                        </Form>
                       </div>
-                    </Form>
-                  </div>
+                    </div>
+                  )}
                 </div>
               </Card.Body>
             </Card>
