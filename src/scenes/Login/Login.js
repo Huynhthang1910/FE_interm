@@ -2,6 +2,7 @@ import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import "./Login.scss";
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -77,15 +78,35 @@ export default function Login({ onLogin }) {
     }
   };
 
+  const handleForgotPassword = async (event) => {
+    event.preventDefault();
+
+    if (email.trim() === "") {
+      alert("Please enter your email to reset password.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "https://be-intern.onrender.com/api/v2/account/forgot-password",
+        { accountEmail: email }
+      );
+      console.log(response);
+
+      alert(`Please check ${email} to reset password.`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div>
+    <div id="backgr">
       <Container>
         <Row className="vh-100 d-flex justify-content-center align-items-center">
           <Col md={8} lg={6} xs={12}>
-            <div className="border border-3 border-primary"></div>
             <Card className="shadow">
               <Card.Body>
-                <div className="mb-3 mt-md-4 text-center">
+                <div className="mb-3 mt-md-4 text-center ">
                   <img
                     id="imgedit"
                     src="assets/urbanlogo.png"
@@ -122,6 +143,20 @@ export default function Login({ onLogin }) {
                           onChange={(e) => setPassword(e.target.value)}
                           required
                         />
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicCheckbox"
+                        >
+                          <p className="small">
+                            <a
+                              className="text-primary"
+                              onClick={handleForgotPassword}
+                              style={{ cursor: "pointer" }}
+                            >
+                              Forgot password?
+                            </a>
+                          </p>
+                        </Form.Group>
                       </Form.Group>
                       <div className="d-grid">
                         <Button variant="primary" type="submit">
@@ -131,14 +166,16 @@ export default function Login({ onLogin }) {
                     </Form>
                   </div>
                 </div>
-                <div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary fixed-bottom">
-                  <div className="text-white mb-3 mb-md-0">
-                    Copyright UrbanVietNam© 2023. All rights reserved
-                  </div>
-                </div>
               </Card.Body>
             </Card>
           </Col>
+          <Card.Footer>
+            <div className="d-flex flex-column flex-md-row justify-content-between py-3 px-3 px-xl-3 bg-primary fixed-bottom">
+              <div className="text-white mb-1 mb-md-0 text-center">
+                Copyright UrbanVietNam© 2023. All rights reserved
+              </div>
+            </div>
+          </Card.Footer>
         </Row>
       </Container>
     </div>
