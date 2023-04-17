@@ -34,7 +34,7 @@ const Contacts = () => {
       setUsers(dataWithIds);
     };
     fetchData();
-  }, []);
+  }, [token]);
   const resetUserId = (users) => {
     return users.map((user, index) => {
       return {
