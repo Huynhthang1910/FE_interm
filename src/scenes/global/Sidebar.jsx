@@ -110,7 +110,7 @@ const Sidebar = ({ ad, userid }) => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                
+                <EditAvatar />
                 {/* <EditAvatar hanndleTest={handleEditData}/> */}
                   {/* <img
                     alt="profile-user"
