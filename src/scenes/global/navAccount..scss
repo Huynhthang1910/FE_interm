@@ -4,10 +4,21 @@
     position: fixed;
      top: 50px;
      right: 28px;
+     z-index: 10;
+     background-color: #1F2A40;
+     border-radius: 5px;
     .div{
-        width: 100px;
+        min-width: 100px;
+        padding: 5px 12px;
         text-align: right;
-        border-radius: 2px red solid;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover {
+            background-color: #2E7C67;
+        }
+        &:nth-child(2n):hover {
+            background-color: #198754;
+        }
         .logOutBtn{
             text-decoration: none;
             color: white;
