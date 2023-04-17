@@ -71,6 +71,11 @@ const Contacts = () => {
       cellClassName: "name-column--cell",
     },
     {
+      field: "accountEmail",
+      headerName: "Email",
+      flex: 1,
+    },
+    {
       field: "employeeAddress",
       headerName: "Address",
       flex: 1,
