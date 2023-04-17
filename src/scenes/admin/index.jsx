@@ -21,29 +21,60 @@ const groups = ['TruSo'];
 // const appointments = generateAppointments(startDay, endDay, startDayHour, endDayHour);
 
 function SchedulerAdmin() {
-  const [tasksAll,setTasksAll] = useState([])
-  const [headquarterName, setHeadquarterName] = useState([])
+  // lấy ra thông tin trụ sở
+  const [headquarterNames, setHeadquarterNames] = useState([])
+  useEffect(()=>{
+    const token = sessionStorage.getItem("token");
+    axios
+        .get("https://be-intern.onrender.com/api/v2/headquarter/", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then((response)=>{
+          const headquarterNames = response.data.data.map((headquarter)=>({
+            id: headquarter.headquarterName,
+            text: headquarter.headquarterName
+          }));
+          setHeadquarterNames(headquarterNames);
+          console.log(headquarterNames);
+        })
+        .catch((error) => {
+          console.log(error);
+      });
+  },[])
 
+
+
+
+  const [tasksAll,setTasksAll] = useState([])
+  const [employeeNames, setEmployeeNames] = useState([])
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     // const token = localStorage.getItem('token');
     axios
-        .get("https://be-intern.onrender.com/api/v2/workschedule/all-information", {
+        .get("https://be-intern.onrender.com/api/v2/workschedule/all-information/", {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
         .then((response) => {
             console.log(response.data.data);
-            // thêm headquarterName vào nheee
+            const employeeNames = response.data.data.map((attendee) =>({
+              id: attendee.attendees,
+              text : attendee.attendees
+            }))
+            setEmployeeNames(employeeNames)
             const tasksAll = response.data.data.map((task) => ({
                 id: task.workScheduleId,
                 text: task.workSchedulePlace,
-                startDate: task.workScheduleTime,
-                endDate: task.workScheduleTime + 1,
-                allDay: false,
+                startDate: task.workScheduleTimeIn,
+                endDate: task.workScheduleTimeOut,
                 description: task.workSchedulePlan,
-                recurrenceRule: null
+                TruSo: task.headquarterName,
+                attendees: task.employeeName,
+                allDay: false,
+                recurrenceRule: null,
             }));
 
             setTasksAll(tasksAll);
@@ -54,37 +85,39 @@ function SchedulerAdmin() {
         });
 }, []);
   return (
+    <div className='Scheduler'>
     <Scheduler
-        timeZone="America/Los_Angeles"
+        timeZone="Asia/Ho_Chi_Minh"
         dataSource={tasksAll}
         groups={groups}
         defaultCurrentView="Vertical Grouping"
         defaultCurrentDate={currentDate}
         startDayHour={9}
         endDayHour={18}
-        dateSerializationFormat="yyyy-MM-ddTHH:mm:ssZ"
+        dateSerializationFormat="yyyy-MM-ddTHH:mm:ss.ssZ"
         crossScrollingEnabled={true}
         showAllDayPanel={true}>
         <View
           name="Vertical Grouping"
           type="workWeek"
           groupOrientation="vertical"
-          cellDuration={60}
-          intervalCount={2}
+          cellDuration={30}
+          intervalCount={1}
         />
-        <View
+        {/* <View
           name="Horizontal Grouping"
           type="workWeek"
           cellDuration={30}
           intervalCount={2}
-        />
+        /> */}
         <Resource
           fieldExpr="TruSo"
           allowMultiple={false}
-          dataSource={priorityData}
-          label="Priority"
+          dataSource={headquarterNames}
+          label="Trụ sở"
         />
       </Scheduler>
+    </div>
   );
 }
 

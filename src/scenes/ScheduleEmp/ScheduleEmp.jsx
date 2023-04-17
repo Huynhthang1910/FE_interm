@@ -4,6 +4,15 @@ import Scheduler  from "devextreme-react/scheduler";
 
 function ScheduleEmp() {
     const [tasks, setTasks] = useState([]);
+    // giới hạn tạo lịch ở quá khứ
+    const views = ["day",'workWeek', "week",  "month"];
+
+    const viewOptions = views.map((view) => ({
+      type: view,
+      name: view.charAt(0).toUpperCase() + view.slice(1),
+      min: new Date()
+    }));
+    //
     const [allDayPanelMode, setAllDayPanelMode] = useState('allDay');
     // const onChangeAllDayPanelMode = (e) => {
     //     setAllDayPanelMode(e.value);
@@ -144,7 +153,9 @@ function ScheduleEmp() {
                 startDayHour={9}
                 endDayHour={18}
                 recurrenceEditMode="none"
-                views={["day",'workWeek', "week",  "month"]}
+                views={viewOptions}
+
+                // views={["day",'workWeek', "week",  "month"]}
                 showAllDayPanel={false}
                 allDayPanelMode={allDayPanelMode}
                 allowAllDayEditing={false}
