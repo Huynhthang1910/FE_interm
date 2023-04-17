@@ -64,13 +64,14 @@ const Topbar = () => {
             stateNav={stateNav}
             changeStatePassForm={changeStatePassForm}
           />
-        </IconButton>
-      </Box>
-      <ChangePassword
+          <ChangePassword
             statePw={statePassForm}
             changeStatePassForm={changeStatePassForm}
             changeStateNav={changeStateNav}
           />
+        </IconButton>
+      </Box>
+
       <UpdateInfor/>
     </Box>
   );
