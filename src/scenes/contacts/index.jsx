@@ -35,10 +35,10 @@ const Contacts = () => {
     };
     fetchData();
   }, [token]);
-  const resetUserId = (users) => {
-    return users.map((user, index) => {
+  const resetUserId = (heads) => {
+    return heads.map((head, index) => {
       return {
-        ...user,
+        ...head,
         id: index + 1,
       };
     });
@@ -66,13 +66,9 @@ const Contacts = () => {
     },
     {
       field: "employeePhone",
-      headerName: "Phone Number",
+      headerName: "Phone",
       flex: 1,
-    },
-    {
-      field: "accountEmail",
-      headerName: "Email",
-      flex: 1,
+      cellClassName: "name-column--cell",
     },
     {
       field: "employeeAddress",
@@ -83,11 +79,7 @@ const Contacts = () => {
       field: "employeePosition",
       headerName: "Position",
       flex: 1,
-    },
-    {
-      field: "headquarterName",
-      headerName: "Location",
-      flex: 1,
+      cellClassName: "name-column--cell",
     },
     {
       field: "delete",

@@ -6,76 +6,95 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
-import { useState } from "react";
-import CreateAccount from "../AddUser/CreateAccount";
+import React, { useState, useEffect } from "react";
+
+import DeleteButtonhead from "./DeleteButtonhead";
+import CreateHeadquater from "../AddHeaquater/CreateHeadquater";
 
 const Team = () => {
   const [showComponent, setShowComponent] = useState(false);
-
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const columns = [
-    { field: "id", headerName: "ID" },
-    {
-      field: "name",
-      headerName: "Name",
-      flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 1,
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      flex: 1,
-    },
-    {
-      field: "accessLevel",
-      headerName: "Access Level",
-      flex: 1,
-      renderCell: ({ row: { access } }) => {
-        return (
-          <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
-            display="flex"
-            justifyContent="center"
-            backgroundColor={
-              access === "admin"
-                ? colors.greenAccent[600]
-                : access === "manager"
-                ? colors.greenAccent[700]
-                : colors.greenAccent[700]
-            }
-            borderRadius="4px"
-          >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
-            </Typography>
-          </Box>
-        );
-      },
-    },
-  ];
+  const token = sessionStorage.getItem("token");
+  const [headqs, setHeadqs] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://be-intern.onrender.com/api/v2/headquarter/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token as a bearer token
+          },
+        }
+      );
+      const datas = await response.json();
+      //   const dataWithIds = datas.map((row, index) => ({ ...row, id: index + 1 }));
+      const dataWithIds = datas.data.map((row, index) => ({
+        ...row,
+        id: index + 1,
+      }));
+      setHeadqs(dataWithIds);
+    };
+    fetchData();
+  }, [token]);
+  const resetHeadId = (heads) => {
+    return heads.map((head, index) => {
+      return {
+        ...head,
+        id: index + 1,
+      };
+    });
+  };
 
   const onClickAdd = () => {
     // Gọi MyComponent khi nút được nhấn
     setShowComponent(!showComponent);
   };
+
+  const handleSearch1 = (id) => {
+    setHeadqs((prevUsers) => {
+      const filteredUsers = prevUsers.filter(
+        (item) => item.headquarterId !== id
+      );
+      return resetHeadId(filteredUsers);
+    });
+  };
+
+  const columns = [
+    { field: "id", headerName: "ID", width: 100 },
+    {
+      field: "headquarterId",
+      headerName: "Headquarter Id",
+      flex: 1,
+      cellClassName: "name-column--cell",
+      width: 400,
+    },
+    {
+      field: "headquarterName",
+      headerName: "Headquarter Name",
+      headerAlign: "left",
+      align: "left",
+      width: 400,
+    },
+    {
+      field: "headquarterAddress",
+      headerName: "Headquarter Address",
+      flex: 1,
+    },
+    {
+      field: "delete",
+      headerName: "Actions",
+      width: 100,
+      renderCell: (params) => (
+        <>
+          <DeleteButtonhead
+            api={params.row.headquarterId}
+            resetView={handleSearch1}
+          />
+        </>
+      ),
+    },
+  ];
 
   return (
     <Box m="20px">
@@ -87,10 +106,10 @@ const Team = () => {
           type="button"
           onClick={onClickAdd}
         >
-          Add User
+          Add Headquarter
         </button>
       </div>
-      {showComponent && <CreateAccount onClickAdd={onClickAdd} />}
+      {showComponent && <CreateHeadquater onClickAdd={onClickAdd} />}
 
       <Box
         className={showComponent ? "ds_none" : null}
@@ -122,7 +141,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        <DataGrid checkboxSelection rows={headqs} columns={columns} />
       </Box>
     </Box>
   );

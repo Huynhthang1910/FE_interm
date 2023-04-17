@@ -111,14 +111,13 @@ const Sidebar = ({ ad, userid }) => {
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
                 {/* <EditAvatar hanndleTest={handleEditData}/> */}
-                {/* <img
-                    alt="profile-user"
-                    width="100px"
-                    height="100px"
-                    src= {avatarState}
-                    // src={`../../assets/user.png`}
-                    style={{ cursor: "pointer", borderRadius: "50%" }}
-                  />          */}
+                <img
+                  alt="profile-user"
+                  width="100px"
+                  height="100px"
+                  src={user.employeeAddress}
+                  style={{ cursor: "pointer", borderRadius: "50%" }}
+                />
               </Box>
               <Box textAlign="center">
                 <Typography
@@ -152,13 +151,7 @@ const Sidebar = ({ ad, userid }) => {
             >
               Data
             </Typography> */}
-            {/* <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
+
             {/* <Item
               title="Invoices Balances"
               to="/invoices"
@@ -176,6 +169,13 @@ const Sidebar = ({ ad, userid }) => {
             </Typography> */}
             {isAdmin === true ? (
               <>
+                <Item
+                  title="Headquarter"
+                  to="/team"
+                  icon={<PeopleOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
                 <Item
                   title="Contacts Information"
                   to="/contacts"
