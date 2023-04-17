@@ -19,7 +19,7 @@ const ChangeAvatar = ({ handleExportAvatar, show }) => {
     }, [])
 
     useEffect(() => {
-        setStateUpdAvatar(fetchApis.employeeAvatar)
+        // setStateUpdAvatar(fetchApis.employeeAvatar)
     }, [fetchApis])
 
     useEffect(() => {
