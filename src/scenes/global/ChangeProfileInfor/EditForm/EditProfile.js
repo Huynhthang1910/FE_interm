@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from '../../../../theme';
+
 import './EditProfile.css'
 
 const EditProfile = ({ editProfile, updateFetchApis }) => {
@@ -34,12 +35,13 @@ const EditProfile = ({ editProfile, updateFetchApis }) => {
                     employeePhone: credentials.phone
                 }),
                 headers: {
+                    Authorization: `Bearer ${tokenTaken}`, // Add the token as a bearer token
                     "Content-Type": "application/json",
                 },
             }
         )
             .then(response => {
-                if (response.ok) {
+                if (response.status === "BAD_REQUEST") {
                     console.log('PUT request succeeded');
                 } else {
                     console.error('PUT request failed with status:', response.status);
