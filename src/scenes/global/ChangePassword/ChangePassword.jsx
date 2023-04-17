@@ -70,7 +70,7 @@ const ChangePassword = (props) => {
                     <button type="button"
                         className="btn-changePass" 
                         onClick={() => handleChangePass()}>
-                        Đổi mật khẩu
+                        Xác nhận
                     </button>
                 </form>
             </div>
