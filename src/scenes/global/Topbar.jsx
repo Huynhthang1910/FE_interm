@@ -12,7 +12,6 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 
 import NavAccount from "./NavAccount";
-import UpdateInfor from "../UpdateInfor/UpdateInfor";
 import ChangePassword from "./ChangePassword/ChangePassword";
 
 const Topbar = () => {
@@ -30,6 +29,7 @@ const Topbar = () => {
   };
 
   return (
+    <>
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
       <Box
@@ -64,17 +64,16 @@ const Topbar = () => {
             stateNav={stateNav}
             changeStatePassForm={changeStatePassForm}
           />
-          <ChangePassword
+        </IconButton>
+      </Box>
+    </Box>
+    <ChangePassword
             statePw={statePassForm}
             changeStatePassForm={changeStatePassForm}
             changeStateNav={changeStateNav}
           />
-        </IconButton>
-      </Box>
-
-      <UpdateInfor/>
-    </Box>
-  );
+    </>
+    );
 };
 
 export default Topbar;
