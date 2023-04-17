@@ -16,7 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import EditAvatar from "./ChangeAvatar/EditAvatar";
+import ChangeAvatar from "./ChangeProfileInfor/EditForm/EditProfileAvatar/ChangeAvatar";
 // import { DataFetch } from "../../data/FetchData";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -42,13 +42,6 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-  const [avatarState, setAvatarState] = useState("");
-  // const [fetchData, setFetchData] = useState("");
-
-  const handleEditData = (test) =>{
-    setAvatarState(test)
-  }
-  // console.log(DataFetch().then(data => data.dataError));
 
   return (
     <Box
@@ -100,16 +93,14 @@ const Sidebar = () => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <EditAvatar />
-                {/* <EditAvatar hanndleTest={handleEditData}/> */}
-                  {/* <img
+                  <img
                     alt="profile-user"
                     width="100px"
                     height="100px"
-                    src= {avatarState}
-                    // src={`../../assets/user.png`}
+                    src= {''}
                     style={{ cursor: "pointer", borderRadius: "50%" }}
-                  />          */}
+                  />         
+                    {/* <p>{avatarState1}</p> */}
               </Box>
               <Box textAlign="center">
                 <Typography

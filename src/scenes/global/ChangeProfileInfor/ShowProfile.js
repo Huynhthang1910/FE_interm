@@ -1,45 +1,54 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Box, Typography, useTheme } from "@mui/material";
-import EditProfile from './EditProfile';
+import EditProfile from './EditForm/EditProfile';
+import EditProfileAvatar from './EditForm/EditProfileAvatar';
+import './ShowProfile.css'
+import { tokens } from '../../../theme';
 
 const ShowProfile = () => {
-    console.log('hello');
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
     const [editProfile, setEditProfile] = useState(false);
+    const tokenTaken = sessionStorage.getItem("token");
     const [fetchApis, setFetchApi] = useState([]);
-
     useEffect(() => {
-        // ProfileData().then(data => {
-        //     setFetchApi(data.data || data)
-        // })
-        fetch('https://jsonplaceholder.typicode.com/users/1', {
-            // headers: {
-            //     'Content-Type': 'application/json',
-            //     'Authorization': `Basic ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ7XCJlbXBsb3llZUlkXCI6XCJOVi0yZjljNTRkOS01NTYyLTQxOTctYmNiZS1hZGU1YmM2M2ExM2NcIixcImFjY291bnRSb2xlXCI6XCJNYW5hZ2VyXCJ9IiwiZXhwIjoxNjgxMTE4OTYwfQ.d34YkuW8ZSlXcmmJMjOYn9iO3hu8SRwflDzApbG_MGMeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ7XCJlbXBsb3llZUlkXCI6XCJOVi0yZjljNTRkOS01NTYyLTQxOTctYmNiZS1hZGU1YmM2M2ExM2NcIixcImFjY291bnRSb2xlXCI6XCJNYW5hZ2VyXCJ9IiwiZXhwIjoxNjgxMTE2NzM4fQ.N1XYSCfAuR - BLo - 9WGclW1dUcvo - cwTGWjfpWEKM0wc'}`
-            // }
+        fetch('https://be-intern.onrender.com/api/v2/employee/information', {
+            headers: {
+                Authorization: `Bearer ${tokenTaken}`, // Add the token as a bearer token
+            },
         })
             .then(response => {
+                console.log(response);
                 if (!response.ok) {
-                    throw new Error(`${response.status} ${response.statusText}`);
+                    // throw new Error(`${response.status} ${response.statusText}`);
+                    return
                 }
                 return response.json();
             })
             .then(data => {
-                setFetchApi(data)
+                setFetchApi(data.data)
             })
     }, [editProfile])
+    const updateFetchApis = (data) => {
+        setEditProfile(data);
+    }
+
     return (
-        <Box m="20px">
+        <Box m="20px"
+            style={{
+                backgroundColor: colors.primary[400],
+            }}>
             <div className="profile__cover">
                 <div className="profile__block">
-                    <EditProfile />
+                    <EditProfileAvatar />
                     <div className="profile_desc_block">
                         {
                             Object.keys(fetchApis).map(fetchApi => {
                                 let changeFetchApi = fetchApi
                                 switch (changeFetchApi) {
                                     case "employeeId":
-                                        changeFetchApi = ("ID number");
+                                        changeFetchApi = ("employee number");
                                         break;
                                     case "employeeName":
                                         changeFetchApi = ("name");
@@ -78,7 +87,15 @@ const ShowProfile = () => {
                                         break;
                                 }
                                 return (
-                                    <div className={(changeFetchApi === "null") ? "null" : fetchApi + " " + 'user_profile_title'} key={fetchApi}>
+                                    <div className={
+                                        (changeFetchApi === "null")
+                                            ? "null" : fetchApi + " " + 'user_profile_title'
+                                    }
+                                        key={fetchApi}
+                                        style={{
+                                            backgroundColor: colors.primary[500],
+                                        }}
+                                    >
                                         <div className="title">{changeFetchApi}</div>
                                         <div className="infor">{(typeof fetchApis[fetchApi] !== "object") ? fetchApis[fetchApi] : 0}</div>
                                     </div>
@@ -87,8 +104,14 @@ const ShowProfile = () => {
                         }
                     </div>
                     <div className='profile_edit_btn'>
-                        <button onClick={() => { setEditProfile(!editProfile) }} id="profile__edit-btn">EDIT PROFILE</button>
-                        {editProfile && <EditProfile editProfile={setEditProfile} />}
+                        <button
+                            onClick={() => { setEditProfile(!editProfile) }}
+                            id="profile__edit-btn"
+                            style={{
+                                backgroundColor: colors.blueAccent[700],
+                            }}
+                        >EDIT PROFILE</button>
+                        {editProfile && <EditProfile editProfile={setEditProfile} updateFetchApis={updateFetchApis} />}
                     </div>
                 </div>
             </div>
