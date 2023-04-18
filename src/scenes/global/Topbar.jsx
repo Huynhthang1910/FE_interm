@@ -30,6 +30,7 @@ const Topbar = () => {
   };
 
   return (
+    <>
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
       <Box
@@ -60,19 +61,20 @@ const Topbar = () => {
         </IconButton>
         <IconButton onClick={() => changeStateNav()}>
           <PersonOutlinedIcon />
+          <NavAccount
+            stateNav={stateNav}
+            changeStatePassForm={changeStatePassForm}
+         />
         </IconButton>
       </Box>
-      <NavAccount
-        stateNav={stateNav}
-        changeStatePassForm={changeStatePassForm}
-      />
+      <UpdateInfor/>
       <ChangePassword
         statePw={statePassForm}
         changeStatePassForm={changeStatePassForm}
         changeStateNav={changeStateNav}
       />
-      <UpdateInfor/>
     </Box>
+    </>
   );
 };
 

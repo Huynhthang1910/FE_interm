@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './ChangePassword.scss';
 import UrbanLogo from './UrbanLogo.png';
 const token = sessionStorage.getItem("token");
+// console.log(token)
 
 const ChangePassword = (props) => {
     const [newPass,setPass] = useState();
@@ -25,6 +26,7 @@ const ChangePassword = (props) => {
             "Content-Type": "application/json"
           }
     }
+    // console.log(option.headers)
     // const callAPI = () => {
     // }
     // console.log(callAPI())
