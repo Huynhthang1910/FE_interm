@@ -1,92 +1,96 @@
-import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import ForgotPassword from "./ForgotPassword";
+import {
+  Col,
+  Button,
+  Row,
+  Container,
+  Card,
+  Form,
+  Toast,
+  ToastContainer,
+} from "react-bootstrap";
 import "./Login.scss";
+
+const LOGIN_URL = "https://be-intern.onrender.com/login";
+const DECODE_URL = "https://be-intern.onrender.com/decode";
+const SESSION_TOKEN_KEY = "token";
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("success");
+  const [showToast, setShowToast] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      const decoded = jwt_decode(token);
-      const subStrings = decoded.sub;
-      const jsonSub = JSON.parse(subStrings);
-      const role = jsonSub.accountRole;
-      const employeeId = jsonSub.employeeId;
-      onLogin(role, employeeId);
-      setLoggedIn(true);
-
-      // Kiểm tra token hết hạn
-      axios
-        .post(
-          "https://be-intern.onrender.com/decode",
-          { token },
-          { headers: { Authorization: `Bearer ${token}` } }
-        )
-        .then((response) => {
-          console.log(response);
-          if (response.data.message === "Expired Token") {
-            // Xóa token khỏi session
-            sessionStorage.removeItem("token");
-            // Hiển thị popup thông báo yêu cầu đăng nhập lại
-            alert("Your session has expired. Please Login again.");
-            // Reload the page after the user clicks "OK"
-            window.location.reload();
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [onLogin]);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const reqBody = {
-      email,
-      password,
-    };
-
+  const checkTokenExpiration = async (token) => {
     try {
-      const response = await axios.post(
-        "https://be-intern.onrender.com/login",
-        reqBody
-      );
-
-      const token = response.data.data;
-      const errorFail = response.data.message;
-      if (errorFail === "Login Fail") {
-        alert("Please check Email or Password");
-      } else {
-        const decoded = jwt_decode(token);
-        const subStrings = decoded.sub;
-        const jsonSub = JSON.parse(subStrings);
-        const role = jsonSub.accountRole;
-        const employeeId = jsonSub.employeeId;
-
-        onLogin(role, employeeId);
-        sessionStorage.setItem("token", token);
-        setLoggedIn(true);
+      const response = await axios.post(DECODE_URL, { token });
+      const {
+        data: { message },
+      } = response;
+      if (message === "Expired Token") {
+        sessionStorage.removeItem(SESSION_TOKEN_KEY);
+        setToastType("danger");
+        setToastMessage("Your session has expired. Please Login again.");
+        setShowToast(true);
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleShowForgotPassword = () => {
-    setShowForgotPassword(true);
+  const handleLogin = async (token) => {
+    const decoded = jwt_decode(token);
+    const subStrings = decoded.sub;
+    const jsonSub = JSON.parse(subStrings);
+    const { accountRole: role, employeeId } = jsonSub;
+    onLogin(role, employeeId);
+    sessionStorage.setItem(SESSION_TOKEN_KEY, token);
+    setLoggedIn(true);
   };
 
-  const handleBackToLogin = () => {
-    setShowForgotPassword(false);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true); // set loading to true
+    try {
+      const {
+        data: { data: token, message },
+      } = await axios.post(LOGIN_URL, { email, password });
+      message === "Login Fail"
+        ? setToastMessage("Please check Email or Password")
+        : handleLogin(token);
+      setToastType(message === "Login Fail" ? "danger" : "success");
+      setShowToast(true);
+    } catch (error) {
+      console.log(error);
+      setToastType("danger");
+      setToastMessage("Something went wrong. Please try again later.");
+      setShowToast(true);
+    } finally {
+      setLoading(false); // set loading back to false after response is received
+    }
   };
+
+  const handleShowForgotPassword = () => setShowForgotPassword(true);
+  const handleBackToLogin = () => setShowForgotPassword(false);
+  const hideToastMessage = () => {
+    setShowToast(false);
+  };
+
+  useEffect(() => {
+    const token = sessionStorage.getItem(SESSION_TOKEN_KEY);
+    if (token) {
+      handleLogin(token);
+      checkTokenExpiration(token);
+    }
+  }, []);
 
   return (
     <div id="backgr">
@@ -157,7 +161,12 @@ export default function Login({ onLogin }) {
                             </Form.Group>
                           </Form.Group>
                           <div className="d-grid">
-                            <Button variant="primary" type="submit">
+                            <Button
+                              variant="primary"
+                              type="submit"
+                              disabled={loading}
+                              className={loading ? "disabled" : ""}
+                            >
                               Login
                             </Button>
                           </div>
@@ -169,6 +178,25 @@ export default function Login({ onLogin }) {
               </Card.Body>
             </Card>
           </Col>
+          <ToastContainer className="position end" style={{ bottom: "6rem" }}>
+            <Toast
+              onClose={hideToastMessage}
+              show={showToast}
+              delay={3000}
+              autohide
+              bg={toastType}
+            >
+              <Toast.Body
+                style={{
+                  color: "white",
+                  textAlign: "center",
+                  fontSize: "20px",
+                }}
+              >
+                {toastMessage}
+              </Toast.Body>
+            </Toast>
+          </ToastContainer>
           <Card.Footer>
             <div className="d-flex flex-column flex-md-row justify-content-between py-3 px-3 px-xl-3 bg-primary fixed-bottom">
               <div className="text-white mb-1 mb-md-0 text-center">

@@ -103,20 +103,22 @@ const Contacts = () => {
 
   return (
     <Box m="20px">
-      <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
-      />
-      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button
-          className="btn btn-success me-md-2 me-lg-4"
-          type="button"
-          onClick={onClickAdd}
-        >
-          Add User
-        </button>
-      </div>
-      {showComponent && <CreateAccount onClickAdd={onClickAdd} />}
+      <Box className="contacts">
+        <Header
+          title="CONTACTS"
+          subtitle="List of Contacts for Future Reference"
+        />
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button
+            className="btn btn-success me-md-2 me-lg-4"
+            type="button"
+            onClick={onClickAdd}
+          >
+            Add User
+          </button>
+        </div>
+        {showComponent && <CreateAccount onClickAdd={onClickAdd} />}
+      </Box>
 
       <Box
         className={showComponent ? "ds_none" : null}

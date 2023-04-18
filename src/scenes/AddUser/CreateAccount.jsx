@@ -1,4 +1,12 @@
 import { useState, useEffect } from "react";
+import {
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+  FormControl,
+} from "react-bootstrap";
 import axios from "axios";
 
 const CreateAccount = (props) => {
@@ -22,6 +30,7 @@ const CreateAccount = (props) => {
       .catch((error) => console.error(error));
   }, [token]); // Include the token as a dependency to re-fetch data when the token changes
   const headQuarters = apiTruso;
+  console.log(headQuarters);
 
   // Xử lý API để add người dùng
   const handleSubmit = async (event) => {
@@ -76,118 +85,105 @@ const CreateAccount = (props) => {
 
   //
   return (
-    <>
-      <div className="">
-        <form onSubmit={handleSubmit}>
-          <div className="container">
-            <h1>ADD USER</h1>
-            <p>Please fill in this form to add a user.</p>
-
-            <div className="mb-3 col-6">
-              <label
-                for="exampleFormControlInput1"
-                className="form-label"
-                controlId="formBasicEmail"
-              >
-                Email address
-              </label>
-              <input
-                onChange={handleEmailChange}
-                value={accountEmail}
+    <div>
+      <Container>
+        <h1 className="text-center">ADD USER</h1>
+        <p className="text-center">Please fill in this form to add a user.</p>
+        <Form onSubmit={handleSubmit}>
+          <Row className="mb-3">
+            <Form.Label column sm="2">
+              Email address
+            </Form.Label>
+            <Col sm="10">
+              <Form.Control
                 type="email"
-                className="form-control"
-                id="exampleFormControlInput1"
                 placeholder="name@example.com"
+                value={accountEmail}
+                onChange={handleEmailChange}
                 required
               />
-            </div>
-            <div className="mb-3 col-6">
-              <label for="inputPassword5" className="form-label">
-                Password
-              </label>
-              <input
-                onChange={handlePasswordChange}
-                value={accountPassword}
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Form.Label column sm="2">
+              Password
+            </Form.Label>
+            <Col sm="10">
+              <Form.Control
                 type="password"
                 placeholder="Please type password inside here"
-                id="inputPassword5"
-                className="form-control"
-                aria-labelledby="passwordHelpBlock"
+                value={accountPassword}
+                onChange={handlePasswordChange}
                 required
               />
-            </div>
-            <div className="mb-3 col-6">
-              <label for="select-role" className="form-label">
-                Role
-              </label>
-              <select
-                className="form-select"
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Form.Label column sm="2">
+              Role
+            </Form.Label>
+            <Col sm="10">
+              <Form.Select
                 value={accountRole}
                 onChange={handleRoleChange}
+                required
               >
-                <option selected>Open this select ROLE</option>
+                <option value="">Open this select ROLE</option>
                 <option value="Manager">Manager</option>
                 <option value="Employee">Employee</option>
-              </select>
-            </div>
-            <div className="mb-3 col-6">
-              <label for="select-role" className="form-label">
-                Trụ sở
-              </label>
-              <select
-                className="form-select"
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                Please select a ROLE.
+              </Form.Control.Feedback>
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Form.Label column sm="2">
+              Trụ sở
+            </Form.Label>
+            <Col sm="10">
+              <Form.Select
                 value={headquarterId}
                 onChange={handleHeadQuarterChange}
+                required
               >
-                <option selected>Open this select ROLE</option>
-                {headQuarters.map((item) => (
-                  <option value={item.headquarterId}>
-                    {item.headquarterName}
+                <option value="">Open this select HEADQUARTER</option>
+                {headQuarters.map((headQuarter) => (
+                  <option
+                    key={headQuarter.headquarterId}
+                    value={headQuarter.headquarterId}
+                  >
+                    {headQuarter.headquarterName}
                   </option>
                 ))}
-              </select>
-            </div>
-            <div className="mb-3 col-6">
-              <label for="select-position" className="form-label">
-                Vị trí
-              </label>
-              <select
-                className="form-select"
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {/* Please select a HEADQUARTER. */}
+              </Form.Control.Feedback>
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Form.Label column sm="2">
+              Chức vụ
+            </Form.Label>
+            <Col sm="10">
+              <Form.Control
+                type="text"
+                placeholder="Chức vụ của nhân viên"
                 value={employeePosition}
                 onChange={handlePositionChange}
-              >
-                <option selected>Open this select POSITION</option>
-                <option value="Giám đốc">Giám đốc</option>
-                <option value="Trưởng phòng Marketing">
-                  Trưởng phòng Marketing
-                </option>
-                <option value="Trưởng phòng CNTT">Trưởng phòng CNTT</option>
-              </select>
-            </div>
-
-            <div className="mb-3 col-6">
-              <label for="formFile" className="form-label">
-                Upload image (optional) (Chức năng demo chưa gắn chức năng)
-              </label>
-              <input className="form-control" type="file" id="formFile" />
-            </div>
-
-            <div className="clearfix">
-              <button
-                type="button"
-                className="btn btn-danger btn-lg"
-                onClick={props.onClickAdd}
-              >
-                Cancel
-              </button>
-              <button type="submit" className="btn btn-success btn-lg">
-                Add
-              </button>
-            </div>
+                required
+              />
+            </Col>
+          </Row>
+          <div className="text-center">
+            <Button variant="primary" type="submit">
+              Add user
+            </Button>
           </div>
-        </form>
-      </div>
-    </>
+        </Form>
+      </Container>
+    </div>
   );
 };
 export default CreateAccount;
