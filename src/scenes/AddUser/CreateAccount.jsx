@@ -26,6 +26,9 @@ const CreateAccount = (props) => {
   // Xử lý API để add người dùng
   const handleSubmit = async (event) => {
     event.preventDefault();
+    {
+      console.log(props.lon);
+    }
     try {
       const response = await axios.post(
         "https://be-intern.onrender.com/api/v2/employee/store",
@@ -43,7 +46,7 @@ const CreateAccount = (props) => {
           },
         }
       );
-      console.log(response.data.status);
+
       if (response.data.status === "OK") {
         alert(`Thêm email: ${accountEmail} thành công`);
       } else {
@@ -176,7 +179,7 @@ const CreateAccount = (props) => {
               <button
                 type="button"
                 className="btn btn-danger btn-lg"
-                onClick={props.onClickAdd}
+                onClick={props.onClickAddd}
               >
                 Cancel
               </button>

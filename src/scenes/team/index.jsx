@@ -141,7 +141,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={headqs} columns={columns} />
+        <DataGrid rows={headqs} columns={columns} />
       </Box>
     </Box>
   );
