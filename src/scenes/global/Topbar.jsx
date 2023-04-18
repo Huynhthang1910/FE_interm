@@ -12,7 +12,6 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 
 import NavAccount from "./NavAccount";
-import UpdateInfor from "../UpdateInfor/UpdateInfor";
 import ChangePassword from "./ChangePassword/ChangePassword";
 
 const Topbar = () => {
@@ -67,7 +66,6 @@ const Topbar = () => {
          />
         </IconButton>
       </Box>
-      <UpdateInfor/>
       <ChangePassword
         statePw={statePassForm}
         changeStatePassForm={changeStatePassForm}

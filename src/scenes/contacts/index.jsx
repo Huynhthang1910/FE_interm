@@ -7,6 +7,7 @@ import { useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteButton from "./DeleteButton";
 import CreateAccount from "../AddUser/CreateAccount";
+import UpdateInfor from "./UpdateInfor/UpdateInfor";
 
 const Contacts = () => {
   const theme = useTheme();

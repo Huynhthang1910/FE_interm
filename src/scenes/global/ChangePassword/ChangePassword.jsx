@@ -36,13 +36,12 @@ const ChangePassword = (props) => {
         } else if(newPass !== reNewPass) {
             console.log(newPass,reNewPass);
             alert("Mật khẩu vừa nhập không khớp!");
-            
         } else {
             console.log(payLoad)
             console.log(newPass,reNewPass);
             fetch(url,option)
              .then(res => res.json())
-             .then(data => console.log(data))
+             .then(data => alert(data.message))
              .catch(error => {console.log(error)})
 
             // alert("đổi thành công!");
@@ -51,7 +50,7 @@ const ChangePassword = (props) => {
     if(props.statePw){
         return(
             <div>
-                <div className="ChangePass" onClick={() => props.changeStatePassForm()}></div>
+                <div className="ChangePass_around" onClick={() => props.changeStatePassForm()}></div>
                 <form className="ChangePass__form">
                     <img className="img" src={UrbanLogo} alt="logo"/>
                     <label className="title">Mật khẩu mới:</label>
