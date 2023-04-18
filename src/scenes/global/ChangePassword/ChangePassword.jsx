@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import './ChangePassword.scss';
 import UrbanLogo from './UrbanLogo.png';
-const token = sessionStorage.getItem("token");
-// console.log(token)
 
 const ChangePassword = (props) => {
+    const token = sessionStorage.getItem("token");
+    // console.log(token)
     const [newPass,setPass] = useState();
     const [reNewPass,setReNewPass] = useState();
     const newPassword = (event) => {
