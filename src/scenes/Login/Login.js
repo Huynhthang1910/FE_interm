@@ -178,7 +178,10 @@ export default function Login({ onLogin }) {
               </Card.Body>
             </Card>
           </Col>
-          <ToastContainer className="position end" style={{ bottom: "6rem" }}>
+          <ToastContainer
+            position="end-50"
+            style={{ bottom: "70px", right: "5px" }}
+          >
             <Toast
               onClose={hideToastMessage}
               show={showToast}
