@@ -163,7 +163,7 @@ const Sidebar = ({ ad, userid }) => {
                 <Item
                   title="Headquarters"
                   to="/team"
-                  icon={<PeopleOutlinedIcon />}
+                  icon={<PersonOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
                 />
