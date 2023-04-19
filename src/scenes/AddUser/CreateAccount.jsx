@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Toast } from "react-bootstrap";
 
 const CreateAccount = (props) => {
   const [accountEmail, setAccountEmail] = useState("");
@@ -8,6 +9,10 @@ const CreateAccount = (props) => {
   const [apiTruso, setApiTruso] = useState([]);
   const [headquarterId, setHeadquarterId] = useState("");
   const [employeePosition, setEmployeePosition] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
+  const [errorToast, setErrorToast] = useState("");
+  const [loading, setLoading] = useState(false);
   const token = sessionStorage.getItem("token");
 
   //Xử lý API lấy tên trụ sở
@@ -26,6 +31,7 @@ const CreateAccount = (props) => {
   // Xử lý API để add người dùng
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://be-intern.onrender.com/api/v2/employee/store",
@@ -44,17 +50,24 @@ const CreateAccount = (props) => {
         }
       );
       if (response.data.status === "OK") {
-        alert(`Thêm email: ${accountEmail} thành công`);
+        setShowToast(true);
       } else {
-        alert("Thêm thất bại");
+        setErrorToast("Add employee failed, Please try again!");
+        setShowErrorToast(true);
       }
     } catch (error) {
       console.error(error);
-      alert("Thêm thất bại");
+      setErrorToast("Something wnet wrong, Please try again!");
+      setShowErrorToast(true);
+    } finally {
+      setLoading(false); // set loading back to false after response is received
     }
   };
 
   //
+  const handleDismiss = () => {
+    setShowToast(false);
+  };
   const handleEmailChange = (event) => {
     setAccountEmail(event.target.value);
   };
@@ -114,7 +127,7 @@ const CreateAccount = (props) => {
               />
             </div>
             <div className="mb-3 col-6">
-              <label for="select-role" className="form-label">
+              <label htmlFor="select-role" className="form-label">
                 Role
               </label>
               <select
@@ -130,8 +143,8 @@ const CreateAccount = (props) => {
               <div className="invalid-feedback">Chọn đi thằng lol</div>
             </div>
             <div className="mb-3 col-6">
-              <label for="select-role" className="form-label">
-                Trụ sở
+              <label htmlFor="select-role" className="form-label">
+                Head Quarter
               </label>
               <select
                 className="form-select"
@@ -141,15 +154,15 @@ const CreateAccount = (props) => {
               >
                 <option value="">Open this select ROLE</option>
                 {headQuarters.map((item) => (
-                  <option value={item.headquarterId}>
+                  <option key={item.headquarterId} value={item.headquarterId}>
                     {item.headquarterName}
                   </option>
                 ))}
               </select>
             </div>
             <div className="mb-3 col-6">
-              <label for="select-position" className="form-label">
-                Vị trí
+              <label htmlFor="select-position" className="form-label">
+                Position
               </label>
               <select
                 className="form-select"
@@ -174,12 +187,52 @@ const CreateAccount = (props) => {
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-success btn-lg">
+              <button
+                type="submit"
+                className={`btn btn-success btn-lg ${
+                  loading ? `disable` : null
+                }`}
+                disabled={loading}
+              >
                 Add
               </button>
             </div>
           </div>
         </form>
+        <Toast
+          show={showToast}
+          onClose={handleDismiss}
+          delay={3000}
+          autohide
+          className="bg-success text-white"
+          style={{
+            position: "absolute",
+            top: 70,
+            right: 20,
+          }}
+        >
+          <Toast.Header>
+            <strong className="mr-auto">Create Epmloyee</strong>
+          </Toast.Header>
+          <Toast.Body>Add email: {accountEmail} successful 😊</Toast.Body>
+        </Toast>
+        <Toast
+          show={showErrorToast}
+          onClose={() => setShowErrorToast(false)}
+          delay={3000}
+          autohide
+          className="bg-danger text-white"
+          style={{
+            position: "absolute",
+            top: 70,
+            right: 20,
+          }}
+        >
+          <Toast.Header>
+            <strong className="mr-auto">Error</strong>
+          </Toast.Header>
+          <Toast.Body>{errorToast}</Toast.Body>
+        </Toast>
       </div>
     </>
   );

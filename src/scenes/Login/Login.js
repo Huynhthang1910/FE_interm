@@ -47,13 +47,13 @@ export default function Login({ onLogin }) {
   };
 
   const handleLogin = async (token) => {
+    setLoggedIn(true);
     const decoded = jwt_decode(token);
     const subStrings = decoded.sub;
     const jsonSub = JSON.parse(subStrings);
     const { accountRole: role, employeeId } = jsonSub;
     onLogin(role, employeeId);
     sessionStorage.setItem(SESSION_TOKEN_KEY, token);
-    setLoggedIn(true);
   };
 
   const handleSubmit = async (event) => {
