@@ -43,6 +43,7 @@ const ChangePassword = (props) => {
              .then(res => res.json())
              .then(data => alert(data.message))
              .catch(error => {console.log(error)})
+            props.changeStatePassForm()
 
             // alert("đổi thành công!");
         }
@@ -50,7 +51,7 @@ const ChangePassword = (props) => {
     if(props.statePw){
         return(
             <div>
-                <div className="ChangePass_around" onClick={() => {props.changeStatePassForm(); props.changeStateNav();}}></div>
+                <div className="ChangePass_around" onClick={() => {props.changeStatePassForm()}}></div>
                 <form className="ChangePass__form">
                     <img className="img" src={UrbanLogo} alt="logo"/>
                     <label className="title">Mật khẩu mới:</label>

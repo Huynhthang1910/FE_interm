@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteButton from "./DeleteButton";
+import UpdateInfor from "./UpdateInfor/UpdateInfor"
 import "./Viewusers.scss";
 
 const Viewuser = (props) => {

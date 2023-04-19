@@ -13,7 +13,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 
 import NavAccount from "./NavAccount";
-import UpdateInfor from "../UpdateInfor/UpdateInfor";
 import ChangePassword from "./ChangePassword/ChangePassword";
 // import ShowProfile from "./ChangeProfileInfor/ShowProfile";
 
@@ -66,7 +65,6 @@ const Topbar = () => {
           <NavAccount
         stateNav={stateNav}
         changeStatePassForm={changeStatePassForm}
-        changeStateNav={changeStateNav}
       />
         </IconButton>
       </Box>

@@ -1,22 +1,20 @@
 import "./UpdateInfor.scss"
 import { useState } from "react";
 const UpdateInfor = (props) => {
+    const token = sessionStorage.getItem("token");
     const [InforUser,setInforUser] = useState(props.InforUser);
-    // const [Id,headquarterId] = useState(InforUser.headquarterId);
-    // const [Name,employeeName] = useState(InforUser.employeeName);
-    // const [Phone,employeePhone] = useState(InforUser.employeePhone);
-    // const [Address,employeeAddress] = useState(InforUser.employeeAddress);
-    // const [Gender,employeeGender] = useState(InforUser.employeeGender);
-    // const [Position,employeePosition] = useState(InforUser.employeePosition);
-    // const [Salary,employeeSalary] = useState(InforUser.employeeSalary);
     const sendNewUserInfor = () => {
         console.log(InforUser);
-        let url = 'http://be-intern.onrender.com/api/v1/employee/NV-6ac91ec9-03ff-4da6-a04a-583a3fa17bce/update';
+        let url = `https://be-intern.onrender.com/api/v2/employee/${InforUser.employeeId}/update`;
+        let payLoad = InforUser;
         let option = {
             method: 'PUT',
-            body: JSON.stringify(InforUser)
+            body: JSON.stringify(payLoad),
+            'headers': {
+                Authorization: `Bearer ${token}`, // Add the token as a bearer token
+                "Content-Type": "application/json"
+              }
         }
-        // let payload = InforUser;
         const callAPI = () => {
             fetch(url,option)
             .then(res => alert(res.massage))
