@@ -188,7 +188,7 @@ const Sidebar = ({ ad, userid }) => {
 
             <Item
               title="Schedule Employee"
-              to="/ScheduleEmp"
+              to="/SchedulerEmp"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
