@@ -3,7 +3,7 @@ import Viewuser from "./Viewusers";
 import CreateAccount from "../AddUser/CreateAccount";
 
 const Contacts = () => {
-  const [showComponent, setShowComponent] = useState(false);
+  const [showComponent, setShowComponent] = useState(true);
   const onClickAdd = () => {
     // Gọi MyComponent khi nút được nhấn
     setShowComponent(!showComponent);
