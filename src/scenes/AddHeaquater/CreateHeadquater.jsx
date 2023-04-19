@@ -86,18 +86,16 @@ const CreateHeadquater = (props) => {
                 className="form-control"
                 aria-labelledby="passwordHelpBlock"
                 required
-              />
-            </div>
-
-            <div className="clearfix">
+              />{" "}
               <button
                 type="button"
                 className="btn btn-danger btn-lg"
+                id="cancel"
                 onClick={props.onClickAddd}
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-success btn-lg">
+              <button type="submit" className="btn btn-success btn-lg" id="add">
                 Add
               </button>
             </div>

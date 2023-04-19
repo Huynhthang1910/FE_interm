@@ -174,20 +174,20 @@ const CreateAccount = (props) => {
                 Upload image (optional) (demo)
               </label>
               <input className="form-control" type="file" id="formFile" />
-            </div>
-
-            <div className="clearfix">
               <button
                 type="button"
                 className="btn btn-danger btn-lg"
+                id="cancel"
                 onClick={props.onClickAddd}
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-success btn-lg">
+              <button type="submit" className="btn btn-success btn-lg" id="add">
                 Add
               </button>
             </div>
+
+            <div className="clearfix"></div>
           </div>
         </form>
       </div>
