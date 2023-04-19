@@ -83,7 +83,7 @@ const CreateAccount = (props) => {
       <div className="">
         <form onSubmit={handleSubmit}>
           <div className="container" id="formmm">
-            <h1>ADD USER</h1>
+            <h1>ADD EMPLOYEE</h1>
             <p>Please fill in this form to add a employee.</p>
 
             <div className="mb-3 col-6">
