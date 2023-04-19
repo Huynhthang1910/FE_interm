@@ -91,6 +91,7 @@ const Viewuser = (props) => {
       renderCell: (params) => (
         <>
           <DeleteButton api={params.row.employeeId} resetView={handleSearch1} />
+          <UpdateInfor InforUser={params.row} ></UpdateInfor>
         </>
       ),
     },
