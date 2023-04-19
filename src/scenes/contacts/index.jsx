@@ -1,12 +1,13 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
+
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteButton from "./DeleteButton";
 import CreateAccount from "../AddUser/CreateAccount";
+import UpdateInfor from "./UpdateInfor/UpdateInfor";
 
 const Contacts = () => {
   const theme = useTheme();
@@ -50,9 +51,10 @@ const Contacts = () => {
       return resetUserId(filteredUsers);
     });
   };
-  const onClickAdd = () => {
+  const onClickAdd = (row) => {
     // Gọi MyComponent khi nút được nhấn
-    setShowComponent(!showComponent);
+    // setShowComponent(!showComponent);
+    console.log(row)
   };
 
   const columns = [
@@ -96,6 +98,7 @@ const Contacts = () => {
       renderCell: (params) => (
         <>
           <DeleteButton api={params.row.employeeId} resetView={handleSearch1} />
+          <UpdateInfor InforUser={params.row}></UpdateInfor>
         </>
       ),
     },
@@ -103,20 +106,22 @@ const Contacts = () => {
 
   return (
     <Box m="20px">
-      <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
-      />
-      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button
-          className="btn btn-success me-md-2 me-lg-4"
-          type="button"
-          onClick={onClickAdd}
-        >
-          Add User
-        </button>
-      </div>
-      {showComponent && <CreateAccount onClickAdd={onClickAdd} />}
+      <Box className="contacts">
+        <Header
+          title="CONTACTS"
+          subtitle="List of Contacts for Future Reference"
+        />
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button
+            className="btn btn-success me-md-2 me-lg-4"
+            type="button"
+            onClick={onClickAdd}
+          >
+            Add User
+          </button>
+        </div>
+        {showComponent && <CreateAccount onClickAdd={onClickAdd} />}
+      </Box>
 
       <Box
         className={showComponent ? "ds_none" : null}
@@ -152,7 +157,6 @@ const Contacts = () => {
         }}
       >
         {console.log(users)}
-        {console.log(mockDataContacts)}
 
         <DataGrid
           rows={users}
