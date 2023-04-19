@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteButton from "./DeleteButton";
-import UpdateInfor from "./UpdateInfor/UpdateInfor"
+import UpdateInfor from "./UpdateInfor/UpdateInfor";
 import "./Viewusers.scss";
 
 const Viewuser = (props) => {
@@ -91,7 +91,16 @@ const Viewuser = (props) => {
       renderCell: (params) => (
         <>
           <DeleteButton api={params.row.employeeId} resetView={handleSearch1} />
-          <UpdateInfor InforUser={params.row} ></UpdateInfor>
+        </>
+      ),
+    },
+    {
+      field: "update",
+      headerName: "Actions",
+      width: 100,
+      renderCell: (params) => (
+        <>
+          <UpdateInfor InforUser={params.row}></UpdateInfor>
         </>
       ),
     },

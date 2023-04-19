@@ -167,7 +167,7 @@ const Sidebar = ({ ad, userid }) => {
             >
               Pages
             </Typography> */}
-            {isAdmin === true ? (
+            {user.accountRole === "Manager" ? (
               <>
                 <Item
                   title="Headquarters"
