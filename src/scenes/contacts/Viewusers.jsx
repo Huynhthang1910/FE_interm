@@ -52,22 +52,25 @@ const Viewuser = (props) => {
 
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
-    { field: "employeeId", headerName: "Employee Id" },
+    {
+      field: "employeeId",
+      headerName: "Employee Id",
+      cellClassName: "name-column--cell",
+    },
     {
       field: "employeeName",
       headerName: "Name",
       flex: 1,
-      cellClassName: "name-column--cell",
     },
     {
       field: "employeePhone",
       headerName: "Phone",
       flex: 1,
-      cellClassName: "name-column--cell",
     },
     {
       field: "accountEmail",
       headerName: "Email",
+      cellClassName: "name-column--cell",
       flex: 1,
     },
     {
@@ -79,7 +82,6 @@ const Viewuser = (props) => {
       field: "employeePosition",
       headerName: "Position",
       flex: 1,
-      cellClassName: "name-column--cell",
     },
     {
       field: "delete",

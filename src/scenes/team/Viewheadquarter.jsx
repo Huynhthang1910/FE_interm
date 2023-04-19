@@ -4,7 +4,7 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import React, { useState, useEffect } from "react";
 import DeleteButtonhead from "./DeleteButtonhead";
-import "./Viewheadquarter.scss"
+import "./Viewheadquarter.scss";
 
 const Viewheadquarter = (props) => {
   const theme = useTheme();
