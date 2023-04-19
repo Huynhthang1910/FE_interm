@@ -13,18 +13,46 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import NavAccount from "./NavAccount";
 import ChangePassword from "./ChangePassword/ChangePassword";
+import { useEffect, useRef } from "react";
 // import ShowProfile from "./ChangeProfileInfor/ShowProfile";
 
 const Topbar = () => {
+  const navRef = useRef(null);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-
   const [stateNav, setNav] = useState(false);
   const [statePassForm, setForm] = useState(false);
   const changeStateNav = () => {
     setNav(!stateNav);
   };
+
+  useEffect(() => {
+    // Add event listener to listen for clicks outside the component
+    console.log(navRef);
+    const handleOutsideClick = (event) => {
+        if (
+            navRef.current && 
+            !navRef.current.contains(event.target) 
+        ) {
+            setNav(false); 
+        }
+        console.log(!navRef.current.contains(event.target));
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    const handleScroll = () => {
+        setNav(false);
+    };
+    document.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+        document.removeEventListener("mousedown", handleOutsideClick);
+        window.removeEventListener("scroll", handleScroll);
+        navRef.current.removeEventListener("scroll", handleScroll);
+      };
+}, [stateNav]);
+
   const changeStatePassForm = () => {
     setForm(!statePassForm);
   };
@@ -58,25 +86,22 @@ const Topbar = () => {
         </IconButton>
         <IconButton>
           <SettingsOutlinedIcon />
-        </IconButton> */}
-          <IconButton onClick={() => changeStateNav()}>
-            <PersonOutlinedIcon />
-            <NavAccount
-              stateNav={stateNav}
-              changeStatePassForm={changeStatePassForm}
-            />
-          </IconButton>
-        </Box>
-        {/* <ShowProfile >
-        <Link to={"/profile"} />
-      </ShowProfile> */}
-      </Box>
+        </IconButton>
+        <IconButton onClick={() => changeStateNav()}>
+          <PersonOutlinedIcon />
+        </IconButton>
+      <NavAccount
+        navRef={navRef}
+        stateNav={stateNav}
+        changeStatePassForm={changeStatePassForm}
+      />
       <ChangePassword
         statePw={statePassForm}
         changeStatePassForm={changeStatePassForm}
         changeStateNav={changeStateNav}
       />
-    </>
+      </Box>
+    </Box>
   );
 };
 
