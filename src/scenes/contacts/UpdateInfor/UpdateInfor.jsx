@@ -13,13 +13,13 @@ const UpdateInfor = (props) => {
         let sendInfor = {
             "headquarterId": InforUser.headquarterId,
             "employeeName": InforUser.employeeName[0],
-            "employeePhone": InforUser.employeePhone[0],
+            "employeePhone": String(InforUser.employeePhone[0]),
             "employeeAddress": InforUser.employeeAddress[0],
             "employeeGender": InforUser.employeeGender[0],
             "employeePosition": InforUser.employeePosition,
-            "employeeSalary": InforUser.employeeSalary[0]
+            "employeeSalary": String(InforUser.employeeSalary[0])
         }
-        // console.log(sendInfor)
+        // console.log("sendInfor",sendInfor)
         let option = {
             method: 'PUT',
             body: JSON.stringify(sendInfor),
@@ -29,7 +29,7 @@ const UpdateInfor = (props) => {
               }
         }
         fetch(url,option)
-            .then(res => res.json())
+            .then(res => console.log(res.json()))
             .then(data => alert(data.message))
             .catch(error => {console.log(error)})
         }
@@ -65,7 +65,7 @@ const UpdateInfor = (props) => {
                             <label className="changeInfor__form__title">EmployeePhone</label>
                             <input 
                                 name="employeePhone"
-                                className="box" type="text" 
+                                className="box" type="number" 
                                 value={InforUser.employeePhone}
                                 onChange={(event) => {handelChangeinforJson(event)}}/>
                             <label className="changeInfor__form__title">EmployeeAddress</label>
@@ -105,7 +105,7 @@ const UpdateInfor = (props) => {
                             <input 
                                 name="employeeSalary"
                                 className="box" 
-                                type="text" 
+                                type="number" 
                                 value={InforUser.employeeSalary}
                                 onChange={(event) => {handelChangeinforJson(event)}}/>
                             <button 
