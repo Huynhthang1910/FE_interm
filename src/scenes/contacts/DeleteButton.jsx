@@ -7,6 +7,7 @@ function DeleteButton({ api, resetView }) {
   useEffect(() => {
     resetView(id);
     if (id !== null) {
+      console.log(id)
       fetch(
         `https://be-intern.onrender.com/api/v2/employee/${id}/delete`,
 
