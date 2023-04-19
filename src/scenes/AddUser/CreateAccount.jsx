@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Toast } from "react-bootstrap";
-
+import "./Createacount.scss";
 const CreateAccount = (props) => {
   const [accountEmail, setAccountEmail] = useState("");
   const [accountPassword, setAccountPassword] = useState("");
@@ -89,9 +88,9 @@ const CreateAccount = (props) => {
     <>
       <div className="">
         <form onSubmit={handleSubmit}>
-          <div className="container">
-            <h1>ADD USER</h1>
-            <p>Please fill in this form to add a user.</p>
+          <div className="container" id="formmm">
+            <h1>ADD EMPLOYEE</h1>
+            <p>Please fill in this form to add a employee.</p>
 
             <div className="mb-3 col-6">
               <label
@@ -170,20 +169,26 @@ const CreateAccount = (props) => {
                 onChange={handlePositionChange}
                 required
               >
-                <option value="">Open this select POSITION</option>
-                <option value="Giám đốc">Giám đốc</option>
-                <option value="Trưởng phòng Marketing">
-                  Trưởng phòng Marketing
-                </option>
-                <option value="Trưởng phòng CNTT">Trưởng phòng CNTT</option>
+                <option selected>Open this select POSITION</option>
+                <option value="Giám đốc">CEO</option>
+                <option value="Trưởng phòng Marketing">Manager</option>
+                <option value="Trưởng phòng CNTT">Director</option>
+                <option value="Trưởng phòng CNTT">Deputy</option>
+                <option value="Trưởng phòng CNTT">Department manager</option>
+                <option value="Trưởng phòng CNTT">Employee</option>
               </select>
             </div>
 
-            <div className="clearfix">
+            <div className="mb-3 col-6">
+              <label for="formFile" className="form-label">
+                Upload image (optional) (demo)
+              </label>
+              <input className="form-control" type="file" id="formFile" />
               <button
                 type="button"
                 className="btn btn-danger btn-lg"
-                onClick={props.onClickAdd}
+                id="cancel"
+                onClick={props.onClickAddd}
               >
                 Cancel
               </button>
@@ -197,6 +202,8 @@ const CreateAccount = (props) => {
                 Add
               </button>
             </div>
+
+            <div className="clearfix"></div>
           </div>
         </form>
         <Toast
