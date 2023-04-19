@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
+import { Button } from 'react-bootstrap';
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
@@ -13,7 +14,12 @@ const Viewuser = (props) => {
   const colors = tokens(theme.palette.mode);
   const [users, setUsers] = useState([]);
   const token = sessionStorage.getItem("token");
+  const [InforUser, setInforUser] = useState('');
 
+  const handleSetInforUser = (row) => {
+    setInforUser(row)
+  }
+  
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -36,6 +42,7 @@ const Viewuser = (props) => {
     fetchData();
   }, [token]);
   const resetUserId = (heads) => {
+    // console.log("show nè>>>>",users);
     return heads.map((head, index) => {
       return {
         ...head,
@@ -50,6 +57,17 @@ const Viewuser = (props) => {
       return resetUserId(filteredUsers);
     });
   };
+
+  const show = () => {
+    window.location.reload();
+    // let id = newInfor.employeeId;
+    // console.log("infor mới nè>>>>",newInfor)
+    // setUsers((prevUsers) => {
+    //   const resetUsers = prevUsers.filter((item) => item.employeeId !== id);
+    //   return ({...resetUsers,[Object.keys(users).pop()+1]:newInfor});
+    // });
+    // resetUserId(users);
+  }
 
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
@@ -100,13 +118,17 @@ const Viewuser = (props) => {
       width: 100,
       renderCell: (params) => (
         <>
-          <UpdateInfor InforUser={params.row}></UpdateInfor>
+          <Button 
+            variant="primary"
+            type="button" 
+            onClick={() => {handleSetInforUser(params.row)}}>CHANGE</Button>
         </>
       ),
     },
   ];
 
   return (
+    <>
     <Box m="20px">
       <Header title="EMPLOYEES" />
       <div
@@ -154,7 +176,7 @@ const Viewuser = (props) => {
             },
           }}
         >
-          {console.log(users)}
+          {/* {console.log(users)} */}
           <DataGrid
             rows={users}
             columns={columns}
@@ -163,6 +185,11 @@ const Viewuser = (props) => {
         </Box>
       </>
     </Box>
+    {InforUser && <UpdateInfor
+       InforUser={InforUser} 
+       handleSetInforUser={handleSetInforUser}
+       show={show}></UpdateInfor>}
+    </>
   );
 };
 
