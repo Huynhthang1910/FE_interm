@@ -13,13 +13,13 @@ const UpdateInfor = (props) => {
         let sendInfor = {
             "headquarterId": InforUser.headquarterId,
             "employeeName": InforUser.employeeName[0],
-            "employeePhone": String(InforUser.employeePhone[0]),
-            "employeeAddress": InforUser.employeeAddress[0],
+            "employeePhone": String(InforUser.employeePhone),
+            "employeeAddress": InforUser.employeeAddress,
             "employeeGender": InforUser.employeeGender[0],
             "employeePosition": InforUser.employeePosition,
-            "employeeSalary": String(InforUser.employeeSalary[0])
+            "employeeSalary": String(InforUser.employeeSalary)
         }
-        // console.log("sendInfor",sendInfor)
+        console.log("sendInfor",sendInfor)
         let option = {
             method: 'PUT',
             body: JSON.stringify(sendInfor),
@@ -37,8 +37,8 @@ const UpdateInfor = (props) => {
         const target = event.target;
         const nameKey = target.name;
         const value = event.target.value;
-        // console.log(nameKey)
-        // console.log(event.target.value)
+        console.log(nameKey)
+        console.log(event.target.value)
         // [nameKey]([value])
         // console.log(Name)
         setInforUser({...InforUser, [nameKey]:([value])})
