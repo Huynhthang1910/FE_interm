@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./CreateHeadquater.scss";
 
 const CreateHeadquater = (props) => {
   const [headquarterAddress, setHeadquarterAddress] = useState("");
@@ -50,7 +51,7 @@ const CreateHeadquater = (props) => {
     <>
       <div className="">
         <form onSubmit={handleSubmit}>
-          <div className="container">
+          <div className="container" id="formmm">
             <h1>ADD HEADQUATER</h1>
             <p>Please fill in this form to add a headquater.</p>
 
@@ -92,7 +93,7 @@ const CreateHeadquater = (props) => {
               <button
                 type="button"
                 className="btn btn-danger btn-lg"
-                onClick={props.onClickAdd}
+                onClick={props.onClickAddd}
               >
                 Cancel
               </button>

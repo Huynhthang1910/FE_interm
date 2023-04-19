@@ -95,10 +95,7 @@ const Viewuser = (props) => {
 
   return (
     <Box m="20px">
-      <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
-      />
+      <Header title="EMPLOYEES" />
       <div
         className="d-grid gap-2 d-md-flex justify-content-md-end"
         id="Addbuton"

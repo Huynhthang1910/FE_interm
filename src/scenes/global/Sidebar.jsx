@@ -170,21 +170,21 @@ const Sidebar = ({ ad, userid }) => {
             {isAdmin === true ? (
               <>
                 <Item
-                  title="Headquarter"
+                  title="Headquarters"
                   to="/team"
                   icon={<PeopleOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
                 />
                 <Item
-                  title="Contacts Information"
+                  title="Employees"
                   to="/contacts"
                   icon={<ContactsOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
                 />
                 <Item
-                  title="Admin Calendar"
+                  title="Schedule Manager"
                   to="/Calendar_admin"
                   icon={<PersonOutlinedIcon />}
                   selected={selected}
