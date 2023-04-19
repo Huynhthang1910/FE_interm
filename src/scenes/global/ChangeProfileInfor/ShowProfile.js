@@ -5,33 +5,27 @@ import EditProfile from './EditForm/EditProfile';
 import EditProfileAvatar from './EditForm/EditProfileAvatar';
 import './ShowProfile.css'
 import { tokens } from '../../../theme';
+import Placeholder from 'react-bootstrap/Placeholder'
 
 const ShowProfile = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [editProfile, setEditProfile] = useState(false);
     const tokenTaken = sessionStorage.getItem("token");
-    const [fetchApis, setFetchApi] = useState([]);
+    const [fetchProfileApi, setProfileApi] = useState([]);
+    const [hiddenEditForm, setHiddenEditForm] = useState(false);
+    const [info, setFetchInfo] = useState(false)
+
     useEffect(() => {
         fetch('https://be-intern.onrender.com/api/v2/employee/information', {
             headers: {
-                Authorization: `Bearer ${tokenTaken}`, // Add the token as a bearer token
+                Authorization: `Bearer ${tokenTaken}`,
             },
         })
-            .then(response => {
-                if (!response.ok) {
-                    // throw new Error(`${response.status} ${response.statusText}`);
-                    return
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                setFetchApi(data.data)
+                setProfileApi(data.data)
             })
-    }, [editProfile])
-    const updateFetchApis = (data) => {
-        setEditProfile(data);
-    }
+    }, [info])
 
     return (
         <Box m="20px"
@@ -43,7 +37,7 @@ const ShowProfile = () => {
                     <EditProfileAvatar />
                     <div className="profile_desc_block">
                         {
-                            Object.keys(fetchApis).map(fetchApi => {
+                            Object.keys(fetchProfileApi).map(fetchApi => {
                                 let changeFetchApi = fetchApi
                                 switch (changeFetchApi) {
                                     case "employeeId":
@@ -96,21 +90,21 @@ const ShowProfile = () => {
                                         }}
                                     >
                                         <div className="title">{changeFetchApi}</div>
-                                        <div className="infor">{(typeof fetchApis[fetchApi] !== "object") ? fetchApis[fetchApi] : 0}</div>
+                                        <div className="infor">{(typeof fetchProfileApi[fetchApi] !== "object") ? fetchProfileApi[fetchApi] : 0}</div>
                                     </div>
                                 )
                             })
                         }
                     </div>
                     <div className='profile_edit_btn'>
-                        <button
-                            onClick={() => { setEditProfile(!editProfile) }}
+                        <button bg="primary"
+                            onClick={() => { setHiddenEditForm(!hiddenEditForm) }}
                             id="profile__edit-btn"
-                            style={{
-                                backgroundColor: colors.blueAccent[700],
-                            }}
+                        // style={{
+                        //     backgroundColor: colors.blueAccent[700],
+                        // }}
                         >EDIT PROFILE</button>
-                        {editProfile && <EditProfile editProfile={setEditProfile} updateFetchApis={updateFetchApis} />}
+                        {hiddenEditForm && <EditProfile setFetchInfo={setFetchInfo} hiddenEditForm={setHiddenEditForm} />}
                     </div>
                 </div>
             </div>
