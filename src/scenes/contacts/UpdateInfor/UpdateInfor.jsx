@@ -8,7 +8,7 @@ const UpdateInfor = (props) => {
     const [InforUser,setInforUser] = useState(props.InforUser);
     const [showForm, setShowForm] = useState(false)
     const sendNewUserInfor = () => {
-        console.log(InforUser);
+        // console.log(InforUser);
         let url = `https://be-intern.onrender.com/api/v2/employee/${InforUser.employeeId}/update`;
         let sendInfor = {
             "headquarterId": InforUser.headquarterId,
@@ -19,7 +19,7 @@ const UpdateInfor = (props) => {
             "employeePosition": InforUser.employeePosition,
             "employeeSalary": InforUser.employeeSalary[0]
         }
-        console.log(sendInfor)
+        // console.log(sendInfor)
         let option = {
             method: 'PUT',
             body: JSON.stringify(sendInfor),
@@ -29,14 +29,15 @@ const UpdateInfor = (props) => {
               }
         }
         fetch(url,option)
-            .then(res => console.log("res đây:", res.json()))
+            .then(res => res.json())
+            .then(data => alert(data.message))
             .catch(error => {console.log(error)})
         }
     const handelChangeinforJson = (event) => {
         const target = event.target;
         const nameKey = target.name;
         const value = event.target.value;
-        console.log(nameKey)
+        // console.log(nameKey)
         // console.log(event.target.value)
         // [nameKey]([value])
         // console.log(Name)
@@ -48,7 +49,7 @@ const UpdateInfor = (props) => {
 
         return(
             <>
-                <button variant="primary" onClick={()=>{handleShowForm()}}>CHANGE</button>
+                <Button variant="primary" onClick={()=>{handleShowForm()}}>CHANGE</Button>
                 {showForm && 
                     <>  
                         <div className="changeInfor" onClick={()=>{handleShowForm()}}></div>
