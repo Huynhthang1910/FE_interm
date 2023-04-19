@@ -67,6 +67,7 @@ const Topbar = () => {
       <NavAccount
         stateNav={stateNav}
         changeStatePassForm={changeStatePassForm}
+        changeStateNav={changeStateNav}
       />
       <ChangePassword
         statePw={statePassForm}

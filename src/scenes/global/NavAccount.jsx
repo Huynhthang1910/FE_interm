@@ -17,7 +17,7 @@ const NavAccount = (props) => {
                 <Link
                     to={"/profile"}
                     className="acccount__Profile div" 
-                    onClick={() => {      
+                    onClick={() => {  
                         <ShowProfile >
                         </ShowProfile>
                     }}>
