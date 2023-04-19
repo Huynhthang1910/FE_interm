@@ -53,8 +53,8 @@ const Contacts = () => {
   };
   const onClickAdd = (row) => {
     // Gọi MyComponent khi nút được nhấn
-    // setShowComponent(!showComponent);
-    console.log(row)
+    setShowComponent(!showComponent);
+    console.log(row);
   };
 
   const columns = [
@@ -98,7 +98,7 @@ const Contacts = () => {
       renderCell: (params) => (
         <>
           <DeleteButton api={params.row.employeeId} resetView={handleSearch1} />
-          <UpdateInfor InforUser={params.row}></UpdateInfor>
+          <UpdateInfor api={params.row.employeeId}></UpdateInfor>
         </>
       ),
     },

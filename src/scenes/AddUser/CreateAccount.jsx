@@ -140,7 +140,6 @@ const CreateAccount = (props) => {
                 <option value="Manager">Manager</option>
                 <option value="Employee">Employee</option>
               </select>
-              <div className="invalid-feedback">Chọn đi thằng lol</div>
             </div>
             <div className="mb-3 col-6">
               <label htmlFor="select-role" className="form-label">
