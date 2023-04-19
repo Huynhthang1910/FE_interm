@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-
-import Scheduler, { Resource, View, Scrolling } from 'devextreme-react/scheduler';
-
-import {
-  resources,
-  data,
-  generateAppointments,
-  priorityData
-} from '../../data/data';
-
-
-
+import Scheduler, { Resource, View} from 'devextreme-react/scheduler';
+import 'devextreme/dist/css/dx.light.css';
 const currentDate = new Date();
-
 const groups = ['TruSo'];
-
-
-
-// const appointments = generateAppointments(startDay, endDay, startDayHour, endDayHour);
-
-function SchedulerAdmin() {
+function SchedulerAdmin( ) {
+    const onAppointmentFormOpening = (e) => {
+      e.form.itemOption("startDate", "readOnly", true);
+      e.form.itemOption("endDate", "readOnly", true);
+      e.form.itemOption("text", "readOnly", true);
+    };
   // lấy ra thông tin trụ sở
   const [headquarterNames, setHeadquarterNames] = useState([])
   useEffect(()=>{
@@ -34,7 +23,7 @@ function SchedulerAdmin() {
         .then((response)=>{
           const headquarterNames = response.data.data.map((headquarter)=>({
             id: headquarter.headquarterName,
-            text: headquarter.headquarterName
+            text: headquarter.headquarterName,
           }));
           setHeadquarterNames(headquarterNames);
           console.log(headquarterNames);
@@ -43,9 +32,6 @@ function SchedulerAdmin() {
           console.log(error);
       });
   },[])
-
-
-
 
   const [tasksAll,setTasksAll] = useState([])
   const [employeeNames, setEmployeeNames] = useState([])
@@ -61,10 +47,12 @@ function SchedulerAdmin() {
         .then((response) => {
             console.log(response.data.data);
             const employeeNames = response.data.data.map((attendee) =>({
-              id: attendee.attendees,
-              text : attendee.attendees
+              id: attendee.employeeName,
+              text : attendee.employeeName,
+              color: attendee.workScheduleColor
             }))
             setEmployeeNames(employeeNames)
+            console.log(employeeNames);
             const tasksAll = response.data.data.map((task) => ({
                 id: task.workScheduleId,
                 text: task.workSchedulePlace,
@@ -72,7 +60,7 @@ function SchedulerAdmin() {
                 endDate: task.workScheduleTimeOut,
                 description: task.workSchedulePlan,
                 TruSo: task.headquarterName,
-                attendees: task.employeeName,
+                NhanVien: task.employeeName,
                 allDay: false,
                 recurrenceRule: null,
             }));
@@ -85,7 +73,7 @@ function SchedulerAdmin() {
         });
 }, []);
   return (
-    <div className='Scheduler'>
+    <div className='Scheduler-admin'>
     <Scheduler
         timeZone="Asia/Ho_Chi_Minh"
         dataSource={tasksAll}
@@ -96,10 +84,21 @@ function SchedulerAdmin() {
         endDayHour={18}
         dateSerializationFormat="yyyy-MM-ddTHH:mm:ss.ssZ"
         crossScrollingEnabled={true}
-        showAllDayPanel={true}>
+        onAppointmentUpdated={false}
+        adaptivityEnabled={true}
+        onAppointmentFormOpening={onAppointmentFormOpening}
+        editing={false}
+        >
         <View
           name="Vertical Grouping"
           type="workWeek"
+          groupOrientation="vertical"
+          cellDuration={30}
+          intervalCount={1}
+        />
+        <View
+          name="Month"
+          type="month"
           groupOrientation="vertical"
           cellDuration={30}
           intervalCount={1}
@@ -115,6 +114,13 @@ function SchedulerAdmin() {
           allowMultiple={false}
           dataSource={headquarterNames}
           label="Trụ sở"
+        />
+        <Resource
+          fieldExpr="NhanVien"
+          allowMultiple={false}
+          dataSource={employeeNames}
+          label="Nhân viên "
+          useColorAsDefault= {true}
         />
       </Scheduler>
     </div>
