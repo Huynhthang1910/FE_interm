@@ -24,6 +24,7 @@ const ShowProfile = () => {
             .then(response => response.json())
             .then(data => {
                 setProfileApi(data.data)
+                console.log(data.data);
             })
     }, [info])
 
