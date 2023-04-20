@@ -3,9 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Contacts from "./scenes/contacts";
-import SchedulerEmp from "./scenes/ScheduleEmp/ScheduleEmp";
+import Calendar from "./scenes/calendar/calendar";
 import CalendarAdmin from "./scenes/admin";
-import Team from "./scenes/team/";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import ShowProfile from "./scenes/global/ChangeProfileInfor/ShowProfile";
@@ -48,11 +47,10 @@ export default function App() {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
-              <Route path="/" element={<SchedulerEmp />} />
+              <Route path="/" element={<Calendar />} />
               <Route path="/contacts" element={<Contacts />} />
-              <Route path="/SchedulerEmp" element={<SchedulerEmp />} />
+              <Route path="/calendar" element={<Calendar />} />
               <Route path="/Calendar_admin" element={<CalendarAdmin />} />
-              <Route path="/team" element={<Team />} />
             </Routes>
           </main>
         </div>

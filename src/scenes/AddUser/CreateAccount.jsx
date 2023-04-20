@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Toast } from "react-bootstrap";
 import "./Createacount.scss";
 const CreateAccount = (props) => {
   const [accountEmail, setAccountEmail] = useState("");
