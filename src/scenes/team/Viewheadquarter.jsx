@@ -2,8 +2,10 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
+import UpdateHeadquarter from "./UpdateHeadquarter/UpdateHeadquarter"
 import React, { useState, useEffect } from "react";
 import DeleteButtonhead from "./DeleteButtonhead";
+import { Button } from 'react-bootstrap';
 import "./Viewheadquarter.scss";
 
 const Viewheadquarter = (props) => {
@@ -11,6 +13,13 @@ const Viewheadquarter = (props) => {
   const colors = tokens(theme.palette.mode);
   const token = sessionStorage.getItem("token");
   const [headqs, setHeadqs] = useState([]);
+  const [inforHeadquarter, setInforHeadquarter] = useState();
+  const handleSetInforHeadquarter = (row) => {
+    setInforHeadquarter(row);
+  }
+  const resetWindows = () => {
+    window.location.reload();
+  }
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -83,9 +92,26 @@ const Viewheadquarter = (props) => {
         </>
       ),
     },
+    {
+      field: "update",
+      headerName: "Actions",
+      width: 100,
+      renderCell: (params) => (
+        <>
+          <>
+          <Button 
+            variant="primary"
+            type="button" 
+            onClick={() => {handleSetInforHeadquarter(params.row)}}
+            >CHANGE</Button>
+          </>
+        </>
+      ),
+    },
   ];
 
   return (
+    <>
     <Box m="20px">
       <Header title="HEADQUARTERS" />
 
@@ -134,6 +160,13 @@ const Viewheadquarter = (props) => {
         <DataGrid rows={headqs} columns={columns} autoHeight={true} />
       </Box>
     </Box>
+    {inforHeadquarter && 
+      <UpdateHeadquarter
+      inforHeadquarter={inforHeadquarter}
+      handleSetInforHeadquarter={handleSetInforHeadquarter}
+      resetWindows={resetWindows}
+      />}
+    </>
   );
 };
 

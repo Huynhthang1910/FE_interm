@@ -109,6 +109,15 @@ const Viewuser = (props) => {
       renderCell: (params) => (
         <>
           <DeleteButton api={params.row.employeeId} resetView={handleSearch1} />
+        </>
+      ),
+    },
+    {
+      field: "update",
+      headerName: "Actions",
+      width: 100,
+      renderCell: (params) => (
+        <>
           <Button
             variant="primary"
             type="button"
