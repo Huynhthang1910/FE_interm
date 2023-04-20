@@ -10,26 +10,55 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { Link } from "react-router-dom";
 
 import NavAccount from "./NavAccount";
 import ChangePassword from "./ChangePassword/ChangePassword";
+import { useEffect, useRef } from "react";
+// import ShowProfile from "./ChangeProfileInfor/ShowProfile";
 
 const Topbar = () => {
+  const navRef = useRef(null);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-
   const [stateNav, setNav] = useState(false);
   const [statePassForm, setForm] = useState(false);
   const changeStateNav = () => {
     setNav(!stateNav);
   };
+
+  useEffect(() => {
+    // Add event listener to listen for clicks outside the component
+    console.log(navRef);
+    const handleOutsideClick = (event) => {
+        if (
+            navRef.current && 
+            !navRef.current.contains(event.target) 
+        ) {
+            setNav(false); 
+        }
+        console.log(!navRef.current.contains(event.target));
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    const handleScroll = () => {
+        setNav(false);
+    };
+    document.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+        document.removeEventListener("mousedown", handleOutsideClick);
+        window.removeEventListener("scroll", handleScroll);
+        navRef.current.removeEventListener("scroll", handleScroll);
+      };
+}, [stateNav]);
+
   const changeStatePassForm = () => {
     setForm(!statePassForm);
   };
 
   return (
-    <>
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
       <Box
@@ -37,10 +66,6 @@ const Topbar = () => {
         backgroundColor={colors.primary[400]}
         borderRadius="3px"
       >
-        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
-        <IconButton type="button" sx={{ p: 1 }}>
-          <SearchIcon />
-        </IconButton>
       </Box>
 
       {/* ICONS */}
@@ -60,19 +85,19 @@ const Topbar = () => {
         </IconButton>
         <IconButton onClick={() => changeStateNav()}>
           <PersonOutlinedIcon />
-          <NavAccount
-            stateNav={stateNav}
-            changeStatePassForm={changeStatePassForm}
-         />
         </IconButton>
-      </Box>
+      <NavAccount
+        navRef={navRef}
+        stateNav={stateNav}
+        changeStatePassForm={changeStatePassForm}
+      />
       <ChangePassword
         statePw={statePassForm}
         changeStatePassForm={changeStatePassForm}
         changeStateNav={changeStateNav}
       />
+      </Box>
     </Box>
-    </>
   );
 };
 

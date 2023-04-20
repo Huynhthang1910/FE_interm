@@ -8,18 +8,27 @@
      background-color: rgb(31,42,64);
     padding: 5px;
     border: 2px;
+    border-radius: 3px;
     .div{
-        width: 120px;
+        min-width: 120px;
+        padding: 5px 12px;
         text-align: right;
-        border-radius: 2px red solid;
-        font-size: 0.7em;
-        
+        border-radius: 5px;
+        font-size: 0.66em;
+        cursor: pointer;
+        &:hover {
+            background-color: #2E7C67;
+        }
+        &:nth-child(2n):hover {
+            background-color: #198754;
+        }
         .logOutBtn{
             text-decoration: none;
             color: white;
         }
-        &:hover{
-            background-color: rgb(3, 122, 49);
-        }
     }
-}
+    &:hover {
+      background-color: rgb(3, 122, 49);
+    }
+  }
+

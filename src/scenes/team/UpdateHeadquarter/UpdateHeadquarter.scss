@@ -1,14 +1,14 @@
-.ChangePass_around {
+.form_around{
     position: fixed;
      top: 0;
      left: 0;
-    z-index: 88888;
-    background-color: gray;
-    opacity: 0.5;
+     z-index: 88888;
     height: 100vh;
     width: 100vw;
+    background-color: rgb(39, 74, 143);
+    opacity: 0.2;
 }
-.ChangePass__form {
+.form_headquarter{
     display: block;
     background-color: rgb(62,67,150);
     position: fixed;
@@ -22,7 +22,7 @@
     border-radius: 5px;
     box-shadow: 0 0 10px 5px rgb(31,42,64);
     opacity: 1;
-    .img {
+    &__img {
         // border: 2px red solid;
         margin-top: -100px;
         margin-bottom: -70px;
@@ -30,13 +30,13 @@
         display: block;
         transform: scale(0.85);
     }
-    .title {
+    &__title{
         display: inline-block;
         margin-left: 5px;
         margin-top: 2px;
         font-size: 1.15em;
     }
-    .box {
+    &__input{
         border: 2px rgb(35, 80, 170) solid;
         display: inline-block;
         width: 100%;
@@ -50,7 +50,7 @@
             background-color: rgb(235, 235, 235);
         }
     }
-    .btn-changePass {
+    &__btn{
         background-color: rgb(13,110,253);
         border: none;
         margin: 30px 10px;

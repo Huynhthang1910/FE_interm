@@ -39,17 +39,54 @@ const Sidebar = ({ ad, userid }) => {
   const [selected, setSelected] = useState("Calendar");
   const [user, setUser] = useState([]);
   const token = sessionStorage.getItem("token");
+  const [imgReF, setImgRef] = useState("");
 
+  // 
   useEffect(() => {
-    fetch("https://be-intern.onrender.com/api/v2/employee/information", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((datas) => setUser(datas.data))
-      .catch((error) => console.error(error));
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://be-intern.onrender.com/api/v2/employee/information", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const datas = await response.json();
+        setUser(datas.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
   }, [token]);
+  
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      if (user) {
+        try {
+          const response = await fetch(`https://be-intern.onrender.com/api/v2/employee/avatar/${user.employeeId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
+          }
+          const data = await response.arrayBuffer();
+          const imgSrc = URL.createObjectURL(new Blob([data], { type: "image/jpeg" }));
+          console.log(imgSrc);
+          console.log("Success FETCH: ", imgSrc);
+          setImgRef(imgSrc);
+        } catch (error) {
+          console.error("Error FETCH: ", error);
+        }
+      }
+    };
+    fetchAvatar();
+    return () => {
+      URL.revokeObjectURL(imgReF);
+    };
+  }, [token, user]);
+  
 
   return (
     <Box
@@ -98,15 +135,15 @@ const Sidebar = ({ ad, userid }) => {
               </Box>
             )}
           </MenuItem>
-
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
+                {/* <EditAvatar hanndleTest={handleEditData}/> */}
                 <img
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={user.employeeAvatar}
+                  src={imgReF}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -142,13 +179,6 @@ const Sidebar = ({ ad, userid }) => {
             >
               Data
             </Typography> */}
-            {/* <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
 
             {/* <Item
               title="Invoices Balances"
@@ -168,14 +198,21 @@ const Sidebar = ({ ad, userid }) => {
             {user.accountRole === "Manager" ? (
               <>
                 <Item
-                  title="Contacts Information"
+                  title="Headquarters"
+                  to="/team"
+                  icon={<PersonOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+                <Item
+                  title="Employees"
                   to="/contacts"
                   icon={<ContactsOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
                 />
                 <Item
-                  title="Admin Calendar"
+                  title="Schedule Manager"
                   to="/Calendar_admin"
                   icon={<PersonOutlinedIcon />}
                   selected={selected}
@@ -187,8 +224,8 @@ const Sidebar = ({ ad, userid }) => {
             )}
 
             <Item
-              title="Calendar"
-              to="/calendar"
+              title="Schedule Employee"
+              to="/SchedulerEmp"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
