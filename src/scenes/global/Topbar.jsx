@@ -13,7 +13,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 
 import NavAccount from "./NavAccount";
-import UpdateInfor from "../UpdateInfor/UpdateInfor";
 import ChangePassword from "./ChangePassword/ChangePassword";
 import { useEffect, useRef } from "react";
 // import ShowProfile from "./ChangeProfileInfor/ShowProfile";
@@ -67,10 +66,6 @@ const Topbar = () => {
         backgroundColor={colors.primary[400]}
         borderRadius="3px"
       >
-        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
-        <IconButton type="button" sx={{ p: 1 }}>
-          <SearchIcon />
-        </IconButton>
       </Box>
 
       {/* ICONS */}

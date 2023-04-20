@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { Toast } from "react-bootstrap";
+import "./Createacount.scss";
 const CreateAccount = (props) => {
   const [accountEmail, setAccountEmail] = useState("");
   const [accountPassword, setAccountPassword] = useState("");
@@ -8,6 +9,10 @@ const CreateAccount = (props) => {
   const [apiTruso, setApiTruso] = useState([]);
   const [headquarterId, setHeadquarterId] = useState("");
   const [employeePosition, setEmployeePosition] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
+  const [errorToast, setErrorToast] = useState("");
+  const [loading, setLoading] = useState(false);
   const token = sessionStorage.getItem("token");
 
   //Xử lý API lấy tên trụ sở
@@ -26,6 +31,7 @@ const CreateAccount = (props) => {
   // Xử lý API để add người dùng
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://be-intern.onrender.com/api/v2/employee/store",
@@ -43,19 +49,25 @@ const CreateAccount = (props) => {
           },
         }
       );
-      console.log(response.data.status);
       if (response.data.status === "OK") {
-        alert(`Thêm email: ${accountEmail} thành công`);
+        setShowToast(true);
       } else {
-        alert("Thêm thất bại");
+        setErrorToast("Add employee failed, Please try again!");
+        setShowErrorToast(true);
       }
     } catch (error) {
       console.error(error);
-      alert("Thêm thất bại");
+      setErrorToast("Something wnet wrong, Please try again!");
+      setShowErrorToast(true);
+    } finally {
+      setLoading(false); // set loading back to false after response is received
     }
   };
 
   //
+  const handleDismiss = () => {
+    setShowToast(false);
+  };
   const handleEmailChange = (event) => {
     setAccountEmail(event.target.value);
   };
@@ -73,15 +85,13 @@ const CreateAccount = (props) => {
   const handlePositionChange = (event) => {
     setEmployeePosition(event.target.value);
   };
-
-  //
   return (
     <>
       <div className="">
         <form onSubmit={handleSubmit}>
-          <div className="container">
-            <h1>ADD USER</h1>
-            <p>Please fill in this form to add a user.</p>
+          <div className="container" id="formmm">
+            <h1>ADD EMPLOYEE</h1>
+            <p>Please fill in this form to add a employee.</p>
 
             <div className="mb-3 col-6">
               <label
@@ -117,75 +127,120 @@ const CreateAccount = (props) => {
               />
             </div>
             <div className="mb-3 col-6">
-              <label for="select-role" className="form-label">
+              <label htmlFor="select-role" className="form-label">
                 Role
               </label>
               <select
                 className="form-select"
                 value={accountRole}
                 onChange={handleRoleChange}
+                required
               >
-                <option selected>Open this select ROLE</option>
+                <option value="">Open this select ROLE</option>
                 <option value="Manager">Manager</option>
                 <option value="Employee">Employee</option>
               </select>
+              <div className="invalid-feedback">Chọn đi thằng lol</div>
             </div>
             <div className="mb-3 col-6">
-              <label for="select-role" className="form-label">
-                Trụ sở
+              <label htmlFor="select-role" className="form-label">
+                Head Quarter
               </label>
               <select
                 className="form-select"
                 value={headquarterId}
                 onChange={handleHeadQuarterChange}
+                required
               >
-                <option selected>Open this select ROLE</option>
+                <option value="">Open this select ROLE</option>
                 {headQuarters.map((item) => (
-                  <option value={item.headquarterId}>
+                  <option key={item.headquarterId} value={item.headquarterId}>
                     {item.headquarterName}
                   </option>
                 ))}
               </select>
             </div>
             <div className="mb-3 col-6">
-              <label for="select-position" className="form-label">
-                Vị trí
+              <label htmlFor="select-position" className="form-label">
+                Position
               </label>
               <select
                 className="form-select"
                 value={employeePosition}
                 onChange={handlePositionChange}
+                required
               >
                 <option selected>Open this select POSITION</option>
-                <option value="Giám đốc">Giám đốc</option>
-                <option value="Trưởng phòng Marketing">
-                  Trưởng phòng Marketing
-                </option>
-                <option value="Trưởng phòng CNTT">Trưởng phòng CNTT</option>
+                <option value="Giám đốc">CEO</option>
+                <option value="Trưởng phòng Marketing">Manager</option>
+                <option value="Trưởng phòng CNTT">Director</option>
+                <option value="Trưởng phòng CNTT">Deputy</option>
+                <option value="Trưởng phòng CNTT">Department manager</option>
+                <option value="Trưởng phòng CNTT">Employee</option>
               </select>
             </div>
 
             <div className="mb-3 col-6">
               <label for="formFile" className="form-label">
-                Upload image (optional) (Chức năng demo chưa gắn chức năng)
+                Upload image (optional) (demo)
               </label>
               <input className="form-control" type="file" id="formFile" />
-            </div>
-
-            <div className="clearfix">
               <button
                 type="button"
                 className="btn btn-danger btn-lg"
-                onClick={props.onClickAdd}
+                id="cancel"
+                onClick={props.onClickAddd}
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-success btn-lg">
+              <button
+                type="submit"
+                className={`btn btn-success btn-lg ${
+                  loading ? `disable` : null
+                }`}
+                disabled={loading}
+              >
                 Add
               </button>
             </div>
+
+            <div className="clearfix"></div>
           </div>
         </form>
+        <Toast
+          show={showToast}
+          onClose={handleDismiss}
+          delay={3000}
+          autohide
+          className="bg-success text-white"
+          style={{
+            position: "absolute",
+            top: 70,
+            right: 20,
+          }}
+        >
+          <Toast.Header>
+            <strong className="mr-auto">Create Epmloyee</strong>
+          </Toast.Header>
+          <Toast.Body>Add email: {accountEmail} successful 😊</Toast.Body>
+        </Toast>
+        <Toast
+          show={showErrorToast}
+          onClose={() => setShowErrorToast(false)}
+          delay={3000}
+          autohide
+          className="bg-danger text-white"
+          style={{
+            position: "absolute",
+            top: 70,
+            right: 20,
+          }}
+        >
+          <Toast.Header>
+            <strong className="mr-auto">Error</strong>
+          </Toast.Header>
+          <Toast.Body>{errorToast}</Toast.Body>
+        </Toast>
       </div>
     </>
   );
