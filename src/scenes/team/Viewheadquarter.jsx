@@ -131,7 +131,7 @@ const Viewheadquarter = (props) => {
           },
         }}
       >
-        <DataGrid rows={headqs} columns={columns} />
+        <DataGrid rows={headqs} columns={columns} autoHeight={true} />
       </Box>
     </Box>
   );
