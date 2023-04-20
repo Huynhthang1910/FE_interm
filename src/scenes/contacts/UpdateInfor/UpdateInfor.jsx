@@ -152,8 +152,9 @@ const UpdateInfor = (props) => {
                         }}
                     >
                         <option value="">Select Position</option>
+                        <option value="personnel">Personnel</option>
+                        <option value="Head Department">Head Department</option>
                         <option value="Manager">Manager</option>
-                        <option value="Employee">Employee</option>
                         <option value="CEO">CEO</option>
                     </select>
                     </div>
