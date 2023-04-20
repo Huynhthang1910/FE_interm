@@ -4,20 +4,13 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
+
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import ChangeAvatar from "./ChangeProfileInfor/EditForm/EditProfileAvatar/ChangeAvatar";
-// import { DataFetch } from "../../data/FetchData";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -46,19 +39,54 @@ const Sidebar = ({ ad, userid }) => {
   const [selected, setSelected] = useState("Calendar");
   const [user, setUser] = useState([]);
   const token = sessionStorage.getItem("token");
-  const isAdmin = ad;
-  const employeeId = userid;
+  const [imgReF, setImgRef] = useState("");
 
+  // 
   useEffect(() => {
-    fetch("https://be-intern.onrender.com/api/v2/employee/information", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((datas) => setUser(datas.data))
-      .catch((error) => console.error(error));
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://be-intern.onrender.com/api/v2/employee/information", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const datas = await response.json();
+        setUser(datas.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
   }, [token]);
+  
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      if (user) {
+        try {
+          const response = await fetch(`https://be-intern.onrender.com/api/v2/employee/avatar/${user.employeeId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
+          }
+          const data = await response.arrayBuffer();
+          const imgSrc = URL.createObjectURL(new Blob([data], { type: "image/jpeg" }));
+          console.log(imgSrc);
+          console.log("Success FETCH: ", imgSrc);
+          setImgRef(imgSrc);
+        } catch (error) {
+          console.error("Error FETCH: ", error);
+        }
+      }
+    };
+    fetchAvatar();
+    return () => {
+      URL.revokeObjectURL(imgReF);
+    };
+  }, [token, user]);
+  
 
   return (
     <Box
@@ -110,16 +138,14 @@ const Sidebar = ({ ad, userid }) => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                
                 {/* <EditAvatar hanndleTest={handleEditData}/> */}
-                  {/* <img
-                    alt="profile-user"
-                    width="100px"
-                    height="100px"
-                    src= {avatarState}
-                    // src={`../../assets/user.png`}
-                    style={{ cursor: "pointer", borderRadius: "50%" }}
-                  />          */}
+                <img
+                  alt="profile-user"
+                  width="100px"
+                  height="100px"
+                  src={imgReF}
+                  style={{ cursor: "pointer", borderRadius: "50%" }}
+                />
               </Box>
               <Box textAlign="center">
                 <Typography
@@ -153,13 +179,6 @@ const Sidebar = ({ ad, userid }) => {
             >
               Data
             </Typography> */}
-            {/* <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
 
             {/* <Item
               title="Invoices Balances"
@@ -176,17 +195,24 @@ const Sidebar = ({ ad, userid }) => {
             >
               Pages
             </Typography> */}
-            {isAdmin === true ? (
+            {user.accountRole === "Manager" ? (
               <>
                 <Item
-                  title="Contacts Information"
+                  title="Headquarters"
+                  to="/team"
+                  icon={<PersonOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+                <Item
+                  title="Employees"
                   to="/contacts"
                   icon={<ContactsOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
                 />
                 <Item
-                  title="Admin Calendar"
+                  title="Schedule Manager"
                   to="/Calendar_admin"
                   icon={<PersonOutlinedIcon />}
                   selected={selected}
@@ -199,7 +225,7 @@ const Sidebar = ({ ad, userid }) => {
 
             <Item
               title="Schedule Employee"
-              to="/ScheduleEmp"
+              to="/SchedulerEmp"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

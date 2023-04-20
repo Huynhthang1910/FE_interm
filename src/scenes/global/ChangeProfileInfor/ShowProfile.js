@@ -103,7 +103,7 @@ const ShowProfile = () => {
                         // style={{
                         //     backgroundColor: colors.blueAccent[700],
                         // }}
-                        >EDIT PROFILE </button>
+                        >EDIT PROFILE</button>
                         {hiddenEditForm && <EditProfile setFetchInfo={setFetchInfo} hiddenEditForm={setHiddenEditForm} />}
                     </div>
                 </div>
