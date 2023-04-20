@@ -156,8 +156,6 @@ const Contacts = () => {
           },
         }}
       >
-        {console.log(users)}
-
         <DataGrid
           rows={users}
           columns={columns}
