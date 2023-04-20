@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import ForgotPassword from "./ForgotPassword";
 import {
   Col,
@@ -13,12 +12,14 @@ import {
   ToastContainer,
 } from "react-bootstrap";
 import "./Login.scss";
+import { AuthContext } from "../../Hook/AuthContext";
+import { useTokenExpirationCheck } from "../../Hook/TokenExpirationCheck";
 
 const LOGIN_URL = "https://be-intern.onrender.com/login";
-const DECODE_URL = "https://be-intern.onrender.com/decode";
 const SESSION_TOKEN_KEY = "token";
 
 export default function Login({ onLogin }) {
+  const { setAuthenticated } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
@@ -28,32 +29,11 @@ export default function Login({ onLogin }) {
   const [showToast, setShowToast] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const checkTokenExpiration = async (token) => {
-    try {
-      const response = await axios.post(DECODE_URL, { token });
-      const {
-        data: { message },
-      } = response;
-      if (message === "Expired Token") {
-        sessionStorage.removeItem(SESSION_TOKEN_KEY);
-        setToastType("danger");
-        setToastMessage("Your session has expired. Please Login again.");
-        setShowToast(true);
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleLogin = async (token) => {
     setLoggedIn(true);
-    const decoded = jwt_decode(token);
-    const subStrings = decoded.sub;
-    const jsonSub = JSON.parse(subStrings);
-    const { accountRole: role, employeeId } = jsonSub;
-    onLogin(role, employeeId);
     sessionStorage.setItem(SESSION_TOKEN_KEY, token);
+    onLogin();
+    setAuthenticated(true);
   };
 
   const handleSubmit = async (event) => {
@@ -84,13 +64,7 @@ export default function Login({ onLogin }) {
     setShowToast(false);
   };
 
-  useEffect(() => {
-    const token = sessionStorage.getItem(SESSION_TOKEN_KEY);
-    if (token) {
-      handleLogin(token);
-      checkTokenExpiration(token);
-    }
-  }, []);
+  useTokenExpirationCheck();
 
   return (
     <div id="backgr">

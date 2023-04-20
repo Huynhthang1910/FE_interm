@@ -8,22 +8,25 @@ import CalendarAdmin from "./scenes/admin";
 import Team from "./scenes/team/";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import ShowProfile from "./scenes/global/ChangeProfileInfor/ShowProfile";
 import Login from "./scenes/Login/Login";
+import { AuthProvider } from "./Hook/AuthContext";
 
 export default function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [displayShow, setDisplayShow] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
     const token = sessionStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
+      setDisplayShow(false);
     }
     setIsLoading(false);
+    setDisplayShow(true);
   }, []);
 
   if (isLoading) {
@@ -32,11 +35,13 @@ export default function App() {
 
   if (!isLoggedIn) {
     return (
-      <Login
-        onLogin={() => {
-          setIsLoggedIn(true);
-        }}
-      />
+      displayShow && (
+        <Login
+          onLogin={() => {
+            setIsLoggedIn(true);
+          }}
+        />
+      )
     );
   }
   return (
@@ -44,17 +49,19 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar isSidebar={isSidebar} />
-          <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
-            <Routes>
-              <Route path="/" element={<SchedulerEmp />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/SchedulerEmp" element={<SchedulerEmp />} />
-              <Route path="/Calendar_admin" element={<CalendarAdmin />} />
-              <Route path="/team" element={<Team />} />
-            </Routes>
-          </main>
+          <AuthProvider>
+            <Sidebar isSidebar={isSidebar} />
+            <main className="content">
+              <Topbar setIsSidebar={setIsSidebar} />
+              <Routes>
+                <Route path="/" element={<SchedulerEmp />} />
+                <Route path="/contacts" element={<Contacts />} />
+                <Route path="/SchedulerEmp" element={<SchedulerEmp />} />
+                <Route path="/Calendar_admin" element={<CalendarAdmin />} />
+                <Route path="/team" element={<Team />} />
+              </Routes>
+            </main>
+          </AuthProvider>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
