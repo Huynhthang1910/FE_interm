@@ -13,9 +13,10 @@ const NavAccount = (props) => {
     const navChildRef = useRef(null);
     useEffect(() => {
         props.navRef.current = navChildRef.current;
+        console.log(navChildRef);
     }, []);
         return (
-          <div className="account__cover" ref={navChildRef}>
+          <div ref={navChildRef}>
             {props.stateNav && (
               <div className="account">
                 <div
