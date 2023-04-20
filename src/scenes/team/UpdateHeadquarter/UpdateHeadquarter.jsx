@@ -16,7 +16,7 @@ const UpdateHeadquarter = (props) => {
         setInfor({...inforHeadquarter,[keyName]:[value]})
     }
     const callAPI = () => {
-        if(String(inforHeadquarter.headquarterName)== "" || String(inforHeadquarter.headquarterAddress) == "") {
+        if(String(inforHeadquarter.headquarterName)=== "" || String(inforHeadquarter.headquarterAddress) === "") {
             alert("Something is null! please check it again!")
         }else{
             let url = `https://be-intern.onrender.com/api/v2/headquarter/${inforHeadquarter.headquarterId}/update`
@@ -35,7 +35,7 @@ const UpdateHeadquarter = (props) => {
             fetch(url, option)
                 .then((res) => res.json())
                 .then((data) => {
-                    if(data.message == "Cập Nhật Thành Công"){
+                    if(data.message === "Cập Nhật Thành Công"){
                         alert('Success! Please click "OK" to reload data!')
                         props.resetWindows()
                     } else{

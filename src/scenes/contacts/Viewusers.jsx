@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { Button } from 'react-bootstrap';
+import { Button } from "react-bootstrap";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
@@ -14,12 +14,12 @@ const Viewuser = (props) => {
   const colors = tokens(theme.palette.mode);
   const [users, setUsers] = useState([]);
   const token = sessionStorage.getItem("token");
-  const [InforUser, setInforUser] = useState('');
+  const [InforUser, setInforUser] = useState("");
 
   const handleSetInforUser = (row) => {
-    setInforUser(row)
-  }
-  
+    setInforUser(row);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -67,7 +67,7 @@ const Viewuser = (props) => {
     //   return ({...resetUsers,[Object.keys(users).pop()+1]:newInfor});
     // });
     // resetUserId(users);
-  }
+  };
 
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
@@ -118,10 +118,15 @@ const Viewuser = (props) => {
       width: 100,
       renderCell: (params) => (
         <>
-          <Button 
+          <Button
             variant="primary"
-            type="button" 
-            onClick={() => {handleSetInforUser(params.row)}}>CHANGE</Button>
+            type="button"
+            onClick={() => {
+              handleSetInforUser(params.row);
+            }}
+          >
+            CHANGE
+          </Button>
         </>
       ),
     },
@@ -129,66 +134,69 @@ const Viewuser = (props) => {
 
   return (
     <>
-    <Box m="20px">
-      <Header title="EMPLOYEES" />
-      <div
-        className="d-grid gap-2 d-md-flex justify-content-md-end"
-        id="Addbuton"
-      >
-        <button
-          className="btn btn-success me-md-2 me-lg-4"
-          type="button"
-          onClick={props.onClickAddd}
+      <Box m="20px">
+        <Header title="EMPLOYEES" />
+        <div
+          className="d-grid gap-2 d-md-flex justify-content-md-end"
+          id="Addbuton"
         >
-          Add User
-        </button>
-      </div>
-      <>
-        <Box
-          m="40px 0 0 0"
-          height="75vh"
-          sx={{
-            "& .MuiDataGrid-root": {
-              border: "none",
-            },
-            "& .MuiDataGrid-cell": {
-              borderBottom: "none",
-            },
-            "& .name-column--cell": {
-              color: colors.greenAccent[300],
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: colors.blueAccent[700],
-              borderBottom: "none",
-            },
-            "& .MuiDataGrid-virtualScroller": {
-              backgroundColor: colors.primary[400],
-            },
-            "& .MuiDataGrid-footerContainer": {
-              borderTop: "none",
-              backgroundColor: colors.blueAccent[700],
-            },
-            "& .MuiCheckbox-root": {
-              color: `${colors.greenAccent[200]} !important`,
-            },
-            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-              color: `${colors.grey[100]} !important`,
-            },
-          }}
-        >
-          {/* {console.log(users)} */}
-          <DataGrid
-            rows={users}
-            columns={columns}
-            components={{ Toolbar: GridToolbar }}
-          />
-        </Box>
-      </>
-    </Box>
-    {InforUser && <UpdateInfor
-       InforUser={InforUser} 
-       handleSetInforUser={handleSetInforUser}
-       show={show}></UpdateInfor>}
+          <button
+            className="btn btn-success me-md-2 me-lg-4"
+            type="button"
+            onClick={props.onClickAddd}
+          >
+            Add User
+          </button>
+        </div>
+        <>
+          <Box
+            m="40px 0 0 0"
+            height="75vh"
+            sx={{
+              "& .MuiDataGrid-root": {
+                border: "none",
+              },
+              "& .MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+              "& .name-column--cell": {
+                color: colors.greenAccent[300],
+              },
+              "& .MuiDataGrid-columnHeaders": {
+                backgroundColor: colors.blueAccent[700],
+                borderBottom: "none",
+              },
+              "& .MuiDataGrid-virtualScroller": {
+                backgroundColor: colors.primary[400],
+              },
+              "& .MuiDataGrid-footerContainer": {
+                borderTop: "none",
+                backgroundColor: colors.blueAccent[700],
+              },
+              "& .MuiCheckbox-root": {
+                color: `${colors.greenAccent[200]} !important`,
+              },
+              "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                color: `${colors.grey[100]} !important`,
+              },
+            }}
+          >
+            {/* {console.log(users)} */}
+            <DataGrid
+              rows={users}
+              columns={columns}
+              components={{ Toolbar: GridToolbar }}
+            />
+          </Box>
+        </>
+      </Box>
+      {InforUser && (
+        <UpdateInfor
+          InforUser={InforUser}
+          handleSetInforUser={handleSetInforUser}
+          show={show}
+        ></UpdateInfor>
+      )}
     </>
   );
 };
