@@ -1,8 +1,10 @@
+import { colors } from "@mui/material";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import "./DeleteButtonhead.scss";
 
-function DeleteButton({ api, resetView }) {
+function DeleteButtonhead({ api, resetView }) {
   const [id, setId] = useState(null);
   const token = sessionStorage.getItem("token");
   const [show, setShow] = useState(false);
@@ -10,10 +12,9 @@ function DeleteButton({ api, resetView }) {
   const handleShow = () => setShow(true);
   useEffect(() => {
     resetView(id);
-    handleClose();
     if (id !== null) {
       fetch(
-        `https://be-intern.onrender.com/api/v2/employee/${id}/delete`,
+        `https://be-intern.onrender.com/api/v2/headquarter/${id}/delete`,
 
         {
           headers: {
@@ -24,9 +25,9 @@ function DeleteButton({ api, resetView }) {
       )
         .then((response) => {
           if (response.message === "Xóa Thất Bại") {
-            alert("Deletion failed");
+            alert("HONG ỔN RỒI HUY ƠI");
           } else {
-            alert("Successfully deleted !!!");
+            alert("THÀNH CÔNG RỒI HUY ƠI");
           }
         })
         .catch((error) => {
@@ -46,7 +47,7 @@ function DeleteButton({ api, resetView }) {
             <Modal.Title>Confirm</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Are you sure you want to delete this employee?
+            Are you sure you want to delete this headquarter?
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -62,4 +63,4 @@ function DeleteButton({ api, resetView }) {
   );
 }
 
-export default DeleteButton;
+export default DeleteButtonhead;
