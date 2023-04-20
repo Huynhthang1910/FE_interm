@@ -50,6 +50,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<SchedulerEmp />} />
               <Route path="/contacts" element={<Contacts />} />
+              <Route path="/profile" element={<ShowProfile />} />
               <Route path="/SchedulerEmp" element={<SchedulerEmp />} />
               <Route path="/Calendar_admin" element={<CalendarAdmin />} />
               <Route path="/team" element={<Team />} />

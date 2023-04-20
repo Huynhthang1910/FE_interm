@@ -16,7 +16,7 @@ const NavAccount = (props) => {
         console.log(navChildRef);
     }, []);
         return (
-          <div ref={navChildRef}>
+          <div className="account__cover" ref={navChildRef}>
             {props.stateNav && (
               <div className="account">
                 <div
@@ -48,6 +48,6 @@ const NavAccount = (props) => {
               </div>
             )}
           </div>
-        );    
+        );
 }
 export default NavAccount;

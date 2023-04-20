@@ -114,9 +114,9 @@
 	background-color: var(--main-bg);
 }
 
-/* .null {
+.null {
 	display: none;
-} */
+}
 
 .edit__bt {
 	cursor: pointer;
