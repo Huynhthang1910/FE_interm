@@ -65,8 +65,12 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
                 return response.arrayBuffer();
             })
             .then(data => {
-                const imgSrc = URL.createObjectURL(new Blob([data], { type: 'image/jpeg' }));
+                const imgSrc = (data.byteLength === 0)
+                ?
+                ("../../../../assets/avatar_placeholder.png"):
+                (URL.createObjectURL(new Blob([data], { type: 'image/jpeg' })))
                 console.log("Success FETCH: ", imgSrc);
+                console.log(data);
                 setImgRef(imgSrc)
             })
             .catch(error => {
