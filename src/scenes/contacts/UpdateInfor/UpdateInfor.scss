@@ -1,0 +1,97 @@
+.changeInfor{
+    position: fixed;
+     top: 0;
+     left: 0;
+     z-index: 88888;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(39, 74, 143);
+    opacity: 0.5;
+}
+.changeInfor__form{
+    .span_title{
+        display: block;
+        color: rgb(255, 255, 255);
+        // border: 1px red solid;
+        text-align: center;
+        font-size: 30px;
+        font-weight: 1000;
+    }
+    position: fixed;
+     top: 50%;
+     left: 50%;
+     z-index: 99999999;
+    transform: translate(-50%, -50%);
+    display: block;
+    background-color: rgb(55, 60, 140);
+    padding: 10px 10px;
+    height: 520px;
+    width: 600px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 5px rgb(31,42,64);
+    &__title{
+        margin-top: 15px;
+        display: inline-block;
+    }
+    .box{
+        border: 2px rgb(35, 80, 170) solid;
+        display: block;
+        width: 100%;
+        height: 50px;
+        box-shadow: none;
+        border-radius: 5px;
+        background-color: rgb(158, 162, 255);
+        padding-left: 5px;
+    }
+    .select{
+        // border: 2px rgb(35, 80, 170) solid;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        &__around{
+            width: 33%;
+            // border:1px red solid;
+            &__title{
+                display: inline-block;
+                margin-top: 15px;
+                // border:1px red solid;
+            }
+            &__col{
+                border: 2px rgb(35, 80, 170) solid;
+                display: block;
+                width: 100%;
+                height: 50px;
+                box-shadow: none;
+                border-radius: 5px;
+                background-color: rgb(158, 162, 255);
+                padding-left: 5px;
+            }
+        }
+
+    }
+    &__btn{
+        background-color: rgb(13,110,253);
+        border: none;
+        position: absolute;
+         bottom: 3%;
+         left: 50%;
+         transform: translateX(-50%); 
+        width: 300px;
+        height: 50px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 2px 1px rgb(61, 61, 61);
+        font-size: 15px;
+        font-weight: 700;
+        color: rgb(226, 226, 228);
+        &:hover{
+            transition: 0.5s;
+            background-color: rgb(0, 90, 226);
+        }
+        &:active{
+            // position: relative;
+            //  top: 2px;
+            //  left: 2px;
+            box-shadow: none;
+        }
+    }
+}
