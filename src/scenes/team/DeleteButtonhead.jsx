@@ -11,7 +11,6 @@ function DeleteButtonhead({ api, resetView }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   useEffect(() => {
-    resetView(id);
     if (id !== null) {
       fetch(
         `https://be-intern-g6fh.onrender.com/api/v2/headquarter/${id}/delete`,
@@ -28,6 +27,8 @@ function DeleteButtonhead({ api, resetView }) {
             alert("HONG ỔN RỒI HUY ƠI");
           } else {
             alert("THÀNH CÔNG RỒI HUY ƠI");
+            resetView(id);
+            handleClose();
           }
         })
         .catch((error) => {
