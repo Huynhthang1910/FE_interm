@@ -48,6 +48,6 @@ const NavAccount = (props) => {
               </div>
             )}
           </div>
-        );    
+        );
 }
 export default NavAccount;

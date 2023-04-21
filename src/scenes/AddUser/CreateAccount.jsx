@@ -17,7 +17,7 @@ const CreateAccount = (props) => {
 
   //Xử lý API lấy tên trụ sở
   useEffect(() => {
-    fetch("https://be-intern.onrender.com/api/v2/headquarter/", {
+    fetch("https://be-intern-g6fh.onrender.com/api/v2/headquarter/", {
       headers: {
         Authorization: `Bearer ${token}`, // Add the token as a bearer token
       },
@@ -34,7 +34,7 @@ const CreateAccount = (props) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://be-intern.onrender.com/api/v2/employee/store",
+        "https://be-intern-g6fh.onrender.com/api/v2/employee/store",
         {
           accountEmail,
           accountPassword,
@@ -172,10 +172,10 @@ const CreateAccount = (props) => {
                 <option selected>Open this select POSITION</option>
                 <option value="Giám đốc">CEO</option>
                 <option value="Trưởng phòng Marketing">Manager</option>
-                <option value="Trưởng phòng CNTT">Director</option>
-                <option value="Trưởng phòng CNTT">Deputy</option>
-                <option value="Trưởng phòng CNTT">Department manager</option>
-                <option value="Trưởng phòng CNTT">Employee</option>
+                <option value="Director">Director</option>
+                <option value="Deputy">Deputy</option>
+                <option value="Department manager">Department manager</option>
+                <option value="Employee">Employee</option>
               </select>
             </div>
 

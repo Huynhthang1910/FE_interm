@@ -13,7 +13,7 @@ const CreateHeadquater = (props) => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://be-intern.onrender.com/api/v2/headquarter/store",
+        "https://be-intern-g6fh.onrender.com/api/v2/headquarter/store",
         {
           headquarterName,
           headquarterAddress,

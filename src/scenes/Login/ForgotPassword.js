@@ -15,7 +15,7 @@ export default function ForgotPassword({ onBackToLogin }) {
 
     try {
       const response = await axios.post(
-        "https://be-intern.onrender.com/api/v2/account/forgot-password",
+        "https://be-intern-g6fh.onrender.com/api/v2/account/forgot-password",
         { accountEmail: email }
       );
       console.log(response);

@@ -33,12 +33,11 @@ const Topbar = () => {
     console.log(navRef);
     const handleOutsideClick = (event) => {
         if (
-            navRef.current && 
-            !navRef.current.contains(event.target) 
+            navRef.current &&
+            !navRef.current.contains(event.target)
         ) {
-            setNav(false); 
+            setNav(false);
         }
-        console.log(!navRef.current.contains(event.target));
     };
     document.addEventListener("mousedown", handleOutsideClick);
     const handleScroll = () => {

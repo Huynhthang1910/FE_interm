@@ -3,9 +3,6 @@ import axios from "axios";
 import Scheduler  from "devextreme-react/scheduler";
 
 function ScheduleEmp() {
-    // chỉnh sửa label trong popup
-
-    const [tasks, setTasks] = useState([]);
     // giới hạn tạo lịch ở quá khứ
     const views = ["day",'workWeek', "week",  "month"];
     const StringIso = new Date();
@@ -33,13 +30,12 @@ function ScheduleEmp() {
     },
 
 };
-
-    useEffect(() => {
+const [tasks, setTasks] = useState([]);
+useEffect(() => {
         const token = sessionStorage.getItem("token");
         // const token = localStorage.getItem('token');
-        console.log(token);
         axios
-            .get("https://be-intern.onrender.com/api/v2/workschedule/self-schedule", {
+            .get("https://be-intern-g6fh.onrender.com/api/v2/workschedule/self-schedule", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -66,23 +62,22 @@ function ScheduleEmp() {
             });
     }, []);
 
-    const handleTaskAdded = (e) => {
+    const handleTaskAdded = (event) => {
         const token = sessionStorage.getItem("token");
         // const token = localStorage.getItem('token');
-        if (e.appointmentData.startDate < now){
+        if (event.appointmentData.startDate < now){
             alert(`không thể thêm lịch ở quá khứ`)
         }else{
             const newTask = {
                 workScheduleColor: "green",
-                workSchedulePlan: e.appointmentData.description,
-                workSchedulePlace: e.appointmentData.text,
-                workScheduleTimeIn: e.appointmentData.startDate,
-                workScheduleTimeOut: e.appointmentData.endDate
+                workSchedulePlan: event.appointmentData.description,
+                workSchedulePlace: event.appointmentData.text,
+                workScheduleTimeIn: event.appointmentData.startDate,
+                workScheduleTimeOut: event.appointmentData.endDate
             };
-            console.log(newTask);
             axios
                 .post(
-                    "https://be-intern.onrender.com/api/v2/workschedule/store",
+                    "https://be-intern-g6fh.onrender.com/api/v2/workschedule/store",
                     newTask,
                     {
                         headers: {
@@ -96,10 +91,19 @@ function ScheduleEmp() {
                         alert("Lịch biểu bạn vừa thêm không thành công ")
                     }
                     else{
-                        alert("thêm thành công ")
+                        alert("thêm thành công");
+                        window.location.reload();
+                        //
+                        
+                        // console.log(newTask); // kiểm tra thuộc tính "id" của task mới
+                        // event.preventDefault();
+                        // setTasks(prevState => [...prevState, newTask]);
+                        // alert("thêm thành công")
+                        // setTasks([...tasks, newTask]);
+                        // console.log(tasks);
+                        // setTasks(prevTasks => prevTasks.map(task => task.id === newTask.id ? newTask : task));
                     }
                 })
-
                 .catch((error) => {
                     console.log(error);
                 });
@@ -119,7 +123,7 @@ function ScheduleEmp() {
 
         axios
             .put(
-                `https://be-intern.onrender.com/api/v2/workschedule/${e.appointmentData.id}/update`,
+                `https://be-intern-g6fh.onrender.com/api/v2/workschedule/${e.appointmentData.id}/update`,
                 updatedTask,
                 {
                     headers: {
@@ -128,6 +132,7 @@ function ScheduleEmp() {
                 }
             )
             .then((response) => {
+                console.log(response);
                 if(response.data.status!=="OK"){
                     alert("lịch biểu cập nhật không thành công")
                 }
@@ -144,6 +149,7 @@ function ScheduleEmp() {
                         return task;
                     });
                     setTasks(updatedTasks);
+                    alert("lịch biểu cập nhật thành công")
                 }
             })
             .catch((error) => {
@@ -157,7 +163,7 @@ function ScheduleEmp() {
         console.log(token);
         axios
             .delete(
-                `https://be-intern.onrender.com/api/v2/workschedule/${e.appointmentData.id}/delete`,
+                `https://be-intern-g6fh.onrender.com/api/v2/workschedule/${e.appointmentData.id}/delete`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -165,10 +171,16 @@ function ScheduleEmp() {
                 }
             )
             .then((response) => {
-                const filteredTasks = tasks.filter(
-                    (task) => task.id !== e.appointmentData.id
-                );
-                setTasks(filteredTasks);
+                if(response.data.status!=="OK"){
+                    alert("Xoá lịch biểu không thành công ")
+                }
+                else{
+                    const filteredTasks = tasks.filter(
+                        (task) => task.id !== e.appointmentData.id
+                    );
+                    setTasks(filteredTasks);
+                    alert("xoá lịch biểu thành công ")
+                }
             })
             .catch((error) => {
                 console.log(error);
