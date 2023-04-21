@@ -3,8 +3,7 @@ import axios from "axios";
 import Scheduler  from "devextreme-react/scheduler";
 
 function ScheduleEmp() {
-    // giới hạn tạo lịch ở quá khứ
-    const views = ["day",'workWeek', "week",  "month"];
+    const views = ["day",'workWeek',"month"];
     const StringIso = new Date();
     const now = StringIso.toISOString();
     const schedulerOptions = {
@@ -94,7 +93,7 @@ useEffect(() => {
                         alert("thêm thành công");
                         window.location.reload();
                         //
-                        
+
                         // console.log(newTask); // kiểm tra thuộc tính "id" của task mới
                         // event.preventDefault();
                         // setTasks(prevState => [...prevState, newTask]);

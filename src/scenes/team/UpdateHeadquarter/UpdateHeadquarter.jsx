@@ -1,7 +1,6 @@
 import { useState } from "react";
 import UrbanLogo from "./UrbanLogo.png";
 import "./UpdateHeadquarter.scss";
-import { Message } from "@mui/icons-material";
 
 const UpdateHeadquarter = (props) => {
     const token = sessionStorage.getItem("token");
