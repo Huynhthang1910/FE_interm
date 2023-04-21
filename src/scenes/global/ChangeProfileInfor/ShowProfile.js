@@ -26,7 +26,13 @@ const ShowProfile = () => {
                 setProfileApi(data.data)
             })
     }, [info])
-
+    console.log(fetchProfileApi.employeeGender);
+    // const changeGenderContent = () =>{
+    //     Object.keys(fetchProfileApi).map(fetchApi =>{
+    //         if(fetchApi)
+    //         fetchProfileApi[fetchApi]
+    //     })
+    // }
     return (
         <Box m="20px"
             style={{
@@ -56,6 +62,7 @@ const ShowProfile = () => {
                                         changeFetchApi = ("adress");
                                         break;
                                     case "employeeGender":
+                                        fetchProfileApi.employeeGender  = (fetchProfileApi[fetchApi] === '1') ? 'male' : 'female'
                                         changeFetchApi = ("gender");
                                         break;
                                     case "employeePosition":
@@ -89,7 +96,7 @@ const ShowProfile = () => {
                                         }}
                                     >
                                         <div className="title">{changeFetchApi}</div>
-                                        <div className="infor">{(typeof fetchProfileApi[fetchApi] !== "object") ? fetchProfileApi[fetchApi] : 0}</div>
+                                        <div className="infor">{((typeof fetchProfileApi[fetchApi] !== "object") ?  fetchProfileApi[fetchApi] : 0)}</div>
                                     </div>
                                 )
                             })

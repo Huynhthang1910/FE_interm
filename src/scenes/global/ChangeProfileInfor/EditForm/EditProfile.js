@@ -75,11 +75,11 @@ const EditProfile = ({ setFetchInfo, hiddenEditForm }) => {
                     <h2 id="register__title">Profile update</h2>
                     <div className="register__box">
                         <label htmlFor="user">User<i className="fas fa-asterisk"></i></label>
-                        <input id="user" name="name" type="text" maxLength="50" required onChange={handleInputCredentials} placeholder="Username" />
+                        <input id="user" name="name" type="text" maxLength="20" required onChange={handleInputCredentials} placeholder="Username" />
                     </div>
                     <div className="register__box">
                         <label htmlFor="user">Address<i className="fas fa-asterisk"></i></label>
-                        <input id="address" name="address" type="text" maxLength="200" required onChange={handleInputCredentials} placeholder="Adress" />
+                        <input id="address" name="address" type="text" maxLength="50" required onChange={handleInputCredentials} placeholder="Adress" />
                     </div>
                     <div className="register__box">
                         <label htmlFor="password">Phone<i className="fas fa-asterisk"></i></label>
@@ -96,10 +96,7 @@ const EditProfile = ({ setFetchInfo, hiddenEditForm }) => {
                                 <input id="male" name="gender" type="radio" defaultValue="1" onChange={handleInputCredentials} />
                                 <label htmlFor="male">Male</label>
                             </li>
-                            <li>
-                                <input id="other" name="gender" type="radio" defaultValue="2" onChange={handleInputCredentials} />
-                                <label htmlFor="other">Other</label>
-                            </li>
+
                         </ul>
                     </div>
                     <div className="register__box">

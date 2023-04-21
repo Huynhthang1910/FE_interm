@@ -30,15 +30,18 @@ export default function Login({ onLogin }) {
 
   const checkTokenExpiration = async (token) => {
     try {
-      const response = await axios.post(DECODE_URL, { token });
+      const response = await axios.post(
+        DECODE_URL,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       const {
         data: { message },
       } = response;
+      console.log(response);
       if (message === "Expired Token") {
         sessionStorage.removeItem(SESSION_TOKEN_KEY);
-        setToastType("danger");
-        setToastMessage("Your session has expired. Please Login again.");
-        setShowToast(true);
+        alert("fadfa");
         window.location.reload();
       }
     } catch (error) {
@@ -48,11 +51,7 @@ export default function Login({ onLogin }) {
 
   const handleLogin = async (token) => {
     setLoggedIn(true);
-    const decoded = jwt_decode(token);
-    const subStrings = decoded.sub;
-    const jsonSub = JSON.parse(subStrings);
-    const { accountRole: role, employeeId } = jsonSub;
-    onLogin(role, employeeId);
+    onLogin();
     sessionStorage.setItem(SESSION_TOKEN_KEY, token);
   };
 
