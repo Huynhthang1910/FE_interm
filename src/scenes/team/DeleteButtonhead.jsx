@@ -24,9 +24,9 @@ function DeleteButtonhead({ api, resetView }) {
       )
         .then((response) => {
           if (response.message === "Xóa Thất Bại") {
-            alert("HONG ỔN RỒI HUY ƠI");
+            alert("Unsuccessfully deleted !!!");
           } else {
-            alert("THÀNH CÔNG RỒI HUY ƠI");
+            alert("Successfully deleted !!!");
             resetView(id);
             handleClose();
           }

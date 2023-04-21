@@ -1,11 +1,11 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import UpdateHeadquarter from "./UpdateHeadquarter/UpdateHeadquarter"
+import UpdateHeadquarter from "./UpdateHeadquarter/UpdateHeadquarter";
 import React, { useState, useEffect } from "react";
 import DeleteButtonhead from "./DeleteButtonhead";
-import { Button } from 'react-bootstrap';
+import { Button } from "react-bootstrap";
 import "./Viewheadquarter.scss";
 
 const Viewheadquarter = (props) => {
@@ -16,10 +16,10 @@ const Viewheadquarter = (props) => {
   const [inforHeadquarter, setInforHeadquarter] = useState();
   const handleSetInforHeadquarter = (row) => {
     setInforHeadquarter(row);
-  }
+  };
   const resetWindows = () => {
     window.location.reload();
-  }
+  };
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -99,11 +99,15 @@ const Viewheadquarter = (props) => {
       renderCell: (params) => (
         <>
           <>
-          <Button
-            variant="primary"
-            type="button"
-            onClick={() => {handleSetInforHeadquarter(params.row)}}
-            >CHANGE</Button>
+            <Button
+              variant="primary"
+              type="button"
+              onClick={() => {
+                handleSetInforHeadquarter(params.row);
+              }}
+            >
+              CHANGE
+            </Button>
           </>
         </>
       ),
@@ -112,60 +116,69 @@ const Viewheadquarter = (props) => {
 
   return (
     <>
-    <Box m="20px">
-      <Header title="HEADQUARTERS" />
+      <Box m="20px">
+        <Header title="HEADQUARTERS" />
 
-      <div
-        className="d-grid gap-2 d-md-flex justify-content-md-end"
-        id="Addbuton"
-      >
-        <button
-          className="btn btn-success me-md-2 me-lg-4"
-          type="button"
-          onClick={props.onClickAddd}
+        <div
+          className="d-grid gap-2 d-md-flex justify-content-md-end"
+          id="Addbuton"
         >
-          Add Headquarter
-        </button>
-      </div>
+          <button
+            className="btn btn-success me-md-2 me-lg-4"
+            type="button"
+            onClick={props.onClickAddd}
+          >
+            Add Headquarter
+          </button>
+        </div>
 
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-        }}
-      >
-        <DataGrid rows={headqs} columns={columns} autoHeight={true} />
+        <Box
+          m="40px 0 0 0"
+          height="75vh"
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+            "& .name-column--cell": {
+              color: colors.greenAccent[300],
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: colors.blueAccent[700],
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: colors.primary[400],
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              backgroundColor: colors.blueAccent[700],
+            },
+            "& .MuiCheckbox-root": {
+              color: `${colors.greenAccent[200]} !important`,
+            },
+            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              color: `${colors.grey[100]} !important`,
+            },
+          }}
+        >
+          <DataGrid
+            rows={headqs}
+            columns={columns}
+            autoHeight={true}
+            components={{ Toolbar: GridToolbar }}
+          />
+        </Box>
       </Box>
-    </Box>
-    {inforHeadquarter &&
-      <UpdateHeadquarter
-      inforHeadquarter={inforHeadquarter}
-      handleSetInforHeadquarter={handleSetInforHeadquarter}
-      resetWindows={resetWindows}
-      />}
+      {inforHeadquarter && (
+        <UpdateHeadquarter
+          inforHeadquarter={inforHeadquarter}
+          handleSetInforHeadquarter={handleSetInforHeadquarter}
+          resetWindows={resetWindows}
+        />
+      )}
     </>
   );
 };
