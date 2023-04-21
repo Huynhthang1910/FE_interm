@@ -23,7 +23,7 @@ const Viewheadquarter = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "https://be-intern.onrender.com/api/v2/headquarter/",
+        "https://be-intern-g6fh.onrender.com/api/v2/headquarter/",
         {
           headers: {
             Authorization: `Bearer ${token}`, // Add the token as a bearer token
@@ -99,9 +99,9 @@ const Viewheadquarter = (props) => {
       renderCell: (params) => (
         <>
           <>
-          <Button 
+          <Button
             variant="primary"
-            type="button" 
+            type="button"
             onClick={() => {handleSetInforHeadquarter(params.row)}}
             >CHANGE</Button>
           </>
@@ -160,7 +160,7 @@ const Viewheadquarter = (props) => {
         <DataGrid rows={headqs} columns={columns} autoHeight={true} />
       </Box>
     </Box>
-    {inforHeadquarter && 
+    {inforHeadquarter &&
       <UpdateHeadquarter
       inforHeadquarter={inforHeadquarter}
       handleSetInforHeadquarter={handleSetInforHeadquarter}

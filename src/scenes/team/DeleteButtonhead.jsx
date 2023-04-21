@@ -14,7 +14,7 @@ function DeleteButtonhead({ api, resetView }) {
     resetView(id);
     if (id !== null) {
       fetch(
-        `https://be-intern.onrender.com/api/v2/headquarter/${id}/delete`,
+        `https://be-intern-g6fh.onrender.com/api/v2/headquarter/${id}/delete`,
 
         {
           headers: {

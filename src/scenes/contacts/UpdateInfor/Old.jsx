@@ -8,7 +8,7 @@ const UpdateInfor = (props) => {
   const [showForm, setShowForm] = useState(false);
   const sendNewUserInfor = () => {
     // console.log(InforUser);
-    let url = `https://be-intern.onrender.com/api/v2/employee/${InforUser.employeeId}/update`;
+    let url = `https://be-intern-g6fh.onrender.com/api/v2/employee/${InforUser.employeeId}/update`;
     let sendInfor = {
       headquarterId: InforUser.headquarterId,
       employeeName: InforUser.employeeName[0],

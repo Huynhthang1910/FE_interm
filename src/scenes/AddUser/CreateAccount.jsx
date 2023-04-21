@@ -17,7 +17,7 @@ const CreateAccount = (props) => {
 
   //Xử lý API lấy tên trụ sở
   useEffect(() => {
-    fetch("https://be-intern.onrender.com/api/v2/headquarter/", {
+    fetch("https://be-intern-g6fh.onrender.com/api/v2/headquarter/", {
       headers: {
         Authorization: `Bearer ${token}`, // Add the token as a bearer token
       },
@@ -34,7 +34,7 @@ const CreateAccount = (props) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://be-intern.onrender.com/api/v2/employee/store",
+        "https://be-intern-g6fh.onrender.com/api/v2/employee/store",
         {
           accountEmail,
           accountPassword,

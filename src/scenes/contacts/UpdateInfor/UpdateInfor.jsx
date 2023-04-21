@@ -8,7 +8,7 @@ const UpdateInfor = (props) => {
   const [apiTruso, setApiTruso] = useState([]);
   //Xử lý API lấy tên trụ sở
   useEffect(() => {
-    fetch("https://be-intern.onrender.com/api/v2/headquarter/", {
+    fetch("https://be-intern-g6fh.onrender.com/api/v2/headquarter/", {
       headers: {
         Authorization: `Bearer ${token}`, // Add the token as a bearer token
       },
@@ -30,7 +30,7 @@ const UpdateInfor = (props) => {
     //     checkVariables = false;
     // }
     if (checkVariables) {
-        let url = `https://be-intern.onrender.com/api/v2/employee/${InforUser.employeeId}/update`;
+        let url = `https://be-intern-g6fh.onrender.com/api/v2/employee/${InforUser.employeeId}/update`;
         let sendInfor = {
         headquarterId: String(InforUser.headquarterId),
         employeeName: String(InforUser.employeeName),

@@ -20,7 +20,7 @@ const EditProfile = ({ setFetchInfo, hiddenEditForm }) => {
     )
     const handleCredentialsSubmit = (event) => {
         event.preventDefault();
-        fetch('https://be-intern.onrender.com/api/v2/employee/self-update',
+        fetch('https://be-intern-g6fh.onrender.com/api/v2/employee/self-update',
             {
                 method: 'PUT',
                 body: JSON.stringify({
