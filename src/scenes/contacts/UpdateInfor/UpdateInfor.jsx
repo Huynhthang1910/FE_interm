@@ -161,10 +161,12 @@ const UpdateInfor = (props) => {
                         required
                     >
                         <option value="">Select Position</option>
-                        <option value="personnel">Personnel</option>
-                        <option value="Head Department">Head Department</option>
-                        <option value="Manager">Manager</option>
-                        <option value="CEO">CEO</option>
+                        <option value="Giám đốc">CEO</option>
+                        <option value="Trưởng phòng Marketing">Manager</option>
+                        <option value="Director">Director</option>
+                        <option value="Deputy">Deputy</option>
+                        <option value="Department manager">Department manager</option>
+                        <option value="Employee">Employee</option>
                     </select>
                     </div>
                     <div className="select__around">
@@ -187,7 +189,7 @@ const UpdateInfor = (props) => {
                     </option>
                     ))}
                 </select>
-              </div>
+            </div>
                 </div>
                 <label className="changeInfor__form__title">EmployeeSalary</label>
                 <input

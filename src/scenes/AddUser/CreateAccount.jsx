@@ -173,10 +173,10 @@ const CreateAccount = (props) => {
                 <option selected>Open this select POSITION</option>
                 <option value="Giám đốc">CEO</option>
                 <option value="Trưởng phòng Marketing">Manager</option>
-                <option value="Trưởng phòng CNTT">Director</option>
-                <option value="Trưởng phòng CNTT">Deputy</option>
-                <option value="Trưởng phòng CNTT">Department manager</option>
-                <option value="Trưởng phòng CNTT">Employee</option>
+                <option value="Director">Director</option>
+                <option value="Deputy">Deputy</option>
+                <option value="Department manager">Department manager</option>
+                <option value="Employee">Employee</option>
               </select>
             </div>
 
