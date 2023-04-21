@@ -8,7 +8,7 @@ const UpdateInfor = (props) => {
   const [apiTruso, setApiTruso] = useState([]);
   //Xử lý API lấy tên trụ sở
   useEffect(() => {
-    fetch("https://be-intern.onrender.com/api/v2/headquarter/", {
+    fetch("https://be-intern-g6fh.onrender.com/api/v2/headquarter/", {
       headers: {
         Authorization: `Bearer ${token}`, // Add the token as a bearer token
       },
@@ -21,20 +21,16 @@ const UpdateInfor = (props) => {
   const sendNewUserInfor = () => {
     // console.log(InforUser);
     let checkVariables = true;
-    if (String(InforUser.employeePhone).length !== 10) {
-      alert("Number phone have 10 characters! please check it again!");
-      checkVariables = false;
-    }
-    if (
-      String(InforUser.employeePosition) === "null" ||
-      String(InforUser.employeeGender) === "null" ||
-      String(InforUser.headquarterId) === "null"
-    ) {
-      alert("Position, Gender or Headquarters is null! please check it again!");
-      checkVariables = false;
-    }
+    // if (String(InforUser.employeePhone).length !== 10 ){
+    //     alert("Number phone have 10 characters! please check it again!");
+    //     checkVariables = false;
+    // }
+    // if (String(InforUser.employeePosition) === "null" || String(InforUser.employeeGender) === "null" || String(InforUser.headquarterId) === "null") {
+    //     alert("Position, Gender or Headquarters is null! please check it again!");
+    //     checkVariables = false;
+    // }
     if (checkVariables) {
-      let url = `https://be-intern.onrender.com/api/v2/employee/${InforUser.employeeId}/update`;
+      let url = `https://be-intern-g6fh.onrender.com/api/v2/employee/${InforUser.employeeId}/update`;
       let sendInfor = {
         headquarterId: String(InforUser.headquarterId),
         employeeName: String(InforUser.employeeName),
@@ -57,7 +53,7 @@ const UpdateInfor = (props) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.message === "Cập Nhật Thành Công") {
-            alert('Success! Please click "OK" to reload data!');
+            // alert('Success! Please click "OK" to reload data!');
             // props.handleSetInforUser(false);
             props.show();
           } else {
@@ -89,7 +85,13 @@ const UpdateInfor = (props) => {
           props.handleSetInforUser(false);
         }}
       ></div>
-      <form className="changeInfor__form">
+      <form
+        className="changeInfor__form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          sendNewUserInfor();
+        }}
+      >
         <div className="col1">
           <label className="changeInfor__form__title">EmployeeName</label>
           <input
@@ -97,6 +99,7 @@ const UpdateInfor = (props) => {
             className="box"
             type="text"
             value={InforUser.employeeName}
+            placeholder="Johnny Deef..."
             onChange={(event) => {
               handelChangeinforJson(event);
             }}
@@ -105,11 +108,14 @@ const UpdateInfor = (props) => {
           <input
             name="employeePhone"
             className="box"
-            type="number"
+            type="tell"
+            pattern="[0-9]{10}"
             value={InforUser.employeePhone}
+            placeholder="Number phone has 10 number"
             onChange={(event) => {
               handelChangeinforJson(event);
             }}
+            required
           />
           <label className="changeInfor__form__title">EmployeeAddress</label>
           <input
@@ -117,6 +123,7 @@ const UpdateInfor = (props) => {
             className="box"
             type="text"
             value={InforUser.employeeAddress}
+            placeholder="Tokyo..."
             onChange={(event) => {
               handelChangeinforJson(event);
             }}
@@ -135,6 +142,7 @@ const UpdateInfor = (props) => {
                 onChange={(event) => {
                   handelChangeinforJson(event);
                 }}
+                required
               >
                 <option value="">Select Gender</option>
                 <option value="1">Male</option>
@@ -152,11 +160,15 @@ const UpdateInfor = (props) => {
                 onChange={(event) => {
                   handelChangeinforJson(event);
                 }}
+                required
               >
                 <option value="">Select Position</option>
-                <option value="Manager">Manager</option>
+                <option value="Giám đốc">CEO</option>
+                <option value="Trưởng phòng Marketing">Manager</option>
+                <option value="Director">Director</option>
+                <option value="Deputy">Deputy</option>
+                <option value="Department manager">Department manager</option>
                 <option value="Employee">Employee</option>
-                <option value="CEO">CEO</option>
               </select>
             </div>
             <div className="select__around">
@@ -185,18 +197,13 @@ const UpdateInfor = (props) => {
           <input
             name="employeeSalary"
             className="box"
-            type="text"
-            pattern="[0][0-9]{10}"
+            type="number"
             value={InforUser.employeeSalary}
             onChange={(event) => {
               handelChangeinforJson(event);
             }}
           />
-          <button
-            type="button"
-            className="changeInfor__form__btn"
-            onClick={() => sendNewUserInfor()}
-          >
+          <button type="submit" className="changeInfor__form__btn">
             Update Infor
           </button>
         </div>

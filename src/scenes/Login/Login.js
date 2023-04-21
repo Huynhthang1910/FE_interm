@@ -15,7 +15,12 @@ import "./Login.scss";
 import { AuthContext } from "../../Hook/AuthContext";
 import { useTokenExpirationCheck } from "../../Hook/TokenExpirationCheck";
 
+<<<<<<< HEAD
 const LOGIN_URL = "https://be-intern.onrender.com/login";
+=======
+const LOGIN_URL = "https://be-intern-g6fh.onrender.com/login";
+const DECODE_URL = "https://be-intern-g6fh.onrender.com/decode";
+>>>>>>> 91e423e472286ecf6dba081e63a97254920bf9f9
 const SESSION_TOKEN_KEY = "token";
 
 export default function Login({ onLogin }) {
@@ -29,8 +34,35 @@ export default function Login({ onLogin }) {
   const [showToast, setShowToast] = useState(false);
   const [loading, setLoading] = useState(false);
 
+<<<<<<< HEAD
   const handleLogin = async (token) => {
     setLoggedIn(true);
+=======
+  const checkTokenExpiration = async (token) => {
+    try {
+      const response = await axios.post(
+        DECODE_URL,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      const {
+        data: { message },
+      } = response;
+      console.log(response);
+      if (message === "Expired Token") {
+        sessionStorage.removeItem(SESSION_TOKEN_KEY);
+        alert("fadfa");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLogin = async (token) => {
+    setLoggedIn(true);
+    onLogin();
+>>>>>>> 91e423e472286ecf6dba081e63a97254920bf9f9
     sessionStorage.setItem(SESSION_TOKEN_KEY, token);
     onLogin();
     setAuthenticated(true);

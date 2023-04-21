@@ -41,11 +41,11 @@ const Sidebar = ({ ad, userid }) => {
   const token = sessionStorage.getItem("token");
   const [imgReF, setImgRef] = useState("");
 
-  // 
+  //
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://be-intern.onrender.com/api/v2/employee/information", {
+        const response = await fetch("https://be-intern-g6fh.onrender.com/api/v2/employee/information", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -58,35 +58,35 @@ const Sidebar = ({ ad, userid }) => {
     };
     fetchData();
   }, [token]);
-  
-  useEffect(() => {
-    const fetchAvatar = async () => {
-      if (user) {
-        try {
-          const response = await fetch(`https://be-intern.onrender.com/api/v2/employee/avatar/${user.employeeId}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          if (!response.ok) {
-            throw new Error(`${response.status} ${response.statusText}`);
-          }
-          const data = await response.arrayBuffer();
-          const imgSrc = URL.createObjectURL(new Blob([data], { type: "image/jpeg" }));
-          console.log(imgSrc);
-          console.log("Success FETCH: ", imgSrc);
-          setImgRef(imgSrc);
-        } catch (error) {
-          console.error("Error FETCH: ", error);
-        }
-      }
-    };
-    fetchAvatar();
-    return () => {
-      URL.revokeObjectURL(imgReF);
-    };
-  }, [token, user]);
-  
+
+  // useEffect(() => {
+  //   const fetchAvatar = async () => {
+  //     if (user) {
+  //       try {
+  //         const response = await fetch(`https://be-intern-g6fh.onrender.com/api/v2/employee/avatar/${user.employeeId}`, {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         });
+  //         if (!response.ok) {
+  //           throw new Error(`${response.status} ${response.statusText}`);
+  //         }
+  //         const data = await response.arrayBuffer();
+  //         const imgSrc =  (data.byteLength === 0) ? ("../../../../assets/avatar_placeholder.png"):(URL.createObjectURL(new Blob([data], { type: 'image/jpeg' })))
+  //         console.log(imgSrc);
+  //         console.log("Success FETCH: ", imgSrc);
+  //         setImgRef(imgSrc);
+  //       } catch (error) {
+  //         console.error("Error FETCH: ", error);
+  //       }
+  //     }
+  //   };
+  //   fetchAvatar();
+  //   return () => {
+  //     URL.revokeObjectURL(imgReF);
+  //   };
+  // }, [token, user]);
+
 
   return (
     <Box
@@ -136,25 +136,25 @@ const Sidebar = ({ ad, userid }) => {
             )}
           </MenuItem>
           {!isCollapsed && (
-            <Box mb="25px">
+            <Box mb="25px" >
               <Box display="flex" justifyContent="center" alignItems="center">
-                {/* <EditAvatar hanndleTest={handleEditData}/> */}
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={imgReF}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
+                <div style= {{ width:'150px', background:'#fff', borderRadius: "5%" }}>
+                  <img
+                    alt="profile-user"
+                    width="100%"
+                    src={"../../../../assets/urbanlogo.png"}
+                    style={{ cursor: "pointer", borderRadius: "50%", aspectRatio:'1', objectFit: 'cover' }}
+                  />
+                </div>
               </Box>
               <Box textAlign="center">
                 <Typography
-                  variant="h2"
+                  variant="h3"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {user.employeeName}
+                  {user.accountEmail}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   {user.employeePosition}

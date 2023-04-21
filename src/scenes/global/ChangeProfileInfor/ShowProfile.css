@@ -107,16 +107,15 @@
 	transition: all 0.2s ease-out;
 	z-index: 2;
 	cursor: pointer;
-	color: var(--color);
 }
 
 #profile__edit-btn:hover {
 	background-color: var(--main-bg);
 }
 
-/* .null {
+.null__profileData {
 	display: none;
-} */
+}
 
 .edit__bt {
 	cursor: pointer;

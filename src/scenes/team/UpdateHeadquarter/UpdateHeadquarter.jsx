@@ -16,13 +16,13 @@ const UpdateHeadquarter = (props) => {
         setInfor({...inforHeadquarter,[keyName]:[value]})
     }
     const callAPI = () => {
-        if(String(inforHeadquarter.headquarterName)=== "" || String(inforHeadquarter.headquarterAddress) === "") {
-            alert("Something is null! please check it again!")
-        }else{
-            let url = `https://be-intern.onrender.com/api/v2/headquarter/${inforHeadquarter.headquarterId}/update`
+        // if(String(inforHeadquarter.headquarterName)=== "" || String(inforHeadquarter.headquarterAddress) === "") {
+        //     alert("Something is null! please check it again!")
+        // }else{
+            let url = `https://be-intern-g6fh.onrender.com/api/v2/headquarter/${inforHeadquarter.headquarterId}/update`
             let payLoad = {
                 "headquarterName": String(inforHeadquarter.headquarterName),
-                "headquarterAddress": String(inforHeadquarter.headquarterAddress)    
+                "headquarterAddress": String(inforHeadquarter.headquarterAddress)
                 }
             let option = {
                 method: "PUT",
@@ -36,49 +36,52 @@ const UpdateHeadquarter = (props) => {
                 .then((res) => res.json())
                 .then((data) => {
                     if(data.message === "Cập Nhật Thành Công"){
-                        alert('Success! Please click "OK" to reload data!')
+                        // alert('Success! Please click "OK" to reload data!')
                         props.resetWindows()
                     } else{
                         alert("Update failed!");
                         console.log(data)
                     }
                     })
-        }
+        // }
     }
     return (
     <>
-        <div 
+        <div
           className="form_around"
           onClick={()=>{props.handleSetInforHeadquarter(false)}}>
         </div>
-        <form className="form_headquarter">
+        <form
+            className="form_headquarter"
+            onSubmit={(e) => {e.preventDefault(); callAPI();}}>
             <img src={UrbanLogo} alt="logo" className="form_headquarter__img" />
             <label className="form_headquarter__title">
                 Headquarter Name
             </label>
-            <input 
-                type="text" 
+            <input
+                type="text"
                 name="headquarterName"
                 className="form_headquarter__input"
                 value={inforHeadquarter.headquarterName}
-                onChange={(e)=>{changeHeadquarter(e)}}/>
+                onChange={(e)=>{changeHeadquarter(e)}}
+                required/>
             <label className="form_headquarter__title">
                 Headquarter Address
             </label>
-            <input 
-                type="text" 
+            <input
+                type="text"
                 name="headquarterAddress"
                 className="form_headquarter__input"
                 value={inforHeadquarter.headquarterAddress}
-                onChange={(e)=>{changeHeadquarter(e)}}/>
-            <button 
-                type="button"
-                className="form_headquarter__btn"
-                onClick={()=>{callAPI()}}>
+                onChange={(e)=>{changeHeadquarter(e)}}
+                required/>
+            <button
+                type="submit"
+                className="form_headquarter__btn">
                 Update Headquarter
             </button>
         </form>
     </>
-   ) 
+   )
 }
 export default UpdateHeadquarter;

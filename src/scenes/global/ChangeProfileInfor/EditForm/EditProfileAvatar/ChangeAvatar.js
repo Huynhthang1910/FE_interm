@@ -7,7 +7,7 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
     const [imgReF, setImgRef] = useState('');
     const tokenTaken = sessionStorage.getItem("token");
     useEffect(() => {
-        fetch('https://be-intern.onrender.com/api/v2/employee/information', {
+        fetch('https://be-intern-g6fh.onrender.com/api/v2/employee/information', {
             headers: {
                 Authorization: `Bearer ${tokenTaken}`,
             },
@@ -31,7 +31,7 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
         formData.append('file', fileAvatar);
         console.log(formData);
 
-        fetch('https://be-intern.onrender.com/api/v2/employee/create-avatar',
+        fetch('https://be-intern-g6fh.onrender.com/api/v2/employee/create-avatar',
             {
                 method: 'POST',
                 headers: {
@@ -52,8 +52,8 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
 
     //! fetch avatar
     useEffect(() => {
-        console.log(`https://be-intern.onrender.com/api/v2/employee/avatar/${fetchAvaApis}`);
-        fetch(`https://be-intern.onrender.com/api/v2/employee/avatar/${fetchAvaApis}`, {
+        console.log(`https://be-intern-g6fh.onrender.com/api/v2/employee/avatar/${fetchAvaApis}`);
+        fetch(`https://be-intern-g6fh.onrender.com/api/v2/employee/avatar/${fetchAvaApis}`, {
             headers: {
                 Authorization: `Bearer ${tokenTaken}`,
             },
@@ -65,8 +65,12 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
                 return response.arrayBuffer();
             })
             .then(data => {
-                const imgSrc = URL.createObjectURL(new Blob([data], { type: 'image/jpeg' }));
+                const imgSrc = (data.byteLength === 0)
+                ?
+                ("../../../../assets/avatar_placeholder.png"):
+                (URL.createObjectURL(new Blob([data], { type: 'image/jpeg' })))
                 console.log("Success FETCH: ", imgSrc);
+                console.log(data);
                 setImgRef(imgSrc)
             })
             .catch(error => {

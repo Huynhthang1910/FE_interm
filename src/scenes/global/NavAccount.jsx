@@ -28,6 +28,7 @@ const NavAccount = (props) => {
                   Change Pasword
                 </div>
                 <Link
+                  style={{ textDecoration: 'none' }}
                   to={"/profile"}
                   className="acccount__Profile div"
                   onClick={() => {
@@ -48,6 +49,6 @@ const NavAccount = (props) => {
               </div>
             )}
           </div>
-        );    
+        );
 }
 export default NavAccount;

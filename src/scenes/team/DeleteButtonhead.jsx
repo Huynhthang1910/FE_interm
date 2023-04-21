@@ -11,10 +11,9 @@ function DeleteButtonhead({ api, resetView }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   useEffect(() => {
-    resetView(id);
     if (id !== null) {
       fetch(
-        `https://be-intern.onrender.com/api/v2/headquarter/${id}/delete`,
+        `https://be-intern-g6fh.onrender.com/api/v2/headquarter/${id}/delete`,
 
         {
           headers: {
@@ -25,9 +24,11 @@ function DeleteButtonhead({ api, resetView }) {
       )
         .then((response) => {
           if (response.message === "Xóa Thất Bại") {
-            alert("HONG ỔN RỒI HUY ƠI");
+            alert("Unsuccessfully deleted !!!");
           } else {
-            alert("THÀNH CÔNG RỒI HUY ƠI");
+            alert("Successfully deleted !!!");
+            resetView(id);
+            handleClose();
           }
         })
         .catch((error) => {

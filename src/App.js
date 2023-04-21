@@ -49,19 +49,18 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <AuthProvider>
-            <Sidebar isSidebar={isSidebar} />
-            <main className="content">
-              <Topbar setIsSidebar={setIsSidebar} />
-              <Routes>
-                <Route path="/" element={<SchedulerEmp />} />
-                <Route path="/contacts" element={<Contacts />} />
-                <Route path="/SchedulerEmp" element={<SchedulerEmp />} />
-                <Route path="/Calendar_admin" element={<CalendarAdmin />} />
-                <Route path="/team" element={<Team />} />
-              </Routes>
-            </main>
-          </AuthProvider>
+          <Sidebar isSidebar={isSidebar} />
+          <main className="content">
+            <Topbar setIsSidebar={setIsSidebar} />
+            <Routes>
+              <Route path="/" element={<SchedulerEmp />} />
+              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/profile" element={<ShowProfile />} />
+              <Route path="/SchedulerEmp" element={<SchedulerEmp />} />
+              <Route path="/Calendar_admin" element={<CalendarAdmin />} />
+              <Route path="/team" element={<Team />} />
+            </Routes>
+          </main>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import EditProfile from './EditForm/EditProfile';
 import EditProfileAvatar from './EditForm/EditProfileAvatar';
 import './ShowProfile.css'
 import { tokens } from '../../../theme';
-import Placeholder from 'react-bootstrap/Placeholder'
+
 
 const ShowProfile = () => {
     const theme = useTheme();
@@ -16,7 +16,7 @@ const ShowProfile = () => {
     const [info, setFetchInfo] = useState(false)
 
     useEffect(() => {
-        fetch('https://be-intern.onrender.com/api/v2/employee/information', {
+        fetch('https://be-intern-g6fh.onrender.com/api/v2/employee/information', {
             headers: {
                 Authorization: `Bearer ${tokenTaken}`,
             },
@@ -26,7 +26,13 @@ const ShowProfile = () => {
                 setProfileApi(data.data)
             })
     }, [info])
-
+    console.log(fetchProfileApi.employeeGender);
+    // const changeGenderContent = () =>{
+    //     Object.keys(fetchProfileApi).map(fetchApi =>{
+    //         if(fetchApi)
+    //         fetchProfileApi[fetchApi]
+    //     })
+    // }
     return (
         <Box m="20px"
             style={{
@@ -56,6 +62,7 @@ const ShowProfile = () => {
                                         changeFetchApi = ("adress");
                                         break;
                                     case "employeeGender":
+                                        fetchProfileApi.employeeGender  = (fetchProfileApi[fetchApi] === '1') ? 'male' : 'female'
                                         changeFetchApi = ("gender");
                                         break;
                                     case "employeePosition":
@@ -72,8 +79,7 @@ const ShowProfile = () => {
                                     case "headquarterId":
                                     case "employeeAvatar":
                                     case "employeeSalary":
-                                    case "accountEmail":
-                                        changeFetchApi = ("null");
+                                        changeFetchApi = ("null__profileData");
                                         break;
                                     default:
                                         console.log("ki su IT hoc tai VL");
@@ -81,8 +87,8 @@ const ShowProfile = () => {
                                 }
                                 return (
                                     <div className={
-                                        (changeFetchApi === "null")
-                                            ? "null" : fetchApi + " " + 'user_profile_title'
+                                        (changeFetchApi === "null__profileData")
+                                            ? "null__profileData" : fetchApi + " " + 'user_profile_title'
                                     }
                                         key={fetchApi}
                                         style={{
@@ -90,7 +96,7 @@ const ShowProfile = () => {
                                         }}
                                     >
                                         <div className="title">{changeFetchApi}</div>
-                                        <div className="infor">{(typeof fetchProfileApi[fetchApi] !== "object") ? fetchProfileApi[fetchApi] : 0}</div>
+                                        <div className="infor">{((typeof fetchProfileApi[fetchApi] !== "object") ?  fetchProfileApi[fetchApi] : 0)}</div>
                                     </div>
                                 )
                             })
@@ -100,9 +106,9 @@ const ShowProfile = () => {
                         <button bg="primary"
                             onClick={() => { setHiddenEditForm(!hiddenEditForm) }}
                             id="profile__edit-btn"
-                        // style={{
-                        //     backgroundColor: colors.blueAccent[700],
-                        // }}
+                        style={{
+                            backgroundColor: colors.blueAccent[700],
+                        }}
                         >EDIT PROFILE</button>
                         {hiddenEditForm && <EditProfile setFetchInfo={setFetchInfo} hiddenEditForm={setHiddenEditForm} />}
                     </div>
@@ -111,5 +117,4 @@ const ShowProfile = () => {
         </Box>
     );
 };
-
 export default ShowProfile;
