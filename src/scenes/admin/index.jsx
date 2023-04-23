@@ -15,7 +15,7 @@ function SchedulerAdmin() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
-      .get("https://be-intern-g6fh.onrender.com/api/v2/headquarter/", {
+      .get("https://beintern-production.up.railway.app/api/v2/headquarter/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +40,7 @@ function SchedulerAdmin() {
     // const token = localStorage.getItem('token');
     axios
       .get(
-        "https://be-intern-g6fh.onrender.com/api/v2/workschedule/all-information/",
+        "https://beintern-production.up.railway.app/api/v2/workschedule/all-information/",
         {
           headers: {
             Authorization: `Bearer ${token}`,

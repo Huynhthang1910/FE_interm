@@ -13,7 +13,7 @@ function DeleteButtonhead({ api, resetView }) {
   useEffect(() => {
     if (id !== null) {
       fetch(
-        `https://be-intern-g6fh.onrender.com/api/v2/headquarter/${id}/delete`,
+        `https://beintern-production.up.railway.app/api/v2/headquarter/${id}/delete`,
 
         {
           headers: {

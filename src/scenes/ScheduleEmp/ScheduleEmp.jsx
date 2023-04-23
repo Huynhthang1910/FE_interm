@@ -35,7 +35,7 @@ useEffect(() => {
         const token = sessionStorage.getItem("token");
         // const token = localStorage.getItem('token');
         axios
-            .get("https://be-intern-g6fh.onrender.com/api/v2/workschedule/self-schedule", {
+            .get("https://beintern-production.up.railway.app/api/v2/workschedule/self-schedule", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -77,7 +77,7 @@ useEffect(() => {
             };
             axios
                 .post(
-                    "https://be-intern-g6fh.onrender.com/api/v2/workschedule/store",
+                    "https://beintern-production.up.railway.app/api/v2/workschedule/store",
                     newTask,
                     {
                         headers: {
@@ -94,7 +94,7 @@ useEffect(() => {
                         alert("thêm thành công");
                         window.location.reload();
                         //
-                        
+
                         // console.log(newTask); // kiểm tra thuộc tính "id" của task mới
                         // event.preventDefault();
                         // setTasks(prevState => [...prevState, newTask]);
@@ -123,7 +123,7 @@ useEffect(() => {
 
         axios
             .put(
-                `https://be-intern-g6fh.onrender.com/api/v2/workschedule/${e.appointmentData.id}/update`,
+                `https://beintern-production.up.railway.app/api/v2/workschedule/${e.appointmentData.id}/update`,
                 updatedTask,
                 {
                     headers: {
@@ -163,7 +163,7 @@ useEffect(() => {
         console.log(token);
         axios
             .delete(
-                `https://be-intern-g6fh.onrender.com/api/v2/workschedule/${e.appointmentData.id}/delete`,
+                `https://beintern-production.up.railway.app/api/v2/workschedule/${e.appointmentData.id}/delete`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

@@ -23,7 +23,7 @@ const Viewuser = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "https://be-intern-g6fh.onrender.com/api/v2/employee/all-information",
+        "https://beintern-production.up.railway.app/api/v2/employee/all-information",
         {
           headers: {
             Authorization: `Bearer ${token}`, // Add the token as a bearer token

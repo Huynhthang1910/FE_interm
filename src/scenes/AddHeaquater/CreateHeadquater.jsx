@@ -13,7 +13,7 @@ const CreateHeadquater = (props) => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://be-intern-g6fh.onrender.com/api/v2/headquarter/store",
+        "https://beintern-production.up.railway.app/api/v2/headquarter/store",
         {
           headquarterName,
           headquarterAddress,
@@ -90,12 +90,12 @@ const CreateHeadquater = (props) => {
               <button
                 type="button"
                 className="btn btn-danger btn-lg"
-                id="cancel"
+                id="cancel-headquarter"
                 onClick={props.onClickAddd}
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-success btn-lg" id="add">
+              <button type="submit" className="btn btn-success btn-lg" id="add-headquarter">
                 Add
               </button>
             </div>

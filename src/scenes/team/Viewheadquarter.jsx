@@ -23,7 +23,7 @@ const Viewheadquarter = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "https://be-intern-g6fh.onrender.com/api/v2/headquarter/",
+        "https://beintern-production.up.railway.app/api/v2/headquarter/",
         {
           headers: {
             Authorization: `Bearer ${token}`, // Add the token as a bearer token
@@ -133,7 +133,7 @@ const Viewheadquarter = (props) => {
         </div>
 
         <Box
-          m="40px 0 0 0"
+          m="-32px 0 0 0"
           height="75vh"
           sx={{
             "& .MuiDataGrid-root": {

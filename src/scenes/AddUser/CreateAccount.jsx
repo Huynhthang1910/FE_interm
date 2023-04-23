@@ -17,7 +17,7 @@ const CreateAccount = (props) => {
 
   //Xử lý API lấy tên trụ sở
   useEffect(() => {
-    fetch("https://be-intern-g6fh.onrender.com/api/v2/headquarter/", {
+    fetch("https://beintern-production.up.railway.app/api/v2/headquarter/", {
       headers: {
         Authorization: `Bearer ${token}`, // Add the token as a bearer token
       },
@@ -34,7 +34,7 @@ const CreateAccount = (props) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://be-intern-g6fh.onrender.com/api/v2/employee/store",
+        "https://beintern-production.up.railway.app/api/v2/employee/store",
         {
           accountEmail,
           accountPassword,
@@ -185,23 +185,26 @@ const CreateAccount = (props) => {
                 Upload image (optional) (demo)
               </label>
               <input className="form-control" type="file" id="formFile" />
-              <button
-                type="button"
-                className="btn btn-danger btn-lg"
-                id="cancel"
-                onClick={props.onClickAddd}
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className={`btn btn-success btn-lg ${
-                  loading ? `disable` : null
-                }`}
-                disabled={loading}
-              >
-                Add
-              </button>
+              <div className="handle-button-account">
+
+                <button
+                  type="button"
+                  className="btn btn-danger btn-lg"
+                  id="cancel"
+                  onClick={props.onClickAddd}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className={`btn btn-success btn-lg ${
+                    loading ? `disable` : null
+                  }`}
+                  disabled={loading}
+                >
+                  Add
+                </button>
+              </div>
             </div>
 
             <div className="clearfix"></div>

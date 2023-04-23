@@ -14,8 +14,8 @@ import {
 } from "react-bootstrap";
 import "./Login.scss";
 
-const LOGIN_URL = "https://be-intern-g6fh.onrender.com/login";
-const DECODE_URL = "https://be-intern-g6fh.onrender.com/decode";
+const LOGIN_URL = "https://beintern-production.up.railway.app/login";
+const DECODE_URL = "https://beintern-production.up.railway.app/decode";
 const SESSION_TOKEN_KEY = "token";
 
 export default function Login({ onLogin }) {

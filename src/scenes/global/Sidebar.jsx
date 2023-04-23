@@ -45,7 +45,7 @@ const Sidebar = ({ ad, userid }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://be-intern-g6fh.onrender.com/api/v2/employee/information", {
+        const response = await fetch("https://beintern-production.up.railway.app/api/v2/employee/information", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -63,7 +63,7 @@ const Sidebar = ({ ad, userid }) => {
   //   const fetchAvatar = async () => {
   //     if (user) {
   //       try {
-  //         const response = await fetch(`https://be-intern-g6fh.onrender.com/api/v2/employee/avatar/${user.employeeId}`, {
+  //         const response = await fetch(`https://beintern-production.up.railway.app/api/v2/employee/avatar/${user.employeeId}`, {
   //           headers: {
   //             Authorization: `Bearer ${token}`,
   //           },
@@ -153,6 +153,7 @@ const Sidebar = ({ ad, userid }) => {
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
+                  style={{ wordWrap: 'break-word' }}
                 >
                   {user.accountEmail}
                 </Typography>

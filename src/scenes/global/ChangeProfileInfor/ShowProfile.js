@@ -16,7 +16,7 @@ const ShowProfile = () => {
     const [info, setFetchInfo] = useState(false)
 
     useEffect(() => {
-        fetch('https://be-intern-g6fh.onrender.com/api/v2/employee/information', {
+        fetch('https://beintern-production.up.railway.app/api/v2/employee/information', {
             headers: {
                 Authorization: `Bearer ${tokenTaken}`,
             },
@@ -40,67 +40,69 @@ const ShowProfile = () => {
             }}>
             <div className="profile__cover">
                 <div className="profile__block">
-                    <EditProfileAvatar />
-                    <div className="profile_desc_block">
-                        {
-                            Object.keys(fetchProfileApi).map(fetchApi => {
-                                let changeFetchApi = fetchApi
-                                switch (changeFetchApi) {
-                                    case "employeeId":
-                                        changeFetchApi = ("employee number");
-                                        break;
-                                    case "employeeName":
-                                        changeFetchApi = ("name");
-                                        break;
-                                    case "accountEmail":
-                                        changeFetchApi = ("gmail");
-                                        break;
-                                    case "employeePhone":
-                                        changeFetchApi = ("phone");
-                                        break;
-                                    case "employeeAddress":
-                                        changeFetchApi = ("adress");
-                                        break;
-                                    case "employeeGender":
-                                        fetchProfileApi.employeeGender  = (fetchProfileApi[fetchApi] === '1') ? 'male' : 'female'
-                                        changeFetchApi = ("gender");
-                                        break;
-                                    case "employeePosition":
-                                        changeFetchApi = ("title");
-                                        break;
-                                    case "headquarterName":
-                                        changeFetchApi = ("office name");
-                                        break;
-                                    case "headquarterAddress":
-                                        changeFetchApi = ("office address");
-                                        break;
-                                    case "accountRole":
-                                    case "accountId":
-                                    case "headquarterId":
-                                    case "employeeAvatar":
-                                    case "employeeSalary":
-                                        changeFetchApi = ("null__profileData");
-                                        break;
-                                    default:
-                                        console.log("ki su IT hoc tai VL");
-                                        break;
-                                }
-                                return (
-                                    <div className={
-                                        (changeFetchApi === "null__profileData")
-                                            ? "null__profileData" : fetchApi + " " + 'user_profile_title'
+                    <div className='profile__block_infor'>
+                        <EditProfileAvatar />
+                        <div className="profile_desc_block">
+                            {
+                                Object.keys(fetchProfileApi).map(fetchApi => {
+                                    let changeFetchApi = fetchApi
+                                    switch (changeFetchApi) {
+                                        case "employeeId":
+                                            changeFetchApi = ("employee number");
+                                            break;
+                                        case "employeeName":
+                                            changeFetchApi = ("name");
+                                            break;
+                                        case "accountEmail":
+                                            changeFetchApi = ("gmail");
+                                            break;
+                                        case "employeePhone":
+                                            changeFetchApi = ("phone");
+                                            break;
+                                        case "employeeAddress":
+                                            changeFetchApi = ("adress");
+                                            break;
+                                        case "employeeGender":
+                                            fetchProfileApi.employeeGender  = (fetchProfileApi[fetchApi] === '1') ? 'male' : 'female'
+                                            changeFetchApi = ("gender");
+                                            break;
+                                        case "employeePosition":
+                                            changeFetchApi = ("title");
+                                            break;
+                                        case "headquarterName":
+                                            changeFetchApi = ("office name");
+                                            break;
+                                        case "headquarterAddress":
+                                            changeFetchApi = ("office address");
+                                            break;
+                                        case "accountRole":
+                                        case "accountId":
+                                        case "headquarterId":
+                                        case "employeeAvatar":
+                                        case "employeeSalary":
+                                            changeFetchApi = ("null__profileData");
+                                            break;
+                                        default:
+                                            console.log("ki su IT hoc tai VL");
+                                            break;
                                     }
-                                        key={fetchApi}
-                                        style={{
-                                            backgroundColor: colors.primary[500],
-                                        }}
-                                    >
-                                        <div className="title">{changeFetchApi}</div>
-                                        <div className="infor">{((typeof fetchProfileApi[fetchApi] !== "object") ?  fetchProfileApi[fetchApi] : 0)}</div>
-                                    </div>
-                                )
-                            })
-                        }
+                                    return (
+                                        <div className={
+                                            (changeFetchApi === "null__profileData")
+                                                ? "null__profileData" : fetchApi + " " + 'user_profile_title'
+                                        }
+                                            key={fetchApi}
+                                            style={{
+                                                backgroundColor: colors.primary[500],
+                                            }}
+                                        >
+                                            <div className="title">{changeFetchApi}</div>
+                                            <div className="infor">{((typeof fetchProfileApi[fetchApi] !== "object") ?  fetchProfileApi[fetchApi] : 0)}</div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                     <div className='profile_edit_btn'>
                         <button bg="primary"
