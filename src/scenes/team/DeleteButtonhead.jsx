@@ -13,7 +13,7 @@ function DeleteButtonhead({ api, resetView }) {
   useEffect(() => {
     if (id !== null) {
       fetch(
-        `https://beintern-production.up.railway.app/api/v2/headquarter/${id}/delete`,
+        `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/${id}/delete`,
 
         {
           headers: {

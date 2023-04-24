@@ -15,7 +15,7 @@ export default function ForgotPassword({ onBackToLogin }) {
 
     try {
       const response = await axios.post(
-        "https://beintern-production.up.railway.app/api/v2/account/forgot-password",
+        `${process.env.REACT_APP_API_ENDPOINT}api/v2/account/forgot-password`,
         { accountEmail: email }
       );
       console.log(response);

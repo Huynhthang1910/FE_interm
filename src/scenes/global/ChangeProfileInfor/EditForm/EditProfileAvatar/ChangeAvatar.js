@@ -6,8 +6,10 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
     const [stateUpdAvatar, setStateUpdAvatar] = useState(true);
     const [imgReF, setImgRef] = useState('');
     const tokenTaken = sessionStorage.getItem("token");
+    const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/information`;
+    const urlPostAvatarEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/create-avatar`
     useEffect(() => {
-        fetch('https://beintern-production.up.railway.app/api/v2/employee/information', {
+        fetch(urlAllInforEmployee, {
             headers: {
                 Authorization: `Bearer ${tokenTaken}`,
             },
@@ -31,7 +33,7 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
         formData.append('file', fileAvatar);
         console.log(formData);
 
-        fetch('https://beintern-production.up.railway.app/api/v2/employee/create-avatar',
+        fetch(urlPostAvatarEmployee,
             {
                 method: 'POST',
                 headers: {
@@ -52,8 +54,7 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
 
     //! fetch avatar
     useEffect(() => {
-        console.log(`https://beintern-production.up.railway.app/api/v2/employee/avatar/${fetchAvaApis}`);
-        fetch(`https://beintern-production.up.railway.app/api/v2/employee/avatar/${fetchAvaApis}`, {
+        fetch(`${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/avatar/${fetchAvaApis}`, {
             headers: {
                 Authorization: `Bearer ${tokenTaken}`,
             },

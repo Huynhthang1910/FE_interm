@@ -35,7 +35,7 @@ useEffect(() => {
         const token = sessionStorage.getItem("token");
         // const token = localStorage.getItem('token');
         axios
-            .get("https://beintern-production.up.railway.app/api/v2/workschedule/self-schedule", {
+            .get(`${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/self-schedule`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -77,7 +77,7 @@ useEffect(() => {
             };
             axios
                 .post(
-                    "https://beintern-production.up.railway.app/api/v2/workschedule/store",
+                    `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/store`,
                     newTask,
                     {
                         headers: {
@@ -123,7 +123,7 @@ useEffect(() => {
 
         axios
             .put(
-                `https://beintern-production.up.railway.app/api/v2/workschedule/${e.appointmentData.id}/update`,
+                `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/${e.appointmentData.id}/update`,
                 updatedTask,
                 {
                     headers: {
@@ -163,7 +163,7 @@ useEffect(() => {
         console.log(token);
         axios
             .delete(
-                `https://beintern-production.up.railway.app/api/v2/workschedule/${e.appointmentData.id}/delete`,
+                `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/${e.appointmentData.id}/delete`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

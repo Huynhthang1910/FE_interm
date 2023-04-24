@@ -6,9 +6,10 @@ const UpdateInfor = (props) => {
   const token = sessionStorage.getItem("token");
   const [InforUser, setInforUser] = useState(props.InforUser);
   const [apiTruso, setApiTruso] = useState([]);
+  const urlGetHeadquarterName = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/`
   //Xử lý API lấy tên trụ sở
   useEffect(() => {
-    fetch("https://beintern-production.up.railway.app/api/v2/headquarter/", {
+    fetch(urlGetHeadquarterName, {
       headers: {
         Authorization: `Bearer ${token}`, // Add the token as a bearer token
       },
@@ -30,7 +31,7 @@ const UpdateInfor = (props) => {
     //     checkVariables = false;
     // }
     if (checkVariables) {
-        let url = `https://beintern-production.up.railway.app/api/v2/employee/${InforUser.employeeId}/update`;
+        let url = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/${InforUser.employeeId}/update`;
         let sendInfor = {
         headquarterId: String(InforUser.headquarterId),
         employeeName: String(InforUser.employeeName),

@@ -13,7 +13,7 @@ const ChangePassword = (props) => {
   const reNewPassword = (event) => {
     setReNewPass(event.target.value);
   };
-  let url = "https://beintern-production.up.railway.app/api/v2/account/reset-password";
+  let urlResetPassword = `${process.env.REACT_APP_API_ENDPOINT}api/v2/account/reset-password`;
   let payLoad = {
     accountPassword: newPass,
     retypeAccountPassword: reNewPass,
@@ -39,7 +39,7 @@ const ChangePassword = (props) => {
     } else {
       console.log(payLoad);
       console.log(newPass, reNewPass);
-      fetch(url, option)
+      fetch(urlResetPassword, option)
         .then((res) => res.json())
         .then((data) => alert(data.message))
         .catch((error) => {

@@ -14,10 +14,12 @@ const CreateAccount = (props) => {
   const [errorToast, setErrorToast] = useState("");
   const [loading, setLoading] = useState(false);
   const token = sessionStorage.getItem("token");
+  const url_getAllHeadquarter = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/`;
+  const url_postEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/store`
 
   //Xử lý API lấy tên trụ sở
   useEffect(() => {
-    fetch("https://beintern-production.up.railway.app/api/v2/headquarter/", {
+    fetch(url_getAllHeadquarter, {
       headers: {
         Authorization: `Bearer ${token}`, // Add the token as a bearer token
       },
@@ -34,7 +36,7 @@ const CreateAccount = (props) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://beintern-production.up.railway.app/api/v2/employee/store",
+        url_postEmployee,
         {
           accountEmail,
           accountPassword,

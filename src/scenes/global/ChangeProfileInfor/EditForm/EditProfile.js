@@ -18,9 +18,10 @@ const EditProfile = ({ setFetchInfo, hiddenEditForm }) => {
 
         }
     )
+    const urlupdateInfoEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/self-update`
     const handleCredentialsSubmit = (event) => {
         event.preventDefault();
-        fetch('https://beintern-production.up.railway.app/api/v2/employee/self-update',
+        fetch(urlupdateInfoEmployee,
             {
                 method: 'PUT',
                 body: JSON.stringify({

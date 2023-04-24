@@ -20,10 +20,11 @@ const Viewheadquarter = (props) => {
   const resetWindows = () => {
     window.location.reload();
   };
+  const urlGetHeadquarterName = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/`
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "https://beintern-production.up.railway.app/api/v2/headquarter/",
+        urlGetHeadquarterName,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Add the token as a bearer token

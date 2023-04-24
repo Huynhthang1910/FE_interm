@@ -13,7 +13,7 @@ function DeleteButton({ api, resetView }) {
     handleClose();
     if (id !== null) {
       fetch(
-        `https://beintern-production.up.railway.app/api/v2/employee/${id}/delete`,
+        `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/${id}/delete`,
 
         {
           headers: {

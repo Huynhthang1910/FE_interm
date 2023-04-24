@@ -15,7 +15,7 @@ const Viewuser = (props) => {
   const [users, setUsers] = useState([]);
   const token = sessionStorage.getItem("token");
   const [InforUser, setInforUser] = useState("");
-
+  const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/all-information`
   const handleSetInforUser = (row) => {
     setInforUser(row);
   };
@@ -23,7 +23,7 @@ const Viewuser = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "https://beintern-production.up.railway.app/api/v2/employee/all-information",
+        urlAllInforEmployee,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Add the token as a bearer token

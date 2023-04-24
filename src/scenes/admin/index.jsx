@@ -10,12 +10,14 @@ function SchedulerAdmin() {
     e.form.itemOption("endDate", "readOnly", true);
     e.form.itemOption("text", "readOnly", true);
   };
+  const urlGetHeadquarterName = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/`
+  const urlGetAllInforSchedule = `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/all-information/`
   // lấy ra thông tin trụ sở
   const [headquarterNames, setHeadquarterNames] = useState([]);
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
-      .get("https://beintern-production.up.railway.app/api/v2/headquarter/", {
+      .get(urlGetHeadquarterName, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +42,7 @@ function SchedulerAdmin() {
     // const token = localStorage.getItem('token');
     axios
       .get(
-        "https://beintern-production.up.railway.app/api/v2/workschedule/all-information/",
+        urlGetAllInforSchedule,
         {
           headers: {
             Authorization: `Bearer ${token}`,

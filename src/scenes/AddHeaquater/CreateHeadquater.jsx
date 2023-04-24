@@ -7,13 +7,12 @@ const CreateHeadquater = (props) => {
   const [headquarterName, setHeadquarterName] = useState("");
   const token = sessionStorage.getItem("token");
   const [showComponent, setShowComponent] = useState(false);
-
+  const urlAddEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/store`;
   // Xử lý API để add người dùng
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
-        "https://beintern-production.up.railway.app/api/v2/headquarter/store",
+      const response = await axios.post(urlAddEmployee,
         {
           headquarterName,
           headquarterAddress,

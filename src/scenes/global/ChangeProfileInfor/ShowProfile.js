@@ -14,9 +14,9 @@ const ShowProfile = () => {
     const [fetchProfileApi, setProfileApi] = useState([]);
     const [hiddenEditForm, setHiddenEditForm] = useState(false);
     const [info, setFetchInfo] = useState(false)
-
+    const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/information`
     useEffect(() => {
-        fetch('https://beintern-production.up.railway.app/api/v2/employee/information', {
+        fetch(urlAllInforEmployee, {
             headers: {
                 Authorization: `Bearer ${tokenTaken}`,
             },
