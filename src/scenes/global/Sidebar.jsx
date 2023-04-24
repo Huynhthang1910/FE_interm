@@ -40,12 +40,12 @@ const Sidebar = ({ ad, userid }) => {
   const [user, setUser] = useState([]);
   const token = sessionStorage.getItem("token");
   const [imgReF, setImgRef] = useState("");
-
+  const urlGetAllInfo = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/information`
   //
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://beintern-production.up.railway.app/api/v2/employee/information", {
+        const response = await fetch(urlGetAllInfo, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
