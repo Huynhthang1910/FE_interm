@@ -19,7 +19,7 @@ const UpdateHeadquarter = (props) => {
         // if(String(inforHeadquarter.headquarterName)=== "" || String(inforHeadquarter.headquarterAddress) === "") {
         //     alert("Something is null! please check it again!")
         // }else{
-            let url = `https://be-intern-g6fh.onrender.com/api/v2/headquarter/${inforHeadquarter.headquarterId}/update`
+            let url = `https://beintern-production.up.railway.app/api/v2/headquarter/${inforHeadquarter.headquarterId}/update`
             let payLoad = {
                 "headquarterName": String(inforHeadquarter.headquarterName),
                 "headquarterAddress": String(inforHeadquarter.headquarterAddress)

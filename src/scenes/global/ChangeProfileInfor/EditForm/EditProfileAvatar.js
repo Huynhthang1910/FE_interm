@@ -13,7 +13,7 @@ const EditProfileAvatar = () => {
     // }, [avatarState])
 
     return (
-        <form>
+        <form className='ChangeAvatar'>
             <ChangeAvatar handleExportAvatar={handleEditData} />
         </form>
     );

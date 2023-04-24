@@ -25,7 +25,8 @@
 	display: flex;
 	gap: 18px;
 	flex-flow: column wrap;
-	padding: 16px;
+	padding: 30px;
+	margin: 0 auto;
 }
 
 .user_edit i {
@@ -107,7 +108,6 @@
 	transition: all 0.2s ease-out;
 	z-index: 2;
 	cursor: pointer;
-	color: var(--color);
 }
 
 #profile__edit-btn:hover {
@@ -120,4 +120,20 @@
 
 .edit__bt {
 	cursor: pointer;
+}
+.profile__block_infor {
+    display: flex;
+    justify-content: space-between;
+}
+
+form.ChangeAvatar {
+    display: inline-block;
+}
+
+.profile_desc_block {
+    width: 75%;
+}
+
+button#profile__edit-btn {
+    color: #fff;
 }
