@@ -41,6 +41,9 @@ body,
 	margin: 0 auto;
 	margin-top: 20px;
 }
+.dx-scheduler-time-panel {
+    display: none;
+}
 
 .mbsc-calendar-picker-wrapper {
 	width: 17em !important;
