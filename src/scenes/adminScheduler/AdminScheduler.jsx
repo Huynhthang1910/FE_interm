@@ -2,34 +2,19 @@ import React, { useState, useEffect } from "react";
 import Scheduler, { Resource, View } from "devextreme-react/scheduler";
 import TextBox from "devextreme-react/text-box";
 import Button from "devextreme-react/button";
+
 import axios from "axios";
-const currentDate = new Date(2023, 3, 25);
-const views = ["week", "month"];
-const groups = ['TruSo'];
-// const data = [
-//     {
-//         text: "Task 1",
-//         startDate: new Date(2023, 3, 25, 9, 30),
-//         endDate: new Date(2023, 3, 25, 11, 30),
-//         roomId: 1,
-//     },
-//     {
-//         text: "Task 2",
-//         startDate: new Date(2023, 3, 25, 12, 0),
-//         endDate: new Date(2023, 3, 25, 14, 0),
-//         roomId: 2,
-//     },
-// ];
-
-
+const token = sessionStorage.getItem("token");
+const StringIso = new Date();
+const currentDate = StringIso.toISOString();
+const groups = ['idEmployee'];
 const urlGetHeadquarterName = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/`;
-const urlGetEmployeeNames = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/all-information`;
+const urlGetEmployeeNames = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/`;
 const urlGetAllScheduleEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/`
 const SchedulerComponent = () => {
     // lấy ra thông tin trụ sở
     const [headquarterNames, setHeadquarterNames] = useState([]);
     useEffect(() => {
-        const token = sessionStorage.getItem("token");
         axios
             .get(urlGetHeadquarterName, {
                 headers: {
@@ -38,7 +23,7 @@ const SchedulerComponent = () => {
             })
             .then((response) => {
                 const headquarterNames = response.data.data.map((headquarter) => ({
-                    id: headquarter.headquarterName,
+                    id: headquarter.headquarterId,
                     text: headquarter.headquarterName,
                 }));
                 setHeadquarterNames(headquarterNames);
@@ -47,11 +32,9 @@ const SchedulerComponent = () => {
                 console.log(error);
             });
     }, []);
-    console.log(headquarterNames);
     // lấy ra tên các nhân viên
     const [EmployeeNames, setEmployeeNames] = useState([]);
     useEffect(() => {
-        const token = sessionStorage.getItem("token");
         axios
             .get(urlGetEmployeeNames, {
                 headers: {
@@ -69,11 +52,9 @@ const SchedulerComponent = () => {
                 console.log(error);
             });
     }, []);
-    console.log(EmployeeNames);
     // lấy ra tất cả lịch là việc
     const [dataSchedulerEmployee, setDataSchedulerEmployee] = useState([])
-    useEffect(()=>{
-        const token = sessionStorage.getItem("token");
+    useEffect(() => {
         axios
             .get(urlGetAllScheduleEmployee, {
                 headers: {
@@ -81,37 +62,22 @@ const SchedulerComponent = () => {
                 },
             })
             .then((response) => {
+                console.log(response);
                 const SchedulerEmployees = response.data.data.map((SchedulerEmployee) => ({
                     id: SchedulerEmployee.workScheduleId,
-                    idEmployee : SchedulerEmployee.employeeId,
-                    text: SchedulerEmployee.workSchedulePlace,
+                    idEmployee: SchedulerEmployee.employeeId,
+                    text: SchedulerEmployee.workSchedulePlan,
                     startDate: SchedulerEmployee.workScheduleTimeIn,
                     endDate: SchedulerEmployee.workScheduleTimeOut,
-                    description: SchedulerEmployee.workSchedulePlan,
-                    TruSo: SchedulerEmployee.headquarterName,
-                    NhanVien: SchedulerEmployee.employeeName,
-                    allDay: false,
-                    recurrenceRule: null,
+                    departure: SchedulerEmployee.workScheduleDeparture,
+                    destination: SchedulerEmployee.workScheduleDestination
                 }));
                 setDataSchedulerEmployee(SchedulerEmployees);
             })
             .catch((error) => {
                 console.log(error);
             });
-    },[])
-    console.log(dataSchedulerEmployee);
-
-    const resources = [
-        {
-            fieldExpr: "idEmployee",
-            dataSource: EmployeeNames,
-            label: "Nhân Viên",
-        },{
-            fieldExpr: "TruSo",
-            dataSource: headquarterNames,
-            label:"tru so"
-        }
-    ];
+    }, [])
     const [searchText, setSearchText] = useState("");
     const [filteredData, setFilteredData] = useState(dataSchedulerEmployee);
     const [showFilteredData, setShowFilteredData] = useState(false);
@@ -125,6 +91,7 @@ const SchedulerComponent = () => {
     };
 
     const renderCell = (dataSchedulerEmployee) => {
+        console.log(dataSchedulerEmployee.appointmentData);
         if (showFilteredData) {
             return filteredData.includes(dataSchedulerEmployee.appointmentData);
         } else {
@@ -134,6 +101,82 @@ const SchedulerComponent = () => {
 
     const dataSource = showFilteredData ? filteredData : dataSchedulerEmployee; // Sử dụng filteredData khi showFilteredData là true
 
+    const workingStatus = [
+        { id: 1, text: "đi Công Tác" },
+        { id: 2, text: "đi Tiếp Khách" },
+        { id: 3, text: "Nghỉ Phép" },
+        { id: 4, text: "Làm Việc Tại Nhà" },
+    ];
+    const formItems = [
+        {
+            label: {
+                text: "Hiện Trạng Làm Việc",
+            },
+            editorType: "dxSelectBox",
+            dataField: "text",
+            editorOptions: {
+                dataSource: workingStatus,
+                // value: "đi Công Tác",
+                displayExpr: "text",
+                valueExpr: "text",
+
+            },
+            colSpan: 2
+        },
+        {
+            name: "departure",
+            label:
+            {
+                text: "Nơi đi ",
+                // visible: false,
+            },
+            editorType: "dxSelectBox",
+            dataField: "departure",
+
+            editorOptions: {
+                dataSource: headquarterNames,
+                displayExpr: "text",
+                valueExpr: "text",
+            },
+        },
+        {
+            name: "destination",
+            label:
+            {
+                text: "Nơi đến ",
+
+            },
+            // visible: false,
+            editorType: "dxSelectBox",
+            dataField: "destination",
+            editorOptions: {
+                dataSource: headquarterNames,
+                displayExpr: "text",
+                valueExpr: "text",
+            },
+        },
+        {
+            dataField: "startDate",
+            editorType: "dxDateBox",
+            editorOptions: {
+                width: "100%",
+                type: "datetime",
+            },
+        },
+        {
+            name: "endDate",
+            dataField: "endDate",
+            editorType: "dxDateBox",
+            editorOptions: {
+                width: "100%",
+                type: "datetime",
+            },
+        },
+    ];
+    const onAppointmentFormOpening = (e) => {
+        const { form} = e;
+        form.option("items", formItems);
+    }
     return (
         <div>
             <div
@@ -148,7 +191,7 @@ const SchedulerComponent = () => {
             <Scheduler
                 dataSource={dataSource} // Sử dụng dataSource mới
                 // views={views}
-                // groups={groups}
+                groups={groups}
                 defaultCurrentView="Vertical Grouping"
                 defaultCurrentDate={currentDate}
                 height={600}
@@ -157,28 +200,29 @@ const SchedulerComponent = () => {
                 renderCell={renderCell}
                 editing={false}
                 showAllDayPanel={false}
-
+                onAppointmentFormOpening={onAppointmentFormOpening}
             >
                 <Resource
-                    dataSource={resources[0].dataSource}
-                    fieldExpr={resources[0].fieldExpr}
-                    label={resources[0].label}
+                    dataSource={headquarterNames}
+                    fieldExpr={'TruSo'}
+                    label={"Trụ Sở "}
                 />
                 <Resource
-                    dataSource={resources[1].dataSource}
-                    fieldExpr={resources[1].fieldExpr}
-                    label={resources[1].label}
+                    dataSource={EmployeeNames}
+                    fieldExpr='idEmployee'
+                    allowMultiple={false}
+                    label="Tên Nhân viên "
                 />
                 <View
                     name="Vertical Grouping"
                     type="workWeek"
+                    // type='month'
                     groupOrientation="vertical"
-                    cellDuration={12}
-                    intervalCount={1}
-                    />
+                // cellDuration={12}
+                // intervalCount={1}
+                />
             </Scheduler>
         </div>
     );
 };
-
 export default SchedulerComponent;
