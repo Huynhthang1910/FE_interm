@@ -148,7 +148,7 @@ export default function Login({ onLogin }) {
                               className="mb-3"
                               controlId="formBasicCheckbox"
                             >
-                              <p className="small">
+                              {/* <p className="small">
                                 <a
                                   className="text-primary"
                                   onClick={handleShowForgotPassword}
@@ -156,7 +156,7 @@ export default function Login({ onLogin }) {
                                 >
                                   Forgot password?
                                 </a>
-                              </p>
+                              </p> */}
                             </Form.Group>
                           </Form.Group>
                           <div className="d-grid">
