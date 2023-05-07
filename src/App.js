@@ -10,6 +10,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import ShowProfile from "./scenes/global/ChangeProfileInfor/ShowProfile";
 import Login from "./scenes/Login/Login";
+import TokenChecker from "./scenes/Login/TokenChecker";
 
 export default function App() {
   const [theme, colorMode] = useMode();
@@ -22,21 +23,19 @@ export default function App() {
     const token = sessionStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
+      setIsLoading(true);
     }
-    setIsLoading(false);
   }, []);
-
-  if (isLoading) {
-    return null; // hoặc hiển thị một trang tải trước
-  }
 
   if (!isLoggedIn) {
     return (
-      <Login
-        onLogin={() => {
-          setIsLoggedIn(true);
-        }}
-      />
+      isLoading && (
+        <Login
+          onLogin={() => {
+            setIsLoggedIn(true);
+          }}
+        />
+      )
     );
   }
   return (
@@ -44,6 +43,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
+          <TokenChecker />
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
