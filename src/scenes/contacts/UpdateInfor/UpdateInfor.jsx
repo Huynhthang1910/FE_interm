@@ -90,49 +90,68 @@ const UpdateInfor = (props) => {
                     className="changeInfor__form"
                     onSubmit={(e) => {e.preventDefault(); sendNewUserInfor();}}>
                 <div className="col1">
-                <label className="changeInfor__form__title">EmployeeName</label>
-                <input
-                    name="employeeName"
-                    className="box"
-                    type="text"
-                    value={InforUser.employeeName}
-                    placeholder="Johnny Deef..."
-                    onChange={(event) => {
-                    handelChangeinforJson(event);
-                    }}
-                />
-                <label className="changeInfor__form__title">EmployeePhone</label>
-                <input
-                    name="employeePhone"
-                    className="box"
-                    type="tell"
-                    pattern="[0-9]{10}"
-                    value={InforUser.employeePhone}
-                    placeholder="Number phone has 10 number"
-                    onChange={(event) => {
-                    handelChangeinforJson(event);
-                    }}
-                    required
-                />
-                <label className="changeInfor__form__title">
-                    EmployeeAddress
-                </label>
-                <input
-                    name="employeeAddress"
-                    className="box"
-                    type="text"
-                    value={InforUser.employeeAddress}
-                    placeholder="Tokyo..."
-                    onChange={(event) => {
-                    handelChangeinforJson(event);
-                    }}
-                />
+                    <div className="col1_input">
+                        <input
+                            name="employeeName"
+                            className="box"
+                            type="text"
+                            value={InforUser.employeeName}
+                            placeholder="Johnny Deef..."
+                            onChange={(event) => {
+                            handelChangeinforJson(event);
+                            }}
+                        />
+                        <label className="col1_input_title">Full Name</label>
+                    </div>
+                    <div className="col1_input">
+                        <input
+                            name="employeePhone"
+                            className="box"
+                            type="tell"
+                            pattern="[0-9]{10}"
+                            value={InforUser.employeePhone}
+                            placeholder="Number phone has 10 number"
+                            onChange={(event) => {
+                            handelChangeinforJson(event);
+                            }}
+                            required
+                        />  
+                        <label className="col1_input_title">Phone Number</label>
+                    </div>
+                    <div className="col1_input">
+                        <input
+                            name="employeeAddress"
+                            className="box"
+                            type="text"
+                            value={InforUser.employeeAddress}
+                            placeholder="Tokyo..."
+                            onChange={(event) => {
+                            handelChangeinforJson(event);
+                            }}
+                        />
+                        <label className="col1_input_title">Address</label>
+                    </div>
+                    <div className="col1_input">
+                        <input
+                            name="employeeSalary"
+                            className="box"
+                            type="number"
+                            step="100"
+                            min="1"
+                            max="100000"
+                            value={InforUser.employeeSalary}
+                            onChange={(event) => {
+                            handelChangeinforJson(event);
+                            }}
+                        />
+                        <label className="col1_input_title">EmployeeSalary</label>
+                    </div>
                 </div>
                 <div className="col1">
                 <div className="select">
                     <div className="select__around">
                     <label htmlFor="select-role" className="select__around__title">
-                        EmployeeGender
+                        Select Gender
                     </label>
                     <select
                         name="employeeGender"
@@ -150,7 +169,7 @@ const UpdateInfor = (props) => {
                     </div>
                     <div className="select__around">
                     <label htmlFor="select-role" className="select__around__title">
-                        EmployeePosition
+                        Select Position
                     </label>
                     <select
                         name="employeePosition"
@@ -172,7 +191,7 @@ const UpdateInfor = (props) => {
                     </div>
                     <div className="select__around">
                 <label htmlFor="select-role" className="select__around__title">
-                    Headquarters
+                    Select Headquarters
                 </label>
                 <select
                     name="headquarterId"
@@ -192,16 +211,6 @@ const UpdateInfor = (props) => {
                 </select>
             </div>
                 </div>
-                <label className="changeInfor__form__title">EmployeeSalary</label>
-                <input
-                    name="employeeSalary"
-                    className="box"
-                    type="number"
-                    value={InforUser.employeeSalary}
-                    onChange={(event) => {
-                    handelChangeinforJson(event);
-                    }}
-                />
                 <button
                     type="submit"
                     className="changeInfor__form__btn"
