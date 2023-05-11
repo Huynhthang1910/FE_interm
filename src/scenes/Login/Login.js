@@ -82,70 +82,62 @@ export default function Login({ onLogin }) {
                   {showForgotPassword ? (
                     <ForgotPassword onBackToLogin={handleBackToLogin} />
                   ) : (
-                    <div>
-                      <p className=" mb-5">
-                        Please enter your login and password!
-                      </p>
-                      <div className="mb-3">
-                        <Form onSubmit={handleSubmit}>
-                          <Form.Group
-                            className="mb-3"
-                            controlId="formBasicEmail"
-                          >
-                            <Form.Label className="text-center">
-                              Email address
-                            </Form.Label>
-                            <Form.Control
-                              type="email"
-                              placeholder="Enter email"
-                              name="email"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              required
-                            />
-                          </Form.Group>
+                    <div className="mb-3">
+                      <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                          <Form.Label className="text-center">
+                            Email address
+                          </Form.Label>
+                          <Form.Control
+                            type="email"
+                            placeholder="Enter email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                          />
+                        </Form.Group>
 
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicPassword"
+                        >
+                          <Form.Label>Password</Form.Label>
+                          <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            autoComplete="current-password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                          />
                           <Form.Group
                             className="mb-3"
-                            controlId="formBasicPassword"
+                            controlId="formBasicCheckbox"
                           >
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                              type="password"
-                              placeholder="Password"
-                              name="password"
-                              autoComplete="current-password"
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
-                              required
-                            />
-                            <Form.Group
-                              className="mb-3"
-                              controlId="formBasicCheckbox"
-                            >
-                              <p className="small">
-                                <a
-                                  className="text-primary"
-                                  onClick={handleShowForgotPassword}
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  Forgot password?
-                                </a>
-                              </p>
-                            </Form.Group>
+                            <p className="small">
+                              <a
+                                className="text-primary"
+                                onClick={handleShowForgotPassword}
+                                style={{ cursor: "pointer" }}
+                              >
+                                Forgot password?
+                              </a>
+                            </p>
                           </Form.Group>
-                          <div className="d-grid">
-                            <Button
-                              variant="primary"
-                              type="submit"
-                              disabled={loading}
-                              className={loading ? "disabled" : ""}
-                            >
-                              Login
-                            </Button>
-                          </div>
-                        </Form>
-                      </div>
+                        </Form.Group>
+                        <div className="d-grid">
+                          <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={loading}
+                            className={loading ? "disabled" : ""}
+                          >
+                            Login
+                          </Button>
+                        </div>
+                      </Form>
                     </div>
                   )}
                 </div>

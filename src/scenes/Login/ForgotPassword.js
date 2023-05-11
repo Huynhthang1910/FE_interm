@@ -44,7 +44,7 @@ export default function ForgotPassword({ onBackToLogin }) {
       </Form.Group>
       <div className="col-12">
         <Button
-          variant="dark"
+          variant="danger"
           type="button"
           className="col-6"
           onClick={handleCancel}

@@ -17,6 +17,11 @@ const TokenChecker = () => {
       const sub = JSON.parse(decodedToken.sub);
       setTokenExp(decodedToken.exp);
       setEmployeeID(sub.employeeId);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        sessionStorage.clear();
+        window.location.reload();
+      }
     }
   };
 
@@ -60,6 +65,10 @@ const TokenChecker = () => {
           if (decodedToken.exp - currentTime < 120) {
             setShowAlert(true);
           }
+          if (decodedToken.exp < currentTime) {
+            sessionStorage.clear();
+            window.location.href = "/login"; // Redirect to login page
+          }
         }
       }, (tokenExp - Date.now() / 1000 - 120) * 1000);
       return () => clearTimeout(timer);
@@ -78,6 +87,7 @@ const TokenChecker = () => {
       {showAlert && (
         <div
           className="alert alert-warning fixed-top d-flex justify-content-center align-items-center"
+          style={{ height: "4rem" }}
           role="alert"
         >
           <div className="text-center">

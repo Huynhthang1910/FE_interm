@@ -15,21 +15,18 @@ const Viewuser = (props) => {
   const [users, setUsers] = useState([]);
   const token = sessionStorage.getItem("token");
   const [InforUser, setInforUser] = useState("");
-  const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/all-information`
+  const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/all-information`;
   const handleSetInforUser = (row) => {
     setInforUser(row);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        urlAllInforEmployee,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Add the token as a bearer token
-          },
-        }
-      );
+      const response = await fetch(urlAllInforEmployee, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the token as a bearer token
+        },
+      });
       const datas = await response.json();
       //   const dataWithIds = datas.map((row, index) => ({ ...row, id: index + 1 }));
       const dataWithIds = datas.data.map((row, index) => ({
@@ -141,7 +138,7 @@ const Viewuser = (props) => {
           id="Addbuton"
         >
           <button
-            className="btn btn-success me-md-2 me-lg-4"
+            className="btn btn-success ms-auto ms-sm-auto me-md-2 me-lg-2"
             type="button"
             onClick={props.onClickAddd}
           >
