@@ -7,6 +7,7 @@ import { useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteButton from "./DeleteButton";
 import UpdateInfor from "./UpdateInfor/UpdateInfor";
+import Message from "./UpdateInfor/Message/Message.jsx";
 import "./Viewusers.scss";
 
 const Viewuser = (props) => {
@@ -15,6 +16,7 @@ const Viewuser = (props) => {
   const [users, setUsers] = useState([]);
   const token = sessionStorage.getItem("token");
   const [InforUser, setInforUser] = useState("");
+  const [newData, setNewData] = useState("");
   const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/all-information`
   const handleSetInforUser = (row) => {
     setInforUser(row);
@@ -42,7 +44,6 @@ const Viewuser = (props) => {
     fetchData();
   }, [token]);
   const resetUserId = (heads) => {
-    // console.log("show nè>>>>",users);
     return heads.map((head, index) => {
       return {
         ...head,
@@ -58,17 +59,13 @@ const Viewuser = (props) => {
     });
   };
 
-  const show = () => {
-    window.location.reload();
-    // let id = newInfor.employeeId;
-    // console.log("infor mới nè>>>>",newInfor)
-    // setUsers((prevUsers) => {
-    //   const resetUsers = prevUsers.filter((item) => item.employeeId !== id);
-    //   return ({...resetUsers,[Object.keys(users).pop()+1]:newInfor});
-    // });
-    // resetUserId(users);
-  };
-
+  const getNewData = (infor) => {
+    setNewData(infor)
+    // console.log("check data>>>",newData)
+  }
+  const unMess = (data) => {
+    setNewData(data)
+  }
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
     {
@@ -193,8 +190,14 @@ const Viewuser = (props) => {
         <UpdateInfor
           InforUser={InforUser}
           handleSetInforUser={handleSetInforUser}
-          show={show}
+          getNewData={getNewData}
         ></UpdateInfor>
+      )}
+      {newData && (
+        <Message 
+        data={newData}
+        unMess={unMess}
+        />
       )}
     </>
   );

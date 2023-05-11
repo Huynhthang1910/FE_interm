@@ -4,7 +4,6 @@ import "./UpdateHeadquarter.scss";
 import { Message } from "@mui/icons-material";
 
 const UpdateHeadquarter = (props) => {
-    const token = sessionStorage.getItem("token");
     const [inforHeadquarter, setInfor] = useState(props.inforHeadquarter);
     // console.log(inforHeadquarter)
     const changeHeadquarter = (e) => {
@@ -15,36 +14,10 @@ const UpdateHeadquarter = (props) => {
         console.log(value)
         setInfor({...inforHeadquarter,[keyName]:[value]})
     }
-    const callAPI = () => {
-        // if(String(inforHeadquarter.headquarterName)=== "" || String(inforHeadquarter.headquarterAddress) === "") {
-        //     alert("Something is null! please check it again!")
-        // }else{
-            let url = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/${inforHeadquarter.headquarterId}/update`
-            let payLoad = {
-                "headquarterName": String(inforHeadquarter.headquarterName),
-                "headquarterAddress": String(inforHeadquarter.headquarterAddress)
-                }
-            let option = {
-                method: "PUT",
-                body: JSON.stringify(payLoad),
-                headers: {
-                    Authorization: `Bearer ${token}`, // Add the token as a bearer token
-                    "Content-Type": "application/json",
-                },
-            }
-            fetch(url, option)
-                .then((res) => res.json())
-                .then((data) => {
-                    if(data.message === "Cập Nhật Thành Công"){
-                        // alert('Success! Please click "OK" to reload data!')
-                        props.resetWindows()
-                    } else{
-                        alert("Update failed!");
-                        console.log(data)
-                    }
-                    })
-        // }
-    }
+    const sendData = () => {
+        props.getNewData(inforHeadquarter);
+        props.handleSetInforHeadquarter(false);
+      }
     return (
     <>
         <div
@@ -53,7 +26,7 @@ const UpdateHeadquarter = (props) => {
         </div>
         <form
             className="form_headquarter"
-            onSubmit={(e) => {e.preventDefault(); callAPI();}}>
+            onSubmit={(e) => {e.preventDefault(); sendData()}}>
             <img src={UrbanLogo} alt="logo" className="form_headquarter__img" />
             <label className="form_headquarter__title">
                 Headquarter Name
@@ -77,8 +50,14 @@ const UpdateHeadquarter = (props) => {
                 required/>
             <button
                 type="submit"
-                className="form_headquarter__btn">
-                Update Headquarter
+                className="form_headquarter__btn update">
+                Update
+            </button>
+            <button
+                type="submit"
+                className="form_headquarter__btn cancle"
+                onClick={()=>{props.handleSetInforHeadquarter(false)}}>
+                Cancle
             </button>
         </form>
     </>

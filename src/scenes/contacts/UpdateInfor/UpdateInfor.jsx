@@ -1,8 +1,9 @@
-import "./UpdateInfor.scss";
 import { useState, useEffect } from "react";
+import "./UpdateInfor.scss";
+
+
 
 const UpdateInfor = (props) => {
-//   console.log("đây là 1>>>>",props.InforUser)
   const token = sessionStorage.getItem("token");
   const [InforUser, setInforUser] = useState(props.InforUser);
   const [apiTruso, setApiTruso] = useState([]);
@@ -19,64 +20,18 @@ const UpdateInfor = (props) => {
       .catch((error) => console.error(error));
   }, [token]); // Include the token as a dependency to re-fetch data when the token changes
   const headQuarters = apiTruso;
-  const sendNewUserInfor = () => {
-    // console.log(InforUser);
-    let checkVariables = true;
-    // if (String(InforUser.employeePhone).length !== 10 ){
-    //     alert("Number phone have 10 characters! please check it again!");
-    //     checkVariables = false;
-    // }
-    // if (String(InforUser.employeePosition) === "null" || String(InforUser.employeeGender) === "null" || String(InforUser.headquarterId) === "null") {
-    //     alert("Position, Gender or Headquarters is null! please check it again!");
-    //     checkVariables = false;
-    // }
-    if (checkVariables) {
-        let url = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/${InforUser.employeeId}/update`;
-        let sendInfor = {
-        headquarterId: String(InforUser.headquarterId),
-        employeeName: String(InforUser.employeeName),
-        employeePhone: String(InforUser.employeePhone),
-        employeeAddress: String(InforUser.employeeAddress),
-        employeeGender: String(InforUser.employeeGender),
-        employeePosition: String(InforUser.employeePosition),
-        employeeSalary: String(InforUser.employeeSalary),
-        };
-        console.log("sendInfor", sendInfor);
-        let option = {
-        method: "PUT",
-        body: JSON.stringify(sendInfor),
-        headers: {
-            Authorization: `Bearer ${token}`, // Add the token as a bearer token
-            "Content-Type": "application/json",
-        },
-        };
-        fetch(url, option)
-        .then((res) => res.json())
-        .then((data) => {
-                if (data.message ==="Cập Nhật Thành Công")  {
-                    // alert('Success! Please click "OK" to reload data!');
-                    // props.handleSetInforUser(false);
-                    props.show();
-                } else {
-                    alert("Update failed!");
-                    console.log(data)
-                }
-            })
-        .catch((error) => {
-            console.log(error);
-        });
-    }
-  };
   const handelChangeinforJson = (event) => {
     const target = event.target;
     const nameKey = target.name;
     const value = target.value;
-    console.log(nameKey);
-    console.log(value);
-    // [nameKey]([value])
-    // console.log(Name)
+    // console.log(nameKey);
+    // console.log(value);
     setInforUser({ ...InforUser, [nameKey]: [value] });
   };
+  const sendData = () => {
+    props.getNewData(InforUser);
+    props.handleSetInforUser(false);
+  }
 
     return(
         <>
@@ -88,7 +43,8 @@ const UpdateInfor = (props) => {
           ></div>
                 <form
                     className="changeInfor__form"
-                    onSubmit={(e) => {e.preventDefault(); sendNewUserInfor();}}>
+                    onSubmit={(e) => {e.preventDefault(); sendData()}}
+                >
                 <div className="col1">
                     <div className="col1_input">
                         <input
@@ -137,7 +93,7 @@ const UpdateInfor = (props) => {
                             className="box"
                             type="number"
                             step="100"
-                            min="1"
+                            min="0"
                             max="100000"
                             value={InforUser.employeeSalary}
                             onChange={(event) => {
@@ -213,9 +169,17 @@ const UpdateInfor = (props) => {
                 </div>
                 <button
                     type="submit"
-                    className="changeInfor__form__btn"
+                    className="changeInfor__form__btn update"
                 >
                     Update Infor
+                </button>
+                <button
+                    type="button" 
+                    className="changeInfor__form__btn cancle"
+                    onClick={() => {
+                        props.handleSetInforUser(false);
+                    }}>
+                    Cancle
                 </button>
                 </div>
             </form>

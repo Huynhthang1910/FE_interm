@@ -1,11 +1,12 @@
+import React, { useState, useEffect } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { Button } from "react-bootstrap";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import UpdateHeadquarter from "./UpdateHeadquarter/UpdateHeadquarter";
-import React, { useState, useEffect } from "react";
 import DeleteButtonhead from "./DeleteButtonhead";
-import { Button } from "react-bootstrap";
+import Message from "./UpdateHeadquarter/Message/Message";
 import "./Viewheadquarter.scss";
 
 const Viewheadquarter = (props) => {
@@ -13,12 +14,10 @@ const Viewheadquarter = (props) => {
   const colors = tokens(theme.palette.mode);
   const token = sessionStorage.getItem("token");
   const [headqs, setHeadqs] = useState([]);
+  const [newData, setNewData] = useState("");
   const [inforHeadquarter, setInforHeadquarter] = useState();
   const handleSetInforHeadquarter = (row) => {
     setInforHeadquarter(row);
-  };
-  const resetWindows = () => {
-    window.location.reload();
   };
   const urlGetHeadquarterName = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/`
   useEffect(() => {
@@ -58,7 +57,13 @@ const Viewheadquarter = (props) => {
       return resetHeadId(filteredUsers);
     });
   };
-
+  const getNewData = (infor) => {
+    setNewData(infor)
+    // console.log("check data>>>",newData)
+  }
+  const unMess = (data) => {
+    setNewData(data)
+  }
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
     {
@@ -177,7 +182,13 @@ const Viewheadquarter = (props) => {
         <UpdateHeadquarter
           inforHeadquarter={inforHeadquarter}
           handleSetInforHeadquarter={handleSetInforHeadquarter}
-          resetWindows={resetWindows}
+          getNewData={getNewData}
+        />
+      )}
+      {newData && (
+        <Message 
+        data={newData}
+        unMess={unMess}
         />
       )}
     </>

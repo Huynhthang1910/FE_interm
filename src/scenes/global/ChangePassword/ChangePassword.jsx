@@ -5,6 +5,7 @@ import UrbanLogo from "./UrbanLogo.png";
 const ChangePassword = (props) => {
   const token = sessionStorage.getItem("token");
   // console.log(token)
+  const [messageTitle, setMassageTitle] = useState("");
   const [newPass, setPass] = useState();
   const [reNewPass, setReNewPass] = useState();
   const newPassword = (event) => {
@@ -32,16 +33,16 @@ const ChangePassword = (props) => {
   // console.log(callAPI())
   const handleChangePass = () => {
     if (!newPass || !reNewPass) {
-      alert("Mời nhập đủ thông tin!");
+      setMassageTitle("Please enter enough information!");
+      setTimeout(()=>{setMassageTitle(false)},3000)
     } else if (newPass !== reNewPass) {
       console.log(newPass, reNewPass);
-      alert("Mật khẩu vừa nhập không khớp!");
+      setMassageTitle("New password is not match!");
+      setTimeout(()=>{setMassageTitle(false)},3000)
     } else {
-      console.log(payLoad);
-      console.log(newPass, reNewPass);
       fetch(urlResetPassword, option)
         .then((res) => res.json())
-        .then((data) => alert(data.message))
+        .then((data) => props.controlSetMess(true))
         .catch((error) => {
           console.log(error);
         });
@@ -61,14 +62,14 @@ const ChangePassword = (props) => {
         ></div>
         <form className="ChangePass__form">
           <img className="img" src={UrbanLogo} alt="logo" />
-          <label className="title">Mật khẩu mới:</label>
+          <label className="title">New password:</label>
           <input
             id="newPass"
             type="password"
             className="box"
             onChange={(event) => newPassword(event)}
           ></input>
-          <label className="title">Nhập lại mật khẩu:</label>
+          <label className="title">New password again:</label>
           <input
             id="reNewPass"
             type="password"
@@ -77,12 +78,31 @@ const ChangePassword = (props) => {
           ></input>
           <button
             type="button"
-            className="btn-changePass"
+            className="btn-changePass confirm"
             onClick={() => handleChangePass()}
           >
-            Xác nhận
+            Confirm
+          </button>
+          <button
+            type="button"
+            className="btn-changePass cancle"
+            onClick={() => {
+              props.changeStatePassForm();
+            }}
+          >
+            Cancle
           </button>
         </form>
+        {messageTitle && (
+          <div className="message error">
+          <div className="message_error">
+              <div className="message_error_icon">i</div>
+          </div>
+          <span className="message_title">
+              {messageTitle}
+          </span>
+      </div>  
+        )}
       </div>
     );
   }

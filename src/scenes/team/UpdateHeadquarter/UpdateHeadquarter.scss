@@ -5,29 +5,27 @@
      z-index: 88888;
     height: 100vh;
     width: 100vw;
-    background-color: rgb(39, 74, 143);
-    opacity: 0.2;
+    background-color: rgb(20,27,45);
+    opacity: 0.7;
 }
 .form_headquarter{
     display: block;
-    background-color: rgb(62,67,150);
+    background-color: rgb(25, 40, 77);
     position: fixed;
      top: 50%;
      left: 50%;
      z-index: 99999;
     transform: translate(-50%,-50%);
-    padding: 40px 10px;
-    height: 450px;
+    padding: 20px;
+    height: 400px;
     width: 350px;
     border-radius: 5px;
-    box-shadow: 0 0 10px 5px rgb(31,42,64);
+    // box-shadow: 0 0 10px 5px rgb(31,42,64);
     opacity: 1;
     &__img {
-        // border: 2px red solid;
-        margin-top: -100px;
-        margin-bottom: -70px;
-        margin-left: 30px;
         display: block;
+        margin: 0 auto 20px;
+        border-radius: 5px;
         transform: scale(0.85);
     }
     &__title{
@@ -45,31 +43,45 @@
         margin-bottom: 15px;
         box-shadow: none;
         border-radius: 5px;
-        background-color: rgb(158, 162, 255);
-        &:checked{
-            background-color: rgb(235, 235, 235);
+        background-color: rgb(22, 34, 56);
+        color: white;
+        transition: 200ms;
+        &:hover{
+            background-color: rgb(37, 54, 87);
+        }
+        &:active,
+        &:focus{
+            background-color: rgb(255, 255, 255);
+            color: rgb(0,0,0);
+            outline: 2px rgb(35, 80, 170) solid;
         }
     }
     &__btn{
-        background-color: rgb(13,110,253);
         border: none;
-        margin: 30px 10px;
-        width: 300px;
+        position: absolute;
+        width: 42%;
         height: 50px;
         border-radius: 5px;
-        box-shadow: 2px 2px 2px 1px rgb(61, 61, 61);
         font-size: 15px;
         font-weight: 700;
         color: rgb(226, 226, 228);
+    }
+    .update{
+        bottom: 5%;
+        left: 20px;
+        background-color: rgb(13,110,253);
         &:hover{
             transition: 0.5s;
-            background-color: rgb(0, 90, 226);
+            background-color: rgb(0, 76, 190);
         }
-        &:active {
-            position: relative;
-             top: 2px;
-             left: 2px;
-            box-shadow: none;
+    }
+    .cancle{
+        bottom: 5%;
+        right: 20px;
+        background-color: rgb(220,53,69);
+        &:hover{
+            transition: 0.5s;
+            background-color: rgb(172, 41, 54);
         }
     }
 }
