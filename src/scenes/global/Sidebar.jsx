@@ -32,16 +32,18 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = ({ ad, userid }) => {
+const Sidebar = ({ ad, userid, info, setFetchInfo, image, setImage }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Calendar");
+  const [isCollapsed, setIsCollapsed] = useState(
+    window.innerWidth < 768 ? true : false
+  );
+  const [selected, setSelected] = useState("Schedule Employee");
   const [user, setUser] = useState([]);
   const token = sessionStorage.getItem("token");
-  const [imgReF, setImgRef] = useState("");
-  const urlGetAllInfo = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/information`
-  //
+  const urlGetAllInfo = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/information`;
+  const urlGetavt = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/avatar/${info.employeeId}`;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,7 +53,7 @@ const Sidebar = ({ ad, userid }) => {
           },
         });
         const datas = await response.json();
-        setUser(datas.data);
+        setFetchInfo(datas.data);
       } catch (error) {
         console.error(error);
       }
@@ -59,34 +61,36 @@ const Sidebar = ({ ad, userid }) => {
     fetchData();
   }, [token]);
 
-  // useEffect(() => {
-  //   const fetchAvatar = async () => {
-  //     if (user) {
-  //       try {
-  //         const response = await fetch(`https://beintern-production.up.railway.app/api/v2/employee/avatar/${user.employeeId}`, {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         });
-  //         if (!response.ok) {
-  //           throw new Error(`${response.status} ${response.statusText}`);
-  //         }
-  //         const data = await response.arrayBuffer();
-  //         const imgSrc =  (data.byteLength === 0) ? ("../../../../assets/avatar_placeholder.png"):(URL.createObjectURL(new Blob([data], { type: 'image/jpeg' })))
-  //         console.log(imgSrc);
-  //         console.log("Success FETCH: ", imgSrc);
-  //         setImgRef(imgSrc);
-  //       } catch (error) {
-  //         console.error("Error FETCH: ", error);
-  //       }
-  //     }
-  //   };
-  //   fetchAvatar();
-  //   return () => {
-  //     URL.revokeObjectURL(imgReF);
-  //   };
-  // }, [token, user]);
-
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      if (info) {
+        try {
+          const response = await fetch(urlGetavt, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
+          }
+          const data = await response.arrayBuffer();
+          const imgSrc =
+            data.byteLength === 0
+              ? "../../../../assets/avatar_placeholder.png"
+              : URL.createObjectURL(new Blob([data], { type: "image/jpeg" }));
+          console.log(imgSrc);
+          console.log("Success FETCH: ", imgSrc);
+          setImage(imgSrc);
+        } catch (error) {
+          console.error("Error FETCH: ", error);
+        }
+      }
+    };
+    fetchAvatar();
+    return () => {
+      URL.revokeObjectURL(image);
+    };
+  }, [token, info]);
 
   return (
     <Box
@@ -127,7 +131,7 @@ const Sidebar = ({ ad, userid }) => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  {user.accountRole}
+                  {info.accountRole}
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -136,14 +140,25 @@ const Sidebar = ({ ad, userid }) => {
             )}
           </MenuItem>
           {!isCollapsed && (
-            <Box mb="25px" >
+            <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <div style= {{ width:'150px', background:'#fff', borderRadius: "5%" }}>
+                <div
+                  style={{
+                    width: "150px",
+                    background: "#fff",
+                    borderRadius: "5%",
+                  }}
+                >
                   <img
                     alt="profile-user"
                     width="100%"
-                    src={"../../../../assets/urbanlogo.png"}
-                    style={{ cursor: "pointer", borderRadius: "50%", aspectRatio:'1', objectFit: 'cover' }}
+                    src={image}
+                    style={{
+                      cursor: "pointer",
+                      borderRadius: "15%",
+                      aspectRatio: "1",
+                      objectFit: "cover",
+                    }}
                   />
                 </div>
               </Box>
@@ -153,9 +168,9 @@ const Sidebar = ({ ad, userid }) => {
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
-                  style={{ wordWrap: 'break-word' }}
+                  style={{ wordWrap: "break-word" }}
                 >
-                  {user.accountEmail}
+                  {info.employeeName}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   {user.employeePosition}
@@ -196,7 +211,7 @@ const Sidebar = ({ ad, userid }) => {
             >
               Pages
             </Typography> */}
-            {user.accountRole === "Manager" ? (
+            {info.accountRole === "Manager" ? (
               <>
                 <Item
                   title="Headquarters"
