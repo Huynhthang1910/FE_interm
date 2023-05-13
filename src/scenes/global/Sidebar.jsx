@@ -112,6 +112,7 @@ const Sidebar = ({ ad, userid }) => {
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
+            id="icon-hamberger"
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{

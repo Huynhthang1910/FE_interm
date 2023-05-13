@@ -5,7 +5,7 @@ import Sidebar from "./scenes/global/Sidebar";
 import Contacts from "./scenes/contacts";
 // import SchedulerEmp from "./scenes/ScheduleEmp/ScheduleEmp";
 // import SchedulerEmp from "./scenes/employeeScheduler/EmployeeScheduler";
-import SchedulerEmp from "./scenes/employeeScheduler/demo";
+import SchedulerEmp from "./scenes/employeeScheduler/employeeScheduler";
 // import CalendarAdmin from "./scenes/admin";
 import CalendarAdmin from "./scenes/adminScheduler/AdminScheduler";
 import Team from "./scenes/team/";

@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import Scheduler, { Resource, View } from "devextreme-react/scheduler";
 import TextBox from "devextreme-react/text-box";
 import Button from "devextreme-react/button";
-
 import axios from "axios";
-const token = sessionStorage.getItem("token");
-const StringIso = new Date();
-const currentDate = StringIso.toISOString();
-const groups = ['idEmployee'];
-const urlGetHeadquarterName = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/`;
-const urlGetEmployeeNames = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/`;
-const urlGetAllScheduleEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/`
+
 const SchedulerComponent = () => {
+    const token = sessionStorage.getItem("token");
+    const StringIso = new Date();
+    const currentDate = StringIso.toISOString();
+    const groups = ['idEmployee'];
+    const urlGetHeadquarterName = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/`;
+    const urlGetEmployeeNames = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/`;
+    const urlGetAllScheduleEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/`
+
+    const [loading, setLoading] = useState(true);
     // lấy ra thông tin trụ sở
     const [headquarterNames, setHeadquarterNames] = useState([]);
     useEffect(() => {
@@ -50,6 +52,9 @@ const SchedulerComponent = () => {
             })
             .catch((error) => {
                 console.log(error);
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }, []);
     // lấy ra tất cả lịch là việc
@@ -76,6 +81,9 @@ const SchedulerComponent = () => {
             })
             .catch((error) => {
                 console.log(error);
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }, [])
     const [searchText, setSearchText] = useState("");
@@ -83,9 +91,28 @@ const SchedulerComponent = () => {
     const [showFilteredData, setShowFilteredData] = useState(false);
 
     const handleSearch = () => {
-        const filtered = dataSchedulerEmployee.filter((item) =>
-            item.text.toLowerCase().includes(searchText.toLowerCase())
+        console.log(searchText.toLowerCase());
+        const filtered = dataSchedulerEmployee.filter((item) => {
+            const sentence = item.text.toLowerCase();
+            const phrase = searchText.toLowerCase()
+            const index = sentence.indexOf(phrase)
+            console.log(phrase);
+            if (index !== -1) {
+                console.log("tao thấy nó ròi nè ");
+                const remainingSentence = sentence.slice(index);
+                if (remainingSentence.includes(phrase)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+            // item.text.toLowerCase().includes(searchText.toLowerCase())
+        }
         );
+        console.log(filtered);
         setFilteredData(filtered);
         setShowFilteredData(true);
     };
@@ -174,8 +201,11 @@ const SchedulerComponent = () => {
         },
     ];
     const onAppointmentFormOpening = (e) => {
-        const { form} = e;
+        const { form } = e;
         form.option("items", formItems);
+    }
+    if (loading) {
+        return <div>Loading...</div>;
     }
     return (
         <div>
@@ -189,12 +219,13 @@ const SchedulerComponent = () => {
                 <Button text="Filter" onClick={handleSearch} />
             </div>
             <Scheduler
+                className="Scheduler"
                 dataSource={dataSource} // Sử dụng dataSource mới
                 // views={views}
                 groups={groups}
                 defaultCurrentView="Vertical Grouping"
                 defaultCurrentDate={currentDate}
-                height={600}
+                height={550}
                 startDayHour={9}
                 endDayHour={18}
                 renderCell={renderCell}
