@@ -25,6 +25,7 @@ const Message = (props) => {
                 "Content-Type": "application/json",
             },
             };
+            
             fetch(url, option)
             .then((res) => res.json())
             .then((data) => {
@@ -32,9 +33,10 @@ const Message = (props) => {
                         // alert('Success! Please click "OK" to reload data!');
                         // props.handleSetdata(false);
                         setMassage("success")
-                        setMassageTitle("Success! Click me or wait 3s")
+                        setMassageTitle("Success! Continue your work...")
+                        props.updTable(!props.update)
                         setTimeout(() => {
-                            window.location.reload()
+                            props.unMess(false)
                         },3000)
                     } else {
                         setMassage("fail")

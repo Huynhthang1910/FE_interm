@@ -17,11 +17,23 @@ const Viewuser = (props) => {
   const token = sessionStorage.getItem("token");
   const [InforUser, setInforUser] = useState("");
   const [newData, setNewData] = useState("");
+  const [update, setUpdate] = useState("");
   const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/all-information`
   const handleSetInforUser = (row) => {
     setInforUser(row);
   };
-
+  /*code của long*/
+  const getNewData = (infor) => {
+    setNewData(infor)
+    // console.log("check data>>>",newData)
+  }
+  const unMess = (data) => {
+    setNewData(data)
+  }
+  const updTable = (data) => {
+    setUpdate(data)
+  }
+  /*-------------------------*/
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -38,11 +50,11 @@ const Viewuser = (props) => {
         ...row,
         id: index + 1,
       }));
-
       setUsers(dataWithIds);
     };
+    console.log(update)
     fetchData();
-  }, [token]);
+  }, [token, update]);
   const resetUserId = (heads) => {
     return heads.map((head, index) => {
       return {
@@ -59,13 +71,6 @@ const Viewuser = (props) => {
     });
   };
 
-  const getNewData = (infor) => {
-    setNewData(infor)
-    // console.log("check data>>>",newData)
-  }
-  const unMess = (data) => {
-    setNewData(data)
-  }
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
     {
@@ -197,6 +202,8 @@ const Viewuser = (props) => {
         <Message 
         data={newData}
         unMess={unMess}
+        updTable={updTable}
+        update={update}
         />
       )}
     </>

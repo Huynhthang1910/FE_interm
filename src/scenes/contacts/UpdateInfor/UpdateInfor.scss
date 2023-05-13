@@ -24,39 +24,53 @@
     display: block;
     background-color: rgb(20,27,45);
     padding: 10px 10px;
-    height: 520px;
+    height: 420px;
     width: 600px;
     border-radius: 5px;
     box-shadow: 0 0 10px 5px rgb(31,42,64);
     animation: showform 200ms 1 linear forwards;
+    &_title{
+        font-size: 25px;
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+        &::after{
+            content: "";
+            display: block;
+            background-color: rgb(255,255,255);
+            height: 3px;
+            width: 130px;
+            margin: 0 auto 10px;
+            // text-align: center;
+        }
+    }
     .col1{
         &_input{
             position: relative;
             height: 70px;
             // margin-bottom: none; 
             // background-color: rgb(148, 52, 52);
-            display: grid;
+            display: inline-block;
+            width: 48.5%;
+            margin-left: 1%;
             align-items: end;
-            margin-top: 15px;
+            margin-top: 25px;
             // &:hover .box,
-            &:active .box, 
-            &:hover .box{
-                transition: 200ms;
-                background-color: rgb(47, 55, 75);
-                outline: 1px rgb(35, 80, 170) solid;
-                border-radius: 5px;
-                // margin-top: 0;
-                height: 50px;
-                color: rgb(255, 255, 255);
-            }
             &_title{
-                position: absolute;
-                 top: 0;
-                 left: 0;
                 display: block;
+                box-sizing: border-box;
+                position: absolute;
+                 top: -10px;
+                 left: 10px;
+                display: block;
+                background-color: rgb(20,27,45);
+                padding: 0 5px;
+                color: rgb(136, 135, 172);
+                font-size: 13px;
+
             }       
             .box{
-                border: 2px rgb(35, 80, 170) solid;
+                border: 1px rgb(72,69,124) solid;
                 display: block;
                 width: 100%;
                 height: 50px;
@@ -67,52 +81,100 @@
                 border-radius: 5px;
                 background-color: rgb(20,27,45);
                 padding-left: 5px;
-                color: rgb(255,255,255);
+                color: rgb(136, 135, 172);
+                font-size: 15px;
                 outline: none;
+                &:hover{
+                    transition: 200ms;
+                    border: 2px rgb(135, 69, 189) solid;
+                }
                 &:focus,
                 &:active{
                     transition: 200ms;
-                    background-color: rgb(255, 255, 255);
-                    outline: 1px rgb(35, 80, 170) solid;
+                    outline: 0;
+                    border: 2px rgb(135, 69, 189) solid;
                     border-radius: 5px;
                     margin-top: 0;
-                    height: 50px;
-                    color: rgb(0,0,0);                
+                    color: rgb(255,255,255);
+                }
+                &:hover ~.col1_input_title{
+                transition: 200ms;
+                color: rgb(135, 69, 189);
+                }
+                &:focus ~.col1_input_title{
+                transition: 100ms;
+                left: 8px;
+                color: rgb(135, 69, 189);
+                border-left: 2px rgb(135, 69, 189) solid;
+                border-right: 2px rgb(135, 69, 189) solid;
                 }
             }
+            
         }
     }
     .select{
         // border: 2px rgb(35, 80, 170) solid;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         width: 100%;
+        margin-top: 15px;
         &__around{
-            width: 33%;
+            width: 31%;
+            position: relative;
             // border:1px red solid;
             &__title{
                 display: inline-block;
+                box-sizing: border-box;
+                position: absolute;
+                 top: -25px;
+                 left: 10px;
                 margin-top: 15px;
+                background-color: rgb(20,27,45);
+                padding: 0 5px;
+                color: rgb(136, 135, 172);
+                font-size: 13px;
                 // border:1px red solid;
             }
             &__col{
-                border: 2px rgb(35, 80, 170) solid;
+                border: 1px rgb(72,69,124) solid;
+                outline: none;
                 display: block;
                 width: 100%;
                 height: 50px;
-                box-shadow: none;
                 border-radius: 5px;
+                box-shadow: none;
                 background-color: rgb(20,27,45);
                 padding-left: 5px;
-                color: rgb(255,255,255);
+                color: rgb(136, 135, 172);
                 &:hover{
-                    background-color: rgba(116, 116, 116, 0.253);
+                    transition: 100ms;
+                    border: 2px rgb(135, 69, 189) solid;
+                    cursor: pointer;
                 }
                 &:active,
                 &:focus{
-                    background-color: rgb(255,255,255);
-                    outline: 1px rgb(35, 80, 170) solid;
-                    color: rgb(0,0,0); 
+                    color: rgb(255,255,255);
+                    border: 2px rgb(135, 69, 189) solid;
+                    
+
+                }
+                &:hover ~.select__around__title{
+                    transition: 100ms;
+                    color: rgb(135, 69, 189);
+                    }
+                    &:focus ~.col1_input_title{
+                    transition: 100ms;
+                    left: 8px;
+                    color: rgb(135, 69, 189);
+                    border-left: 2px rgb(135, 69, 189) solid;
+                    border-right: 2px rgb(135, 69, 189) solid;
+                }
+                &:focus ~.select__around__title{
+                transition: 100ms;
+                left: 8px;
+                color: rgb(135, 69, 189);
+                border-left: 2px rgb(135, 69, 189) solid;
+                border-right: 2px rgb(135, 69, 189) solid;
                 }
             }
         }
@@ -121,7 +183,7 @@
     &__btn{
         border: none;
         position: absolute;
-        width: 48%;
+        width: 46%;
         height: 50px;
         border-radius: 5px;
         font-size: 15px;
@@ -129,8 +191,8 @@
         color: rgb(226, 226, 228);
     }
     .update{
-        bottom: 3%;
-        left: 10px;
+        bottom: 5%;
+        left: 15px;
         background-color: rgb(13,110,253);
         &:hover{
             transition: 0.5s;
@@ -138,12 +200,54 @@
         }
     }
     .cancle{
-        bottom: 3%;
-        right: 10px;
+        bottom: 5%;
+        right: 15px;
         background-color: rgb(220,53,69);
         &:hover{
             transition: 0.5s;
             background-color: rgb(172, 41, 54);
+        }
+    }
+}
+
+@media screen and (max-width: 600px){
+    .changeInfor__form{
+        width: 400px;
+        height: 380px;
+        display: block;
+        &_title::after{
+            margin-bottom: 20px;
+        }
+        .col1{
+            display: inline-block;
+            width: 48%;
+            .address{
+                display: none;
+                position: absolute;
+            }
+            &_input{
+                margin-top: 5px;
+                width: 100%;
+            }
+            .select{
+                display: block;
+                position: absolute;
+                 top: 66px;
+                 right: 10px;
+                width: 48%;
+                &__around{
+                    margin-bottom: 25px;
+                    width: 100%;
+                }
+            }
+        }
+        .update{
+            width: 380px;
+            left: 10px;
+            bottom: 7%;
+        }
+        .cancle{
+            display: none;
         }
     }
 }

@@ -61,21 +61,27 @@ const ChangePassword = (props) => {
           }}
         ></div>
         <form className="ChangePass__form">
-          <img className="img" src={UrbanLogo} alt="logo" />
-          <label className="title">New password:</label>
-          <input
-            id="newPass"
-            type="password"
-            className="box"
-            onChange={(event) => newPassword(event)}
-          ></input>
-          <label className="title">New password again:</label>
-          <input
-            id="reNewPass"
-            type="password"
-            className="box"
-            onChange={(event) => reNewPassword(event)}
-          ></input>
+          <div className="form_title">CHANGE PASSWORK</div>
+          <div className="ChangePass__form_input">
+            <input
+              id="newPass"
+              type="password"
+              className="box"
+              onChange={(event) => newPassword(event)}
+            ></input>
+            <label className="title">New password:</label>
+          </div>
+          <div className="ChangePass__form_input">
+            <input
+              id="reNewPass"
+              type="password"
+              className="box"
+              onChange={(event) => reNewPassword(event)}
+            ></input>
+            <label className="title">New password again:</label>            
+          </div>
+          
+
           <button
             type="button"
             className="btn-changePass confirm"

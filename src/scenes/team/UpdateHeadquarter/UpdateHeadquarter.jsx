@@ -27,27 +27,31 @@ const UpdateHeadquarter = (props) => {
         <form
             className="form_headquarter"
             onSubmit={(e) => {e.preventDefault(); sendData()}}>
-            <img src={UrbanLogo} alt="logo" className="form_headquarter__img" />
-            <label className="form_headquarter__title">
-                Headquarter Name
-            </label>
-            <input
-                type="text"
-                name="headquarterName"
-                className="form_headquarter__input"
-                value={inforHeadquarter.headquarterName}
-                onChange={(e)=>{changeHeadquarter(e)}}
-                required/>
-            <label className="form_headquarter__title">
-                Headquarter Address
-            </label>
-            <input
-                type="text"
-                name="headquarterAddress"
-                className="form_headquarter__input"
-                value={inforHeadquarter.headquarterAddress}
-                onChange={(e)=>{changeHeadquarter(e)}}
-                required/>
+            <div className="form_headquarter_title">UPDATE HEADQUARTER</div>
+            <div className="form_headquarter_input">
+                <input
+                    type="text"
+                    name="headquarterName"
+                    className="box"
+                    value={inforHeadquarter.headquarterName}
+                    onChange={(e)=>{changeHeadquarter(e)}}
+                    required/>
+                <label className="form_headquarter__title">
+                    Headquarter Name
+                </label>    
+            </div>
+            <div className="form_headquarter_input">
+                <input
+                    type="text"
+                    name="headquarterAddress"
+                    className="box"
+                    value={inforHeadquarter.headquarterAddress}
+                    onChange={(e)=>{changeHeadquarter(e)}}
+                    required/>
+                            <label className="form_headquarter__title">
+                    Headquarter Address
+                </label>
+            </div>
             <button
                 type="submit"
                 className="form_headquarter__btn update">

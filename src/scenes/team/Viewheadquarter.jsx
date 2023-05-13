@@ -14,6 +14,7 @@ const Viewheadquarter = (props) => {
   const colors = tokens(theme.palette.mode);
   const token = sessionStorage.getItem("token");
   const [headqs, setHeadqs] = useState([]);
+  const [update, setUpdate] = useState("");
   const [newData, setNewData] = useState("");
   const [inforHeadquarter, setInforHeadquarter] = useState();
   const handleSetInforHeadquarter = (row) => {
@@ -39,7 +40,7 @@ const Viewheadquarter = (props) => {
       setHeadqs(dataWithIds);
     };
     fetchData();
-  }, [token]);
+  }, [token, update]);
   const resetHeadId = (heads) => {
     return heads.map((head, index) => {
       return {
@@ -63,6 +64,9 @@ const Viewheadquarter = (props) => {
   }
   const unMess = (data) => {
     setNewData(data)
+  }
+  const updTable = (data) => {
+    setUpdate(data)
   }
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
@@ -189,6 +193,8 @@ const Viewheadquarter = (props) => {
         <Message 
         data={newData}
         unMess={unMess}
+        updTable={updTable}
+        update={update}
         />
       )}
     </>
