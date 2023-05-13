@@ -25,15 +25,7 @@
         width: 100%;
         text-align: center;
         margin-top: 5px;
-        &::after{
-            content: "";
-            display: block;
-            background-color: rgb(255,255,255);
-            height: 3px;
-            width: 130px;
-            margin: 0 auto 10px;
-            // text-align: center;
-        }
+        margin-bottom: 20px;
     }
     &__title{
         display: block;
@@ -73,27 +65,27 @@
         outline: none;
         &:hover{
             transition: 200ms;
-            border: 2px rgb(135, 69, 189) solid;
+            border: 2px rgb(25,135,84) solid;
         }
         &:focus,
         &:active{
             transition: 200ms;
             outline: 0;
-            border: 2px rgb(135, 69, 189) solid;
+            border: 2px rgb(25,135,84) solid;
             border-radius: 5px;
             margin-top: 0;
-            color: rgb(255,255,255);
+            color: rgb(25,135,84);
         }
         &:hover ~.form_headquarter__title{
         transition: 200ms;
-        color: rgb(135, 69, 189);
+        color: rgb(25,135,84);
         }
         &:focus ~.form_headquarter__title{
         transition: 100ms;
         left: 8px;
-        color: rgb(135, 69, 189);
-        border-left: 2px rgb(135, 69, 189) solid;
-        border-right: 2px rgb(135, 69, 189) solid;
+        color: rgb(25,135,84);
+        border-left: 2px rgb(25,135,84) solid;
+        border-right: 2px rgb(25,135,84) solid;
         }
     }
     }
@@ -109,16 +101,16 @@
     }
     .update{
         bottom: 5%;
-        left: 20px;
+        right: 20px;
         background-color: rgb(13,110,253);
         &:hover{
             transition: 0.5s;
             background-color: rgb(0, 76, 190);
         }
     }
-    .cancle{
+    .cancel{
         bottom: 5%;
-        right: 20px;
+        left: 20px;
         background-color: rgb(220,53,69);
         &:hover{
             transition: 0.5s;

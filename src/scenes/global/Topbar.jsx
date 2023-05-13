@@ -29,7 +29,8 @@ const Topbar = () => {
   const controlSetMess = (data) => {
     setMess(data)
     setTimeout(() => {
-      setMess(false)
+      sessionStorage.removeItem("token");
+      window.location.reload();
     },3000)
   } 
   const changeStateNav = () => {
@@ -103,7 +104,17 @@ const Topbar = () => {
         changeStateNav={changeStateNav}
         controlSetMess={controlSetMess}
       />
-      {mess && (
+      {(mess === "wait") && (
+        <div className="message loading">
+          <div className="message_loading">
+            <div className="message_loading_icon">i</div>
+          </div>
+          <span className="message_title">
+            Please wait a few seconds...
+          </span>
+        </div>
+      )}
+      {(mess === "success") && (
         <div className="message success">
         <div className="message_success">
             <span class="checkmark">
@@ -113,7 +124,7 @@ const Topbar = () => {
             </span>
         </div>
         <span className="message_title">
-            Success
+            Success! Auto reload in 3 seconds...
         </span>
     </div>
       )}

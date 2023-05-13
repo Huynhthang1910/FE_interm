@@ -175,11 +175,11 @@ const UpdateInfor = (props) => {
                         </button>
                         <button
                             type="button" 
-                            className="changeInfor__form__btn cancle"
+                            className="changeInfor__form__btn cancel"
                             onClick={() => {
                                 props.handleSetInforUser(false);
                             }}>
-                            Cancle
+                            Cancel
                         </button>
                     </div>
             </form>

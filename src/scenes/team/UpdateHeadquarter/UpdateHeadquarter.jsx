@@ -59,9 +59,9 @@ const UpdateHeadquarter = (props) => {
             </button>
             <button
                 type="submit"
-                className="form_headquarter__btn cancle"
+                className="form_headquarter__btn cancel"
                 onClick={()=>{props.handleSetInforHeadquarter(false)}}>
-                Cancle
+                Cancel
             </button>
         </form>
     </>

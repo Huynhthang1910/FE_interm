@@ -42,10 +42,11 @@ const ChangePassword = (props) => {
     } else {
       fetch(urlResetPassword, option)
         .then((res) => res.json())
-        .then((data) => props.controlSetMess(true))
+        .then((data) => props.controlSetMess("success"))
         .catch((error) => {
           console.log(error);
         });
+      props.controlSetMess("wait")
       props.changeStatePassForm();
 
       // alert("đổi thành công!");
@@ -91,12 +92,12 @@ const ChangePassword = (props) => {
           </button>
           <button
             type="button"
-            className="btn-changePass cancle"
+            className="btn-changePass cancel"
             onClick={() => {
               props.changeStatePassForm();
             }}
           >
-            Cancle
+            Cancel
           </button>
         </form>
         {messageTitle && (

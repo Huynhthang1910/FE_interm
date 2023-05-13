@@ -1,10 +1,9 @@
 import {useState} from 'react';
-import "./message.scss"
 
 
 const Message = (props) => {
     const token = sessionStorage.getItem("token");
-    const [masage,setMassage] = useState("wait");
+    const [message,setMassage] = useState("wait");
     const [messageTitle, setMassageTitle] = useState("Please wait a few seconds...");
     const urlGetHeadquarterName = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/`
             let url = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/${props.data.employeeId}/update`;
@@ -50,7 +49,7 @@ const Message = (props) => {
                 console.log(error);
             });
 
-    if (masage === "wait"){
+    if (message === "wait"){
         return(
         <div className="message loading">
             <div className="message_loading">
@@ -61,7 +60,7 @@ const Message = (props) => {
             </span>
         </div>
     )
-    } else if (masage === "success") {
+    } else if (message === "success") {
         return(
             <div className="message success" onClick={()=>{window.location.reload()}}>
                 <div className="message_success">
