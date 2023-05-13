@@ -22,7 +22,6 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
             })
             .then(data => {
                 setFetchAvaApi(data.data.employeeId)
-                console.log(data.data.employeeId);
             })
     }, [])
 
@@ -31,8 +30,6 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
         const fileAvatar = e.target.files[0]
         const formData = new FormData();
         formData.append('file', fileAvatar);
-        console.log(formData);
-
         fetch(urlPostAvatarEmployee,
             {
                 method: 'POST',
@@ -67,11 +64,10 @@ const ChangeAvatar = ({ handleExportAvatar }) => {
             })
             .then(data => {
                 const imgSrc = (data.byteLength === 0)
-                ?
-                ("../../../../assets/avatar_placeholder.png"):
-                (URL.createObjectURL(new Blob([data], { type: 'image/jpeg' })))
-                console.log("Success FETCH: ", imgSrc);
-                console.log(data);
+                    ?
+                    ("../../../../assets/avatar_placeholder.png") :
+                    (URL.createObjectURL(new Blob([data], { type: 'image/jpeg' })))
+                // console.log("Success FETCH: ", imgSrc);
                 setImgRef(imgSrc)
             })
             .catch(error => {

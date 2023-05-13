@@ -19,4 +19,4 @@ const EditProfileAvatar = () => {
     );
 };
 
-export default EditProfileAvatar;
+export default EditProfileAvatar; 

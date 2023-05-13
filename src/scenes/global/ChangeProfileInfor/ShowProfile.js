@@ -26,7 +26,6 @@ const ShowProfile = () => {
                 setProfileApi(data.data)
             })
     }, [info])
-    console.log(fetchProfileApi.employeeGender);
     // const changeGenderContent = () =>{
     //     Object.keys(fetchProfileApi).map(fetchApi =>{
     //         if(fetchApi)
@@ -38,8 +37,8 @@ const ShowProfile = () => {
             style={{
                 backgroundColor: colors.primary[400],
             }}>
-            <div className="profile__cover">
-                <div className="profile__block">
+            <div className="profile__cover h-100" style={{ height: 700 }}>
+                <div className="profile__block ">
                     <div className='profile__block_infor'>
                         <EditProfileAvatar />
                         <div className="profile_desc_block">
@@ -60,10 +59,10 @@ const ShowProfile = () => {
                                             changeFetchApi = ("phone");
                                             break;
                                         case "employeeAddress":
-                                            changeFetchApi = ("adress");
+                                            changeFetchApi = ("address");
                                             break;
                                         case "employeeGender":
-                                            fetchProfileApi.employeeGender  = (fetchProfileApi[fetchApi] === '1') ? 'male' : 'female'
+                                            fetchProfileApi.employeeGender = (fetchProfileApi[fetchApi] === '1') ? 'male' : 'female'
                                             changeFetchApi = ("gender");
                                             break;
                                         case "employeePosition":
@@ -97,7 +96,7 @@ const ShowProfile = () => {
                                             }}
                                         >
                                             <div className="title">{changeFetchApi}</div>
-                                            <div className="infor">{((typeof fetchProfileApi[fetchApi] !== "object") ?  fetchProfileApi[fetchApi] : 0)}</div>
+                                            <div className="infor">{((typeof fetchProfileApi[fetchApi] !== "object") ? fetchProfileApi[fetchApi] : 0)}</div>
                                         </div>
                                     )
                                 })
@@ -108,9 +107,9 @@ const ShowProfile = () => {
                         <button bg="primary"
                             onClick={() => { setHiddenEditForm(!hiddenEditForm) }}
                             id="profile__edit-btn"
-                        style={{
-                            backgroundColor: colors.blueAccent[700],
-                        }}
+                            style={{
+                                backgroundColor: colors.blueAccent[700],
+                            }}
                         >EDIT PROFILE</button>
                         {hiddenEditForm && <EditProfile setFetchInfo={setFetchInfo} hiddenEditForm={setHiddenEditForm} />}
                     </div>

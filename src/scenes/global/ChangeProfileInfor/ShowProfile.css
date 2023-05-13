@@ -21,7 +21,8 @@
 .profile__block {
 	border-radius: 10px;
 	width: 100%;
-	max-width: 1000px;
+	height: 50%;
+	/* max-width: 1000px; */
 	display: flex;
 	gap: 18px;
 	flex-flow: column wrap;
@@ -122,18 +123,18 @@
 	cursor: pointer;
 }
 .profile__block_infor {
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 form.ChangeAvatar {
-    display: inline-block;
+	display: inline-block;
 }
 
 .profile_desc_block {
-    width: 75%;
+	width: 75%;
 }
 
 button#profile__edit-btn {
-    color: #fff;
+	color: #fff;
 }
