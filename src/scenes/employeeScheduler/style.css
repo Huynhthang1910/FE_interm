@@ -1,0 +1,31 @@
+.main {
+    width: 1250px;
+    height: 100%;
+    margin: 0 auto;
+    transition: all 0.7s ease-out;
+}
+@media only screen and (max-width: 1516px) {
+    .main {
+        width: 1100px;
+    }
+}
+@media only screen and (max-width: 1416px) {
+    .main {
+        width: 990px;
+    }
+}
+@media only screen and (max-width: 1320px) {
+    .main {
+        width: 980px;
+    }
+}
+@media only screen and (max-width: 1290px) {
+    .main {
+        width: 890px;
+    }
+}
+@media only screen and (max-width: 1290px) {
+    .main {
+        width: 890px;
+    }
+}
