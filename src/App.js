@@ -13,12 +13,15 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import ShowProfile from "./scenes/global/ChangeProfileInfor/ShowProfile";
 import Login from "./scenes/Login/Login";
+const token = sessionStorage.getItem("token");
 
 export default function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [info, setFetchInfo] = useState(false);
+  const [image, setImage] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -47,7 +50,14 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar isSidebar={isSidebar} />
+          <Sidebar
+            isSidebar={isSidebar}
+            info={info}
+            setFetchInfo={setFetchInfo}
+            image={image}
+            setImage={setImage}
+          />
+          {console.log(info)}
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
@@ -55,7 +65,17 @@ export default function App() {
               {/* thêm admin scheduler ver2 */}
               <Route path="/Calendar_admin" element={<CalendarAdmin />} />
               <Route path="/contacts" element={<Contacts />} />
-              <Route path="/profile" element={<ShowProfile />} />
+              <Route
+                path="/profile"
+                element={
+                  <ShowProfile
+                    info={info}
+                    setFetchInfo={setFetchInfo}
+                    image={image}
+                    setImage={setImage}
+                  />
+                }
+              />
               <Route path="/SchedulerEmp" element={<SchedulerEmp />} />
               {/* <Route path="/Calendar_admin" element={<CalendarAdmin />} /> */}
               <Route path="/team" element={<Team />} />
