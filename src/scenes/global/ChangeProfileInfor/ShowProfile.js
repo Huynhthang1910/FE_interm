@@ -39,7 +39,7 @@ const ShowProfile = ({ info, setFetchInfo, image, setImage }) => {
         backgroundColor: colors.primary[400],
       }}
     >
-      <div className="profile__cover">
+      <div className="profile__cover h-100" style={{ height: 700 }}>
         <div className="profile__block">
           <div className="profile__block_infor">
             <EditProfileAvatar image={image} setImage={setImage} />

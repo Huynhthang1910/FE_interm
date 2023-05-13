@@ -30,7 +30,6 @@ const Topbar = () => {
 
   useEffect(() => {
     // Add event listener to listen for clicks outside the component
-    console.log(navRef);
     const handleOutsideClick = (event) => {
         if (
             navRef.current &&
