@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import ForgotPassword from "./ForgotPassword";
 import {
   Col,
@@ -15,42 +14,19 @@ import {
 import "./Login.scss";
 
 const LOGIN_URL = `${process.env.REACT_APP_API_ENDPOINT}login`;
-const DECODE_URL = `${process.env.REACT_APP_API_ENDPOINT}decode`;
+
 const SESSION_TOKEN_KEY = "token";
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("success");
   const [showToast, setShowToast] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const checkTokenExpiration = async (token) => {
-    try {
-      const response = await axios.post(
-        DECODE_URL,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      const {
-        data: { message },
-      } = response;
-      console.log(response);
-      if (message === "Expired Token") {
-        sessionStorage.removeItem(SESSION_TOKEN_KEY);
-        alert("fadfa");
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleLogin = async (token) => {
-    setLoggedIn(true);
     onLogin();
     sessionStorage.setItem(SESSION_TOKEN_KEY, token);
   };
@@ -87,7 +63,6 @@ export default function Login({ onLogin }) {
     const token = sessionStorage.getItem(SESSION_TOKEN_KEY);
     if (token) {
       handleLogin(token);
-      checkTokenExpiration(token);
     }
   }, []);
 
@@ -107,70 +82,62 @@ export default function Login({ onLogin }) {
                   {showForgotPassword ? (
                     <ForgotPassword onBackToLogin={handleBackToLogin} />
                   ) : (
-                    <div>
-                      <p className=" mb-5">
-                        Please enter your login and password!
-                      </p>
-                      <div className="mb-3">
-                        <Form onSubmit={handleSubmit}>
-                          <Form.Group
-                            className="mb-3"
-                            controlId="formBasicEmail"
-                          >
-                            <Form.Label className="text-center">
-                              Email address
-                            </Form.Label>
-                            <Form.Control
-                              type="email"
-                              placeholder="Enter email"
-                              name="email"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              required
-                            />
-                          </Form.Group>
+                    <div className="mb-3">
+                      <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                          <Form.Label className="text-center">
+                            Email address
+                          </Form.Label>
+                          <Form.Control
+                            type="email"
+                            placeholder="Enter email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                          />
+                        </Form.Group>
 
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicPassword"
+                        >
+                          <Form.Label>Password</Form.Label>
+                          <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            autoComplete="current-password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                          />
                           <Form.Group
                             className="mb-3"
-                            controlId="formBasicPassword"
+                            controlId="formBasicCheckbox"
                           >
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                              type="password"
-                              placeholder="Password"
-                              name="password"
-                              autoComplete="current-password"
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
-                              required
-                            />
-                            <Form.Group
-                              className="mb-3"
-                              controlId="formBasicCheckbox"
-                            >
-                              {/* <p className="small">
-                                <a
-                                  className="text-primary"
-                                  onClick={handleShowForgotPassword}
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  Forgot password?
-                                </a>
-                              </p> */}
-                            </Form.Group>
+                            <p className="small">
+                              <a
+                                className="text-primary"
+                                onClick={handleShowForgotPassword}
+                                style={{ cursor: "pointer" }}
+                              >
+                                Forgot password?
+                              </a>
+                            </p>
                           </Form.Group>
-                          <div className="d-grid">
-                            <Button
-                              variant="primary"
-                              type="submit"
-                              disabled={loading}
-                              className={loading ? "disabled" : ""}
-                            >
-                              Login
-                            </Button>
-                          </div>
-                        </Form>
-                      </div>
+                        </Form.Group>
+                        <div className="d-grid">
+                          <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={loading}
+                            className={loading ? "disabled" : ""}
+                          >
+                            Login
+                          </Button>
+                        </div>
+                      </Form>
                     </div>
                   )}
                 </div>
