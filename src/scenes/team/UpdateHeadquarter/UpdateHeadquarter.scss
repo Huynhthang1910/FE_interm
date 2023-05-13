@@ -5,71 +5,145 @@
      z-index: 88888;
     height: 100vh;
     width: 100vw;
-    background-color: rgb(39, 74, 143);
-    opacity: 0.2;
+    background-color: rgb(20,27,45);
+    animation: showaround 200ms 1 linear forwards;
 }
 .form_headquarter{
     display: block;
-    background-color: rgb(62,67,150);
+    background-color: rgb(20,27,45);
     position: fixed;
-     top: 50%;
      left: 50%;
      z-index: 99999;
     transform: translate(-50%,-50%);
-    padding: 40px 10px;
-    height: 450px;
+    padding: 20px;
+    height: 330px;
     width: 350px;
     border-radius: 5px;
-    box-shadow: 0 0 10px 5px rgb(31,42,64);
-    opacity: 1;
-    &__img {
-        // border: 2px red solid;
-        margin-top: -100px;
-        margin-bottom: -70px;
-        margin-left: 30px;
-        display: block;
-        transform: scale(0.85);
-    }
-    &__title{
-        display: inline-block;
-        margin-left: 5px;
-        margin-top: 2px;
-        font-size: 1.15em;
-    }
-    &__input{
-        border: 2px rgb(35, 80, 170) solid;
-        display: inline-block;
+    animation: showform 200ms 1 linear forwards;
+    &_title{
+        font-size: 25px;
         width: 100%;
-        height: 50px;
-        margin-top: 8px;
-        margin-bottom: 15px;
-        box-shadow: none;
-        border-radius: 5px;
-        background-color: rgb(158, 162, 255);
-        &:checked{
-            background-color: rgb(235, 235, 235);
+        text-align: center;
+        margin-top: 5px;
+        &::after{
+            content: "";
+            display: block;
+            background-color: rgb(255,255,255);
+            height: 3px;
+            width: 130px;
+            margin: 0 auto 10px;
+            // text-align: center;
         }
     }
+    &__title{
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+         top: -10px;
+         left: 10px;
+        display: block;
+        background-color: rgb(20,27,45);
+        padding: 0 5px;
+        color: rgb(136, 135, 172);
+        font-size: 13px;
+    }
+    &_input{
+        position: relative;
+        height: 70px;
+        // margin-bottom: none; 
+        // background-color: rgb(148, 52, 52);
+        width: 100%;
+        align-items: end;
+        margin-top: 25px;
+        // &:hover .box,
+        .box{
+        border: 1px rgb(72,69,124) solid;
+        display: block;
+        width: 100%;
+        height: 50px;
+        // height: 0px;
+        margin: auto auto 0;
+        box-shadow: none;
+        outline: 0px;
+        border-radius: 5px;
+        background-color: rgb(20,27,45);
+        padding-left: 5px;
+        color: rgb(136, 135, 172);
+        font-size: 15px;
+        outline: none;
+        &:hover{
+            transition: 200ms;
+            border: 2px rgb(135, 69, 189) solid;
+        }
+        &:focus,
+        &:active{
+            transition: 200ms;
+            outline: 0;
+            border: 2px rgb(135, 69, 189) solid;
+            border-radius: 5px;
+            margin-top: 0;
+            color: rgb(255,255,255);
+        }
+        &:hover ~.form_headquarter__title{
+        transition: 200ms;
+        color: rgb(135, 69, 189);
+        }
+        &:focus ~.form_headquarter__title{
+        transition: 100ms;
+        left: 8px;
+        color: rgb(135, 69, 189);
+        border-left: 2px rgb(135, 69, 189) solid;
+        border-right: 2px rgb(135, 69, 189) solid;
+        }
+    }
+    }
     &__btn{
-        background-color: rgb(13,110,253);
         border: none;
-        margin: 30px 10px;
-        width: 300px;
+        position: absolute;
+        width: 42%;
         height: 50px;
         border-radius: 5px;
-        box-shadow: 2px 2px 2px 1px rgb(61, 61, 61);
         font-size: 15px;
         font-weight: 700;
         color: rgb(226, 226, 228);
+    }
+    .update{
+        bottom: 5%;
+        left: 20px;
+        background-color: rgb(13,110,253);
         &:hover{
             transition: 0.5s;
-            background-color: rgb(0, 90, 226);
+            background-color: rgb(0, 76, 190);
         }
-        &:active {
-            position: relative;
-             top: 2px;
-             left: 2px;
-            box-shadow: none;
+    }
+    .cancle{
+        bottom: 5%;
+        right: 20px;
+        background-color: rgb(220,53,69);
+        &:hover{
+            transition: 0.5s;
+            background-color: rgb(172, 41, 54);
         }
+    }
+}
+
+
+@keyframes showform{
+    from{
+        top: 48%;
+        opacity: 0;
+    }
+    to{
+        top: 50%;
+        opacity: 1;
+    }
+}
+
+@keyframes showaround{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 0.5;
     }
 }

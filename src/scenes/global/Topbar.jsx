@@ -3,6 +3,9 @@ import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext, useState } from "react";
 
 import { ColorModeContext, tokens } from "../../theme";
+import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
@@ -10,11 +13,9 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link } from "react-router-dom";
 
 import NavAccount from "./NavAccount";
 import ChangePassword from "./ChangePassword/ChangePassword";
-import { useEffect, useRef } from "react";
 // import ShowProfile from "./ChangeProfileInfor/ShowProfile";
 
 const Topbar = () => {
@@ -24,6 +25,13 @@ const Topbar = () => {
   const colorMode = useContext(ColorModeContext);
   const [stateNav, setNav] = useState(false);
   const [statePassForm, setForm] = useState(false);
+  const [mess, setMess] = useState();
+  const controlSetMess = (data) => {
+    setMess(data)
+    setTimeout(() => {
+      setMess(false)
+    },3000)
+  } 
   const changeStateNav = () => {
     setNav(!stateNav);
   };
@@ -93,7 +101,22 @@ const Topbar = () => {
         statePw={statePassForm}
         changeStatePassForm={changeStatePassForm}
         changeStateNav={changeStateNav}
+        controlSetMess={controlSetMess}
       />
+      {mess && (
+        <div className="message success">
+        <div className="message_success">
+            <span class="checkmark">
+                <div class="checkmark_circle"></div>
+                <div class="checkmark_stem"></div>
+                <div class="checkmark_kick"></div>
+            </span>
+        </div>
+        <span className="message_title">
+            Success
+        </span>
+    </div>
+      )}
       </Box>
     </Box>
   );

@@ -7,6 +7,7 @@ import { useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteButton from "./DeleteButton";
 import UpdateInfor from "./UpdateInfor/UpdateInfor";
+import Message from "./UpdateInfor/Message/Message.jsx";
 import "./Viewusers.scss";
 
 const Viewuser = (props) => {
@@ -15,11 +16,24 @@ const Viewuser = (props) => {
   const [users, setUsers] = useState([]);
   const token = sessionStorage.getItem("token");
   const [InforUser, setInforUser] = useState("");
-  const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/all-information`;
+  const [newData, setNewData] = useState("");
+  const [update, setUpdate] = useState("");
+  const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/all-information`
   const handleSetInforUser = (row) => {
     setInforUser(row);
   };
-
+  /*code của long*/
+  const getNewData = (infor) => {
+    setNewData(infor)
+    // console.log("check data>>>",newData)
+  }
+  const unMess = (data) => {
+    setNewData(data)
+  }
+  const updTable = (data) => {
+    setUpdate(data)
+  }
+  /*-------------------------*/
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(urlAllInforEmployee, {
@@ -33,13 +47,12 @@ const Viewuser = (props) => {
         ...row,
         id: index + 1,
       }));
-
       setUsers(dataWithIds);
     };
+    console.log(update)
     fetchData();
-  }, [token]);
+  }, [token, update]);
   const resetUserId = (heads) => {
-    // console.log("show nè>>>>",users);
     return heads.map((head, index) => {
       return {
         ...head,
@@ -53,17 +66,6 @@ const Viewuser = (props) => {
       const filteredUsers = prevUsers.filter((item) => item.employeeId !== id);
       return resetUserId(filteredUsers);
     });
-  };
-
-  const show = () => {
-    window.location.reload();
-    // let id = newInfor.employeeId;
-    // console.log("infor mới nè>>>>",newInfor)
-    // setUsers((prevUsers) => {
-    //   const resetUsers = prevUsers.filter((item) => item.employeeId !== id);
-    //   return ({...resetUsers,[Object.keys(users).pop()+1]:newInfor});
-    // });
-    // resetUserId(users);
   };
 
   const columns = [
@@ -190,8 +192,16 @@ const Viewuser = (props) => {
         <UpdateInfor
           InforUser={InforUser}
           handleSetInforUser={handleSetInforUser}
-          show={show}
+          getNewData={getNewData}
         ></UpdateInfor>
+      )}
+      {newData && (
+        <Message
+        data={newData}
+        unMess={unMess}
+        updTable={updTable}
+        update={update}
+        />
       )}
     </>
   );
