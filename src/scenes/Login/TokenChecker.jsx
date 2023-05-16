@@ -20,7 +20,7 @@ const TokenChecker = () => {
       const currentTime = Date.now() / 1000;
       if (decodedToken.exp < currentTime) {
         sessionStorage.clear();
-        window.location.reload();
+        window.location.href = "/";
       }
     }
   };
@@ -65,9 +65,13 @@ const TokenChecker = () => {
           if (decodedToken.exp - currentTime < 120) {
             setShowAlert(true);
           }
+          if (decodedToken.exp == currentTime) {
+            sessionStorage.clear();
+            window.location.href = "/"; // Nếu mà không nhập token mới sau 2p
+          }
           if (decodedToken.exp < currentTime) {
             sessionStorage.clear();
-            window.location.href = "/login"; // Redirect to login page
+            window.location.href = "/"; // Nếu hết hạn mà
           }
         }
       }, (tokenExp - Date.now() / 1000 - 120) * 1000);
@@ -82,23 +86,36 @@ const TokenChecker = () => {
     }
   }, [newToken]);
 
+  // useEffect(() => {
+  //   let timeoutId;
+  //   if (showAlert) {
+  //     timeoutId = setTimeout(() => {
+  //       sessionStorage.clear();
+  //       window.location.href = "/";
+  //     }, 120000);
+  //   }
+  //   return () => clearTimeout(timeoutId);
+  // }, [showAlert]);
+
   return (
     <>
       {showAlert && (
-        <div
-          className="alert alert-warning fixed-top d-flex justify-content-center align-items-center"
-          style={{ height: "4rem" }}
-          role="alert"
-        >
-          <div className="text-center">
-            Your session is about to expire in 2 minutes. Please enter your
-            password to continue using.
-            <button
-              className="btn btn-outline-secondary mt-2"
-              onClick={handleTokenExpired}
-            >
-              OK
-            </button>
+        <div className="alert alert-warning fixed-top" role="alert">
+          <div className="container">
+            <div className="row d-flex justify-content-center align-items-center">
+              <div className="col-12 col-sm-8 text-center">
+                Your session is about to expire in 2 minutes. Please enter your
+                password to continue using.
+              </div>
+              <div className="col-12 col-sm-4 text-center">
+                <button
+                  className="btn btn-outline-secondary"
+                  onClick={handleTokenExpired}
+                >
+                  OK
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
