@@ -65,7 +65,8 @@ const WeekPicker = ({ weeekkk, setWeeekkk }) => {
         value={selectedWeek}
         onChange={handleWeekChange}
       />
-      <p>Selected week: {selectedWeek}</p>
+      <br></br>
+      <br></br>
     </div>
   );
 };

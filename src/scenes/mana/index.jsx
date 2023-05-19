@@ -3,9 +3,13 @@ import Table from "react-bootstrap/Table";
 import "./index.scss";
 import WeekPicker from "./weekpicker";
 import Lichbieu from "./lichbieu";
+import OptionsComponent from "./optionsComponent";
+import OptionsComponent2 from "./optionsComponent2";
 const Mana = () => {
   const [sche, setSche] = useState([]);
-  const [scheone, setScheone] = useState([]);
+  const [sche2, setSche2] = useState([]);
+  const [user2, setUsers2] = useState([]);
+
   const [users, setUsers] = useState([]);
   const token = sessionStorage.getItem("token");
   const [weeekkk, setWeeekkk] = useState([]);
@@ -23,7 +27,7 @@ const Mana = () => {
         });
         const datas = await response.json();
         setSche(datas.data);
-        console.log(1);
+        setSche2(datas.data);
       } catch (error) {
         console.error(error);
       }
@@ -35,6 +39,7 @@ const Mana = () => {
         });
         const datas = await response.json();
         setUsers(datas.data);
+        setUsers2(datas.data);
       } catch (error) {
         console.error(error);
       }
@@ -81,12 +86,16 @@ const Mana = () => {
   return (
     <>
       <WeekPicker weeekkk={weeekkk} setWeeekkk={setWeeekkk} />
+      <OptionsComponent user2={user2} setUsers={setUsers} />
+      <OptionsComponent2 sche2={sche2} setSche={setSche} />
       <Table responsive>
         <thead className="Hihi">
           <tr>
             <th>#</th>
             {Array.from({ length: 7 }).map((_, index) => (
-              <th key={index}>{weeekkk[index]}</th>
+              <th key={index} style={{ textAlign: "center" }}>
+                {weeekkk[index]}
+              </th>
             ))}
           </tr>
         </thead>

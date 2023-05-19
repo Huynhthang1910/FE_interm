@@ -7,18 +7,18 @@ const Lichbieu = ({ user, sche, weeekkk, columnIndex }) => {
       item.workScheduleTimeIn.split("T")[0] === weeekkk[columnIndex]
   );
 
-  let workSchedulePlace = null;
+  let workScheduleDestination = null;
   let workSchedulePlan = null;
   if (filteredSche.length === 1) {
-    workSchedulePlace = filteredSche[0].workSchedulePlace;
+    workScheduleDestination = filteredSche[0].workScheduleDestination;
     workSchedulePlan = filteredSche[0].workSchedulePlan;
   }
 
   return (
     <>
-      {workSchedulePlace}
-      <br></br>
       {workSchedulePlan}
+      <br></br>
+      {workScheduleDestination}
     </>
   );
 };
