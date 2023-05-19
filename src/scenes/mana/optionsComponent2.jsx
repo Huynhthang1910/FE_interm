@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const OptionsComponent2 = ({ setSche, sche2 }) => {
+const OptionsComponent2 = ({ setUsers, user2, setSche, sche2 }) => {
   const token = sessionStorage.getItem("token");
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");

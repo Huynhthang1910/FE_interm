@@ -14,8 +14,8 @@ const Mana = () => {
   const token = sessionStorage.getItem("token");
   const [weeekkk, setWeeekkk] = useState([]);
 
-  // const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/all-information`;
-  const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/self-schedule`;
+  const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/all-information`;
+  // const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/self-schedule`;
   const alluser = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/all-information`;
   useEffect(() => {
     const fetchData = async () => {
@@ -85,28 +85,34 @@ const Mana = () => {
   }
   return (
     <>
-      <WeekPicker weeekkk={weeekkk} setWeeekkk={setWeeekkk} />
-      <OptionsComponent user2={user2} setUsers={setUsers} />
-      <OptionsComponent2 sche2={sche2} setSche={setSche} />
-      <Table responsive>
-        <thead className="Hihi">
-          <tr>
-            <th>#</th>
-            {Array.from({ length: 7 }).map((_, index) => (
-              <th key={index} style={{ textAlign: "center" }}>
-                {weeekkk[index]}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="Hihi">
-          {users.map((user, rowIndex) => (
-            <tr key={rowIndex}>
-              <td>{user.employeeName}</td>
-              {user.employeePhone &&
-                Array.from({ length: 7 }).map((_, columnIndex) => (
-                  <td key={columnIndex}>
-                    {/* {console.log(
+      <div className="container ">
+        <WeekPicker weeekkk={weeekkk} setWeeekkk={setWeeekkk} />
+        <OptionsComponent user2={user2} setUsers={setUsers} />
+        <OptionsComponent2
+          user2={user2}
+          setUsers={setUsers}
+          sche2={sche2}
+          setSche={setSche}
+        />
+        <Table responsive>
+          <thead className="Hihi">
+            <tr>
+              <th>#</th>
+              {Array.from({ length: 7 }).map((_, index) => (
+                <th key={index} style={{ textAlign: "center" }}>
+                  {weeekkk[index]}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="Hihi">
+            {users.map((user, rowIndex) => (
+              <tr key={rowIndex}>
+                <td>{user.employeeName}</td>
+                {user.employeePhone &&
+                  Array.from({ length: 7 }).map((_, columnIndex) => (
+                    <td key={columnIndex}>
+                      {/* {console.log(
                       sche.filter(
                         (item) =>
                           item.employeeId === user.employeeId &&
@@ -114,24 +120,25 @@ const Mana = () => {
                             weeekkk[columnIndex]
                       )
                     )} */}
-                    {
-                      <Lichbieu
-                        user={user.employeeId}
-                        sche={sche}
-                        weeekkk={weeekkk}
-                        columnIndex={columnIndex}
-                      />
-                    }
-                    {/* 
+                      {
+                        <Lichbieu
+                          user={user.employeeId}
+                          sche={sche}
+                          weeekkk={weeekkk}
+                          columnIndex={columnIndex}
+                        />
+                      }
+                      {/* 
                     {user.employeeId}
                     <br></br>
                     {weeekkk[columnIndex]} */}
-                  </td>
-                ))}
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+                    </td>
+                  ))}
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </>
   );
 };
