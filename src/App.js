@@ -5,11 +5,14 @@ import Sidebar from "./scenes/global/Sidebar";
 import Contacts from "./scenes/contacts";
 import SchedulerEmp from "./scenes/ScheduleEmp/ScheduleEmp";
 import CalendarAdmin from "./scenes/admin";
+import Mana from "./scenes/mana";
 import Team from "./scenes/team/";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import ShowProfile from "./scenes/global/ChangeProfileInfor/ShowProfile";
 import Login from "./scenes/Login/Login";
+
+
 const token = sessionStorage.getItem("token");
 
 export default function App() {
@@ -60,6 +63,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<SchedulerEmp />} />
               <Route path="/contacts" element={<Contacts />} />
+              <Route path="/mana" element={<Mana />} />
               <Route
                 path="/profile"
                 element={

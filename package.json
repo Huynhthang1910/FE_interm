@@ -33,6 +33,7 @@
     "react-pro-sidebar": "^0.7.1",
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
+    "react-week-picker": "^1.1.4",
     "rrule": "^2.7.2",
     "sass": "^1.61.0",
     "web-vitals": "^2.1.4",
