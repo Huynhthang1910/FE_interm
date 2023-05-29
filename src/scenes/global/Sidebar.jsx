@@ -242,13 +242,6 @@ const Sidebar = ({ ad, userid, info, setFetchInfo, image, setImage }) => {
                   selected={selected}
                   setSelected={setSelected}
                 />
-                <Item
-                  title="Schedule Mana"
-                  to="/mana"
-                  icon={<ContactsOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
               </>
             ) : (
               <></>

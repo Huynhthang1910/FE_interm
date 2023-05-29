@@ -5,6 +5,7 @@ import WeekPicker from "./weekpicker";
 import Lichbieu from "./lichbieu";
 import OptionsComponent from "./optionsComponent";
 import OptionsComponent2 from "./optionsComponent2";
+import TextBoxComponent from "./TextBoxComponent";
 const Mana = () => {
   const [sche, setSche] = useState([]);
   const [sche2, setSche2] = useState([]);
@@ -85,15 +86,26 @@ const Mana = () => {
   }
   return (
     <>
-      <div className="container ">
-        <WeekPicker weeekkk={weeekkk} setWeeekkk={setWeeekkk} />
-        <OptionsComponent user2={user2} setUsers={setUsers} />
-        <OptionsComponent2
-          user2={user2}
-          setUsers={setUsers}
-          sche2={sche2}
-          setSche={setSche}
-        />
+      <div className="abe">
+        <div className="row">
+          <div className="col">
+            <WeekPicker weeekkk={weeekkk} setWeeekkk={setWeeekkk} />
+          </div>
+          <div className="col">
+            <OptionsComponent user2={user2} setUsers={setUsers} />
+          </div>
+          <div className="col">
+            <OptionsComponent2
+              user2={user2}
+              setUsers={setUsers}
+              sche2={sche2}
+              setSche={setSche}
+            />
+          </div>
+          <div className="col">
+            <TextBoxComponent user2={user2} setUsers={setUsers} />
+          </div>
+        </div>
         <Table responsive>
           <thead className="Hihi">
             <tr>
@@ -128,7 +140,7 @@ const Mana = () => {
                           columnIndex={columnIndex}
                         />
                       }
-                      {/* 
+                      {/*
                     {user.employeeId}
                     <br></br>
                     {weeekkk[columnIndex]} */}
@@ -140,6 +152,63 @@ const Mana = () => {
         </Table>
       </div>
     </>
+    // <>
+    //   <div className="abe">
+    //     <WeekPicker weeekkk={weeekkk} setWeeekkk={setWeeekkk} />
+    //     <OptionsComponent user2={user2} setUsers={setUsers} />
+    //     <OptionsComponent2
+    //       user2={user2}
+    //       setUsers={setUsers}
+    //       sche2={sche2}
+    //       setSche={setSche}
+    //     />
+    //     <TextBoxComponent user2={user2} setUsers={setUsers} />
+    //     <Table responsive>
+    //       <thead className="Hihi">
+    //         <tr>
+    //           <th>#</th>
+    //           {Array.from({ length: 7 }).map((_, index) => (
+    //             <th key={index} style={{ textAlign: "center" }}>
+    //               {weeekkk[index]}
+    //             </th>
+    //           ))}
+    //         </tr>
+    //       </thead>
+    //       <tbody className="Hihi">
+    //         {users.map((user, rowIndex) => (
+    //           <tr key={rowIndex}>
+    //             <td>{user.employeeName}</td>
+    //             {user.employeePhone &&
+    //               Array.from({ length: 7 }).map((_, columnIndex) => (
+    //                 <td key={columnIndex}>
+    //                   {/* {console.log(
+    //                   sche.filter(
+    //                     (item) =>
+    //                       item.employeeId === user.employeeId &&
+    //                       item.workScheduleTimeIn.split("T")[0] ===
+    //                         weeekkk[columnIndex]
+    //                   )
+    //                 )} */}
+    //                   {
+    //                     <Lichbieu
+    //                       user={user.employeeId}
+    //                       sche={sche}
+    //                       weeekkk={weeekkk}
+    //                       columnIndex={columnIndex}
+    //                     />
+    //                   }
+    //                   {/*
+    //                 {user.employeeId}
+    //                 <br></br>
+    //                 {weeekkk[columnIndex]} */}
+    //                 </td>
+    //               ))}
+    //           </tr>
+    //         ))}
+    //       </tbody>
+    //     </Table>
+    //   </div>
+    // </>
   );
 };
 
