@@ -119,19 +119,11 @@ const Mana = () => {
           </thead>
           <tbody className="Hihi">
             {users.map((user, rowIndex) => (
-              <tr key={rowIndex}>
-                <td>{user.employeeName}</td>
+              <tr key={rowIndex} className="Hihi">
+                <td className="Hihi">{user.employeeName}</td>
                 {user.employeePhone &&
                   Array.from({ length: 7 }).map((_, columnIndex) => (
-                    <td key={columnIndex}>
-                      {/* {console.log(
-                      sche.filter(
-                        (item) =>
-                          item.employeeId === user.employeeId &&
-                          item.workScheduleTimeIn.split("T")[0] ===
-                            weeekkk[columnIndex]
-                      )
-                    )} */}
+                    <td key={columnIndex} className="Hihi">
                       {
                         <Lichbieu
                           user={user.employeeId}

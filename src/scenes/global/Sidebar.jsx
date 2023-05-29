@@ -59,6 +59,13 @@ const Sidebar = ({ ad, userid, info, setFetchInfo, image, setImage }) => {
       }
     };
     fetchData();
+    const handleResize = () => {
+      window.innerWidth < 768 ? setIsCollapsed(true) : <></>;
+    };
+    window.addEventListener("resize", handleResize); // Thêm trình nghe sự kiện
+    return () => {
+      window.removeEventListener("resize", handleResize); // Gỡ bỏ trình nghe sự kiện khi component bị hủy
+    };
   }, [token]);
 
   useEffect(() => {

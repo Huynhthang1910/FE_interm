@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.scss";
 
 const Lichbieu = ({ user, sche, weeekkk, columnIndex }) => {
   const filteredSche = sche.filter(
@@ -29,7 +30,7 @@ const Lichbieu = ({ user, sche, weeekkk, columnIndex }) => {
 
         return (
           <React.Fragment key={index}>
-            <td>
+            <td className="Olich">
               Công Việc: {item.workSchedulePlan}
               <br />
               Tại: {item.workScheduleDestination}
