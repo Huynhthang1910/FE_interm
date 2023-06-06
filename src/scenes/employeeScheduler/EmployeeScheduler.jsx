@@ -220,7 +220,7 @@ function SchedulerEmployee() {
                         setMassageTitle("Success! Continue your work...")
                         setTimeout(() => {
                             window.location.reload();
-                        }, 3000);
+                        }, 1000);
 
                         if (
                             !schedulerDataSource.some(
