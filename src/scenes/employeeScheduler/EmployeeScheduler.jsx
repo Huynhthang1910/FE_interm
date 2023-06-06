@@ -211,6 +211,10 @@ function SchedulerEmployee() {
                         setToastType("success");
                         setToastMessage("thêm lịch biểu thành công ");
                         setShowToast(true);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 500);
+
                         if (
                             !schedulerDataSource.some(
                                 (a) => a.workScheduleId === response.data.data.workScheduleId

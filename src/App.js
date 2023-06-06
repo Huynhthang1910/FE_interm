@@ -14,6 +14,7 @@ import { ColorModeContext, useMode } from "./theme";
 import ShowProfile from "./scenes/global/ChangeProfileInfor/ShowProfile";
 import Login from "./scenes/Login/Login";
 import TokenChecker from "./scenes/Login/TokenChecker";
+import Mana from "./scenes/mana";
 
 export default function App() {
   const [theme, colorMode] = useMode();
@@ -62,7 +63,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<SchedulerEmp />} />
               {/* thêm admin scheduler ver2 */}
-              <Route path="/Calendar_admin" element={<CalendarAdmin />} />
+              <Route path="/Calendar_admin" element={<Mana />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route
                 path="/profile"
