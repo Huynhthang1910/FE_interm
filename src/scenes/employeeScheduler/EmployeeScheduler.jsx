@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { Toast, ToastContainer, Button } from "react-bootstrap";
 import { Scheduler, Resource, View } from "devextreme-react/scheduler";
 import axios from "axios";
+import MessegeEmp from "./MessegeEmp"
 import './style.css'
+
 function SchedulerEmployee() {
     const StringIso = new Date();
     StringIso.setMinutes(StringIso.getMinutes() + 30);
@@ -11,7 +13,12 @@ function SchedulerEmployee() {
     const token = sessionStorage.getItem("token");
     // lay du lieu va vap nhat du lieu lich bieu
     const [schedulerDataSource, setSchedulerDataSource] = useState([]);
+    const [message,setMassage] = useState();
+    const [messageTitle, setMassageTitle] = useState();
+
     useEffect(() => {
+        setMassage("wait")
+        setMassageTitle("Please wait a few seconds...")
         axios
             .get(
                 `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/self-schedule`,
@@ -23,9 +30,8 @@ function SchedulerEmployee() {
             )
             .then((response) => {
                 if (response.data.status !== "OK") {
-                    setToastType("danger");
-                    setToastMessage("không tải được lịch biểu ");
-                    setShowToast(true);
+                    setMassage("fail")
+                    setMassageTitle("không tải được lịch biểu!");
                 } else {
                     const schedulerDataSources = response.data.data.map(
                         (schedulerDataSource) => ({
@@ -35,9 +41,11 @@ function SchedulerEmployee() {
                             endDate: schedulerDataSource.workScheduleTimeOut,
                             destination: schedulerDataSource.workScheduleDestination,
                         })
-                    );
-                    setSchedulerDataSource(schedulerDataSources);
-                    console.log(1);
+                        );
+                        setSchedulerDataSource(schedulerDataSources);
+                        console.log(1);
+                        setMassage("success")
+                        setMassageTitle("Hoàn tất tải lịch biểu...")
                 }
             })
             .catch((error) => {
@@ -178,9 +186,8 @@ function SchedulerEmployee() {
     const handleTaskAdded = (e) => {
         // const token = localStorage.getItem('token');
         if (!(e.appointmentData.text)) {
-            setToastType("danger");
-            setToastMessage("Vui lòng cung cấp đày đủ thông tin lịch biểu");
-            setShowToast(true);
+            setMassage("fail")
+            setMassageTitle("Vui lòng cung cấp đày đủ thông tin lịch biểu");
         } else {
             const newTask = {
                 workScheduleColor: "green",
@@ -191,6 +198,8 @@ function SchedulerEmployee() {
                 workScheduleTimeIn: e.appointmentData.startDate,
                 workScheduleTimeOut: e.appointmentData.endDate,
             };
+            setMassage("wait")
+            setMassageTitle("Please wait a few seconds...")
             axios
                 .post(
                     `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/store`,
@@ -204,16 +213,14 @@ function SchedulerEmployee() {
                 .then((response) => {
                     console.log(response);
                     if (response.data.status !== "OK") {
-                        setToastType("danger");
-                        setToastMessage("Tạo lịch biểu không thành công ");
-                        setShowToast(true);
+                        setMassage("fail")
+                        setMassageTitle("Update fail! Please check again!");
                     } else {
-                        setToastType("success");
-                        setToastMessage("thêm lịch biểu thành công ");
-                        setShowToast(true);
+                        setMassage("success")
+                        setMassageTitle("Success! Continue your work...")
                         setTimeout(() => {
                             window.location.reload();
-                        }, 500);
+                        }, 3000);
 
                         if (
                             !schedulerDataSource.some(
@@ -257,6 +264,8 @@ function SchedulerEmployee() {
         if(updatedTask.workScheduleTimeIn < now){
             console.log(1);
         }
+        setMassage("wait")
+        setMassageTitle("Please wait a few seconds...")
         axios
             .put(
                 `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/${e.appointmentData.id}/update`,
@@ -270,9 +279,8 @@ function SchedulerEmployee() {
             .then((response) => {
                 console.log(e.appointmentData);
                 if (response.data.status !== "OK") {
-                    setToastType("danger");
-                    setToastMessage("Cập nhật lịch biểu thất bại");
-                    setShowToast(true);
+                    setMassage("fail")
+                    setMassageTitle("Update fail! Please check again!");
                 } else {
                     const updatedTasks = schedulerDataSource.map((task) => {
                         if (task.workScheduleId === e.appointmentData.id) {
@@ -288,9 +296,8 @@ function SchedulerEmployee() {
                         return task;
                     });
                     setSchedulerDataSource(updatedTasks);
-                    setToastType("success");
-                    setToastMessage("cập nhật lịch biểu thành công ");
-                    setShowToast(true);
+                    setMassage("success")
+                    setMassageTitle("Success! Continue your work...")
                 }
             })
             .catch((error) => {
@@ -301,6 +308,8 @@ function SchedulerEmployee() {
         const token = sessionStorage.getItem("token");
         // const token = localStorage.getItem('token');
         console.log(token);
+        setMassage("wait")
+        setMassageTitle("Please wait a few seconds...")
         axios
             .delete(
                 `${process.env.REACT_APP_API_ENDPOINT}api/v2/workschedule/${e.appointmentData.id}/delete`,
@@ -313,18 +322,16 @@ function SchedulerEmployee() {
             .then((response) => {
                 if (response.data.status !== "OK") {
                     e.cancel = true;
-                    setToastType("danger");
-                    setToastMessage("Xoá lịch biểu thất bại");
-                    setShowToast(true);
+                    setMassage("fail")
+                    setMassageTitle("Update fail! Please check again!");
                 } else {
                     const filteredTasks = schedulerDataSource.filter(
                         (task) => task.id !== e.appointmentData.id
                     );
                     setSchedulerDataSource(filteredTasks);
                     e.cancel = true;
-                    setToastType("success");
-                    setToastMessage("Xoá lịch biểu thành công ");
-                    setShowToast(true);
+                    setMassage("success")
+                    setMassageTitle("Success! Continue your work...")
                 }
             })
             .catch((error) => {
@@ -340,9 +347,8 @@ function SchedulerEmployee() {
             if (e.appointmentData.startDate < now) {
                 // Ngăn chặn việc thêm sự kiện trong quá khứ
                 e.cancel = true;
-                setToastType("danger");
-                setToastMessage("bạn không thể thêm sự kiện trong quá khứ ");
-                setShowToast(true);
+                setMassage("fail")
+                setMassageTitle("bạn không thể thêm sự kiện trong quá khứ!");
             }
             if (!(e.appointmentData.text)) {
                 // Ngăn chặn việc thêm sự kiện trong quá khứ
@@ -356,24 +362,21 @@ function SchedulerEmployee() {
             if (e.oldData.startDate < now) {
                 // Ngăn chặn việc chỉnh sửa sự kiện trong quá khứ
                 e.cancel = true;
-                setToastType("danger");
-                setToastMessage("bạn không thể cập nhật sự kiện trong quá khứ");
-                setShowToast(true);
+                setMassage("fail")
+                setMassageTitle("bạn không thể cập nhật sự kiện trong quá khứ!");
             }
             if (e.newData.startDate < now){
                 e.cancel = true;
-                setToastType("danger");
-                setToastMessage("bạn không thể cập nhật sự kiện về quá khứ");
-                setShowToast(true);
+                setMassage("fail")
+                setMassageTitle("bạn không thể cập nhật sự kiện trong quá khứ!");
             }
         },
         onAppointmentDeleting: (e) => {
             if (e.appointmentData.startDate < now) {
                 // Ngăn chặn việc chỉnh sửa sự kiện trong quá khứ
                 e.cancel = true;
-                setToastType("danger");
-                setToastMessage("bạn không thể xoá lịch biểu trong quá khứ");
-                setShowToast(true);
+                setMassage("fail")
+                setMassageTitle("bạn không thể xoá lịch biểu trong quá khứ!");
             }
         },
         onAppointmentDragging : (e)=>{
@@ -423,6 +426,11 @@ function SchedulerEmployee() {
                     </Toast.Body>
                 </Toast>
             </ToastContainer>
+            {(message &&
+            <MessegeEmp
+                message = {message}
+                messageTitle = {messageTitle}
+            />)}
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import MessegeHeadquater from "./MessegeHeadquater"
 import "./CreateHeadquater.scss";
 
 const CreateHeadquater = (props) => {
@@ -7,11 +8,15 @@ const CreateHeadquater = (props) => {
   const [headquarterName, setHeadquarterName] = useState("");
   const token = sessionStorage.getItem("token");
   const [showComponent, setShowComponent] = useState(false);
+  const [message,setMassage] = useState();
+  const [messageTitle, setMassageTitle] = useState();
   const urlAddEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/store`;
   // Xử lý API để add người dùng
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      setMassage("wait")
+      setMassageTitle("Please wait a few seconds...")
       const response = await axios.post(urlAddEmployee,
         {
           headquarterName,
@@ -26,13 +31,16 @@ const CreateHeadquater = (props) => {
       );
       console.log(response.data.status);
       if (response.data.status === "OK") {
-        alert(`Thêm Trụ Sở: ${headquarterName} thành công`);
+        setMassage("success")
+        setMassageTitle(`Thêm Trụ Sở: ${headquarterName} thành công`)
       } else {
-        alert("Thêm thất bại");
+        setMassage("fail")
+        setMassageTitle("Update fail! Please check again!");
       }
     } catch (error) {
       console.error(error);
-      alert("Thêm thất bại");
+      setMassage("fail")
+      setMassageTitle("Update fail! Please check again!");
     }
   };
 
@@ -101,6 +109,11 @@ const CreateHeadquater = (props) => {
           </div>
         </form>
       </div>
+      {(message &&
+      <MessegeHeadquater
+        message = {message}
+        messageTitle = {messageTitle}
+      />)}
     </>
   );
 };

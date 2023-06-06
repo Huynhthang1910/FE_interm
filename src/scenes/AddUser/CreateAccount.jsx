@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Toast } from "react-bootstrap";
 import "./Createacount.scss";
+import MessegeCreate from "./MessegeCreate"
+
 const CreateAccount = (props) => {
   const [accountEmail, setAccountEmail] = useState("");
   const [accountPassword, setAccountPassword] = useState("");
@@ -13,6 +15,8 @@ const CreateAccount = (props) => {
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [errorToast, setErrorToast] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message,setMassage] = useState();
+  const [messageTitle, setMassageTitle] = useState();
   const token = sessionStorage.getItem("token");
   const url_getAllHeadquarter = `${process.env.REACT_APP_API_ENDPOINT}api/v2/headquarter/`;
   const url_postEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/store`
@@ -34,6 +38,8 @@ const CreateAccount = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
+    setMassage("wait")
+    setMassageTitle("Please wait a few seconds...")
     try {
       const response = await axios.post(
         url_postEmployee,
@@ -52,15 +58,16 @@ const CreateAccount = (props) => {
         }
       );
       if (response.data.status === "OK") {
-        setShowToast(true);
+        setMassage("success")
+        setMassageTitle("Success! Continue your work...")
       } else {
-        setErrorToast("Add employee failed, Please try again!");
-        setShowErrorToast(true);
+        setMassage("fail")
+        setMassageTitle("Update fail! Please check again!");
       }
     } catch (error) {
       console.error(error);
-      setErrorToast("Something wnet wrong, Please try again!");
-      setShowErrorToast(true);
+      setMassage("fail")
+      setMassageTitle("Update fail! Please check again!");
     } finally {
       setLoading(false); // set loading back to false after response is received
     }
@@ -247,6 +254,11 @@ const CreateAccount = (props) => {
           <Toast.Body>{errorToast}</Toast.Body>
         </Toast>
       </div>
+      {(message &&
+      <MessegeCreate
+        message = {message}
+        messageTitle = {messageTitle}
+      />)}
     </>
   );
 };
