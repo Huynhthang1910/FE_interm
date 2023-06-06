@@ -12,7 +12,7 @@ const ShowProfile = ({ info, setFetchInfo, image, setImage }) => {
   const tokenTaken = sessionStorage.getItem("token");
   const [fetchProfileApi, setProfileApi] = useState([]);
   const [hiddenEditForm, setHiddenEditForm] = useState(false);
-  console.log("aaaa", info);
+  // console.log("aaaa", info);
   const urlAllInforEmployee = `${process.env.REACT_APP_API_ENDPOINT}api/v2/employee/information`;
   useEffect(() => {
     fetch(urlAllInforEmployee, {
@@ -25,7 +25,7 @@ const ShowProfile = ({ info, setFetchInfo, image, setImage }) => {
         setProfileApi(data.data);
       });
   }, [info]);
-  console.log(fetchProfileApi.employeeGender);
+  // console.log(fetchProfileApi.employeeGender);
   // const changeGenderContent = () =>{
   //     Object.keys(fetchProfileApi).map(fetchApi =>{
   //         if(fetchApi)

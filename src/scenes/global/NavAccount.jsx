@@ -9,12 +9,11 @@ const handleLogOut = () => {
   window.location.reload();
 };
 
-const NavAccount = (props) => {
+const NavAccount = (props, changeStateNav1) => {
     const navChildRef = useRef(null);
     useEffect(() => {
         props.navRef.current = navChildRef.current;
-        console.log(navChildRef);
-    }, []);
+      }, []);
         return (
           <div ref={navChildRef}>
             {props.stateNav && (
@@ -32,8 +31,8 @@ const NavAccount = (props) => {
                   to={"/profile"}
                   className="acccount__Profile div"
                   onClick={() => {
-                    <ShowProfile></ShowProfile>;
-                  }}
+                  changeStateNav1(true);
+                  <ShowProfile></ShowProfile>;}}
                 >
                   User Profile
                 </Link>

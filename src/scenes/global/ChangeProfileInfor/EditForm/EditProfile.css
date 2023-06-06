@@ -138,14 +138,13 @@ select {
 	border-radius: 50%;
 }
 #register__btn {
-	cursor: pointer;
 	width: 100%;
 	background-color: #198754;
 	color: var(--color);
 	border: none;
 	padding: 8px;
 }
-#overlay,
+#editNotif,
 #content__avatar {
 	display: flex;
 	gap: 16px;
@@ -157,31 +156,30 @@ select {
 	min-height: 100%;
 	text-align: center;
 }
-#overlay {
+#editNotif {
 	position: fixed;
-	top: 0;
-	left: 0;
-	background-color: rgba(0, 0, 0, 0.5);
-	width: 100%;
+	top: -35%;
+	right: 50px;
+	/* background-color: rgba(0, 0, 0, 0.5); */
+	/* width: 100%; */
 	z-index: 9999;
 	transition: opacity 0.8s;
 	opacity: 1;
 	word-break: break-word;
 }
-#overlay.hidden {
+#editNotif.hidden {
 	opacity: 0;
 	visibility: hidden;
 }
-#avatar {
-	width: 50vh;
-	aspect-ratio: 1;
-	background: #262626;
+
+.openEditForm {
+	width: 40vh;
+	/* aspect-ratio: 1; */
+	background: #3e4395;
 	color: #fff;
 	border-radius: 8px;
 	padding: 16px;
 	overflow: hidden;
-}
-#avatar.open {
 	animation-name: stretch;
 	animation-duration: 0.8s;
 	animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -190,7 +188,7 @@ select {
 	aspect-ratio: 1;
 	object-fit: cover;
 }
-.error {
+.errorEditForm {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -207,6 +205,13 @@ select {
 	color: var(--color);
 	background-color: var(--bg);
 	border: none;
+}
+.editAllow {
+	cursor: pointer;
+}
+
+.editNon {
+	cursor: not-allowed;
 }
 @keyframes stretch {
 	0% {

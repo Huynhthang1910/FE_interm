@@ -34,6 +34,11 @@ const Topbar = () => {
   } 
   const changeStateNav = () => {
     setNav(!stateNav);
+    console.log(stateNav);
+  };
+  const changeStateNav1 = (a) => {
+    setNav(a);
+    console.log(1);
   };
 
   useEffect(() => {
@@ -96,6 +101,7 @@ const Topbar = () => {
         navRef={navRef}
         stateNav={stateNav}
         changeStatePassForm={changeStatePassForm}
+        changeStateNav1={changeStateNav1}
       />
       <ChangePassword
         statePw={statePassForm}
